@@ -1,31 +1,33 @@
 /* =========================================================================
    Euro Events — Système de design « Maison de curation »
    Direction : dossier de curation édité à la main. Photographie en premier,
-   aplats riches (prune/encre), or sourd (laiton), pierre habitée (pas de blanc
-   clinique). Typo : Bodoni Moda (display, retenue) + Jost (texte) + Spline Sans
-   Mono (index « dossier », signature).
+   fond BLANC dominant + violet du logo (aplats riches, jamais de dégradés glowy),
+   accent violet vif. Typo : Bodoni Moda (display, retenue) + Jost (texte)
+   + Spline Sans Mono (index « dossier », signature).
    ========================================================================= */
 
 :root {
-  /* ---- Palette « Soirée parisienne » ---- */
-  --color-encre: #221733;     /* prune-noir : texte, panneaux sombres */
-  --color-prune: #3a2a5c;     /* violet du logo, en aplat */
-  --color-laiton: #a87c3a;    /* or sourd : accent précieux */
-  --color-laiton-clair: #c49a52;
-  --color-laiton-fonce: #8a6530;
-  --color-pierre: #ebe4d7;    /* calcaire chaud : fond principal */
-  --color-calcaire: #f5f0e6;  /* pierre claire : bandes alternées */
-  --color-mauve: #9b8aa3;     /* violet-gris : légendes, méta */
-  --color-blanc: #fcfaf5;     /* blanc cassé : texte sur fond sombre, cartes */
-  --color-prune-pale: #e7ddef;
-  --color-laiton-pale: #ecdfc7;
+  /* ---- Palette « Violet du logo + blanc » ----
+     Dominante BLANCHE, marque violette (reprise du logo), accent violet vif.
+     Pas de beige : neutres très légèrement lavande seulement. */
+  --color-encre: #261452;     /* violet le plus profond du logo : panneaux sombres, titres */
+  --color-prune: #3f2a78;     /* violet médian : second panneau sombre */
+  --color-laiton: #6d3fc4;    /* ACCENT violet vif : CTA, détails, index */
+  --color-laiton-clair: #9a7be0;
+  --color-laiton-fonce: #5a31a8; /* accent foncé, lisible sur blanc (liens, œilletons) */
+  --color-pierre: #ffffff;    /* FOND principal : blanc */
+  --color-calcaire: #f5f2fc;  /* lavande très clair : bandes alternées */
+  --color-mauve: #8b80a6;     /* violet-gris : légendes, méta */
+  --color-blanc: #ffffff;
+  --color-prune-pale: #e4dcf5;
+  --color-laiton-pale: #ece4fb;
 
   /* ---- Texte ---- */
-  --color-ink: #221733;
-  --color-ink-soft: #4c4060;
-  --color-muted: #7a6f86;
-  --color-border: #ddd2c2;     /* filet pierre */
-  --color-border-strong: #c9bca6;
+  --color-ink: #251a3d;
+  --color-ink-soft: #4f4669;
+  --color-muted: #79708e;
+  --color-border: #e9e3f5;     /* filet lavande */
+  --color-border-strong: #d6ccea;
 
   /* ---- Sémantique ---- */
   --color-bg: var(--color-pierre);
@@ -237,7 +239,7 @@ strong { font-weight: 600; }
 }
 .bg-navy .btn--outline, .bg-prune .btn--outline {
   --btn-color: var(--color-blanc);
-  border-color: rgba(252, 250, 245, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 .bg-navy .btn--outline:hover, .bg-prune .btn--outline:hover {
   background: var(--color-blanc);

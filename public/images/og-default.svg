@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Recherche gratuite de prestataires">
   <defs>
-    <linearGradient id="gt3u6q2" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#221733"/>
-      <stop offset="1" stop-color="#3a2a5c"/>
+    <linearGradient id="gdmownq" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#261452"/>
+      <stop offset="1" stop-color="#3f2a78"/>
     </linearGradient>
-    <linearGradient id="at3u6q2" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#a87c3a" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#c49a52" stop-opacity="0.2"/>
+    <linearGradient id="admownq" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#6d3fc4" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#9a7be0" stop-opacity="0.2"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" fill="url(#gt3u6q2)"/>
-  <circle cx="983.9999999999999" cy="126" r="201.6" fill="url(#at3u6q2)" opacity="0.55"/>
+  <rect width="1200" height="630" fill="url(#gdmownq)"/>
+  <circle cx="983.9999999999999" cy="126" r="201.6" fill="url(#admownq)" opacity="0.55"/>
   <circle cx="144" cy="554.4" r="163.8" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(600, 315)" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif">
     <text y="-6" font-size="76"></text>
     <text y="69" font-size="32" font-weight="600" opacity="0.95">Recherche gratuite de prestataires</text>
-    <text y="120" font-size="18" fill="#ebe4d7" opacity="0.7" font-family="Arial, sans-serif" letter-spacing="3">EURO EVENTS</text>
+    <text y="120" font-size="18" fill="#ece4fb" opacity="0.7" font-family="Arial, sans-serif" letter-spacing="3">EURO EVENTS</text>
   </g>
 </svg>
