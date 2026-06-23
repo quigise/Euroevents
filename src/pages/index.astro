@@ -39,6 +39,18 @@ const atouts = [
 ];
 
 const featured = testimonials[0];
+
+// Slides du carrousel hero. Ajouter ici les prochaines photos (défilement auto 2,5 s).
+const heroSlides = [
+  {
+    src: "/images/hero.jpg",
+    alt: "Château de Chambord, lieu d'exception pour un événement d'entreprise",
+    place: "Château de Chambord",
+    meta: "Séminaire d'exception · Val de Loire",
+  },
+  // Exemple à dupliquer quand les photos arrivent :
+  // { src: "/images/hero/2.jpg", alt: "…", place: "Le Molitor", meta: "Soirée · Paris" },
+];
 ---
 
 <BaseLayout title={title} description={description} path="/">
@@ -67,19 +79,41 @@ const featured = testimonials[0];
       </div>
 
       <figure class="hero-figure">
-        <div class="hero-frame">
-          <img
-            src="/images/hero.jpg"
-            alt="Château de Chambord, lieu d'exception pour un événement d'entreprise"
-            width="640"
-            height="800"
-            fetchpriority="high"
-          />
-          <span class="hero-tab">Sél. 01</span>
+        <div class="hero-frame" id="hero-carousel">
+          {
+            heroSlides.map((s, i) => (
+              <img
+                class:list={["hero-slide", { "is-active": i === 0 }]}
+                src={s.src}
+                alt={s.alt}
+                width="640"
+                height="800"
+                data-place={s.place}
+                data-meta={s.meta}
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchpriority={i === 0 ? "high" : undefined}
+              />
+            ))
+          }
+          <img class="hero-logo-badge" src="/images/logo.png" alt="Euro Events" width="150" height="153" />
+          {
+            heroSlides.length > 1 && (
+              <div class="hero-dots" role="tablist" aria-label="Photos">
+                {heroSlides.map((_, i) => (
+                  <button
+                    type="button"
+                    class:list={["hero-dot", { "is-active": i === 0 }]}
+                    data-index={i}
+                    aria-label={`Photo ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )
+          }
         </div>
         <figcaption class="hero-caption">
-          <span class="hc-place">Château de Chambord</span>
-          <span class="hc-meta">Séminaire d'exception · Val de Loire</span>
+          <span class="hc-place">{heroSlides[0].place}</span>
+          <span class="hc-meta">{heroSlides[0].meta}</span>
         </figcaption>
       </figure>
     </div>
@@ -270,21 +304,52 @@ const featured = testimonials[0];
     background: var(--color-prune);
     box-shadow: var(--shadow-lg);
   }
-  .hero-frame img { width: 100%; height: 100%; object-fit: cover; animation: settle 1.6s var(--ease) both; }
-  @keyframes settle { from { transform: scale(1.07); } to { transform: scale(1); } }
-  .hero-tab {
+  /* Carrousel : slides empilées en fondu */
+  .hero-slide {
     position: absolute;
-    top: 1.1rem;
-    left: 1.1rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-encre);
-    background: var(--color-laiton);
-    padding: 0.35rem 0.7rem;
-    border-radius: var(--radius-sm);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease);
   }
+  .hero-slide.is-active { opacity: 1; }
+
+  /* Logo en haut à gauche, sur fond transparent */
+  .hero-logo-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    height: 52px;
+    width: auto;
+    z-index: 3;
+    filter: drop-shadow(0 1px 6px rgba(255, 255, 255, 0.55))
+      drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5));
+  }
+
+  /* Indicateurs */
+  .hero-dots {
+    position: absolute;
+    bottom: 0.9rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 3;
+  }
+  .hero-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 1px 3px rgba(38, 20, 82, 0.4);
+    transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .hero-dot.is-active { background: var(--color-laiton); transform: scale(1.25); }
   .hero-caption {
     display: flex;
     flex-direction: column;
@@ -450,3 +515,37 @@ const featured = testimonials[0];
     margin: 0;
   }
 </style>
+
+<script>
+  // Carrousel hero : défilement automatique toutes les 2,5 s.
+  const root = document.getElementById("hero-carousel");
+  if (root) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(".hero-slide"));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>(".hero-dot"));
+    const placeEl = document.querySelector<HTMLElement>(".hero-caption .hc-place");
+    const metaEl = document.querySelector<HTMLElement>(".hero-caption .hc-meta");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let i = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function go(n: number) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
+      dots.forEach((d, k) => d.classList.toggle("is-active", k === i));
+      const a = slides[i];
+      if (placeEl && a.dataset.place) placeEl.textContent = a.dataset.place;
+      if (metaEl && a.dataset.meta) metaEl.textContent = a.dataset.meta;
+    }
+    function restart() {
+      if (timer) clearInterval(timer);
+      if (!reduce && slides.length > 1) timer = setInterval(() => go(i + 1), 2500);
+    }
+    dots.forEach((d) =>
+      d.addEventListener("click", () => {
+        go(Number(d.dataset.index));
+        restart();
+      })
+    );
+    restart();
+  }
+</script>
