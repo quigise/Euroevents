@@ -4,5 +4,17 @@
   "buildCommand": "astro build",
   "outputDirectory": "dist",
   "trailingSlash": true,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/qui-sommes-nous", "destination": "/a-propos/", "permanent": true },
+    { "source": "/qui-sommes-nous/", "destination": "/a-propos/", "permanent": true },
+    { "source": "/galerie-photo", "destination": "/galerie/", "permanent": true },
+    { "source": "/galerie-photo/", "destination": "/galerie/", "permanent": true },
+    { "source": "/demande-de-devis", "destination": "/devis/", "permanent": true },
+    { "source": "/demande-de-devis/", "destination": "/devis/", "permanent": true },
+    { "source": "/politique-de-confidentialite", "destination": "/politique-confidentialite/", "permanent": true },
+    { "source": "/politique-de-confidentialite/", "destination": "/politique-confidentialite/", "permanent": true },
+    { "source": "/promotions", "destination": "/", "permanent": true },
+    { "source": "/promotions/", "destination": "/", "permanent": true }
+  ]
 }

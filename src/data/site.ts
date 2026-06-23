@@ -26,9 +26,11 @@ export const contact = {
   addressCountry: "France",
   phoneDisplay: "07 68 01 01 94",
   phoneHref: "+33768010194", // format international cliquable
-  email: "laurence.houri@euro-events.fr",
+  // Email public affiché sur le site (la réception des formulaires Web3Forms
+  // est configurée séparément dans le tableau de bord Web3Forms via la clé).
+  email: "contact@euro-events.fr",
   // Horaires d'ouverture.
-  hours: "Du lundi au vendredi, de 8h à 20h",
+  hours: "Du lundi au vendredi, de 8h à 20h sans interruption",
   // Coordonnées géographiques approximatives (10 rue du Colonel Rozanoff, Paris 12e)
   // pour la carte et les données structurées. À affiner si besoin.
   geo: { lat: 48.8456, lng: 2.3933 },
@@ -38,10 +40,13 @@ export const contact = {
 } as const;
 
 export const social = {
-  facebook: "https://www.facebook.com/", // À CONFIRMER
-  linkedin: "https://www.linkedin.com/", // À CONFIRMER
-  instagram: "https://www.instagram.com/", // À CONFIRMER
+  facebook: "https://www.facebook.com/agence.euro.events/",
+  linkedin: "https://www.linkedin.com/company/agence-euro-events/",
+  instagram: "https://www.instagram.com/agence_euro_events/",
 } as const;
+
+/** Lien vers la fiche d'avis Google de l'agence. */
+export const googleReviewsUrl = "https://g.co/kgs/bh7x8mp";
 
 /**
  * Clé d'accès Web3Forms.
@@ -58,9 +63,30 @@ export const mainNav: { label: string; href: string }[] = [
   { label: "Notre concept", href: "/notre-concept/" },
   { label: "Nos événements", href: "/nos-evenements/" },
   { label: "Références", href: "/references/" },
+  { label: "Partenaires", href: "/partenaires/" },
   { label: "À propos", href: "/a-propos/" },
   { label: "Galerie", href: "/galerie/" },
   { label: "Contact", href: "/contact/" },
+];
+
+/**
+ * Réseau de partenaires (page /partenaires/) — liste réelle issue du site actuel.
+ * À enrichir au fil du temps.
+ */
+export const partnersIntro =
+  "Depuis 2006, Euro Events a tissé un réseau de partenaires à travers l'Europe et au-delà : chaînes hôtelières et hôteliers indépendants, lieux classiques ou atypiques, traiteurs, transferts, animations et décorateurs. Un carnet d'adresses vivant, enrichi en permanence et sélectionné pour sa qualité.";
+
+export const partners: string[] = [
+  "Atelier des Chefs", "Atelier Guy Martin", "Augeval (Deauville)", "Autocars Suzanne",
+  "Banke", "Bateaux Parisiens", "Belambra", "Best Western", "Cap Seguin", "Cazaudehore",
+  "Château de Montvillargenne", "Château de Villiers", "Château de Villiers-le-Mahieu",
+  "Châteaux & Hôtels Collection", "Château Hôtel Mont Royal", "Club Med", "Crowne Plaza",
+  "Derby Hôtels Collection", "Dolce Hotels and Resorts", "Domaine de Vaugouard",
+  "Dream Castle", "Duprat Concept", "Garden Beach Hotel", "Grandes Étapes Françaises",
+  "Grand'Maisons", "Groupe Savry", "Holiday Inn (Paris Opéra)", "Hôtel Barrière",
+  "Hôtel Carlton", "Artemus", "Cirette", "Renaissance Hotels", "Hyatt", "Marriott",
+  "Mercure", "MGallery", "New Cap", "Novotel", "Potel & Chabot", "Prestige Sodexo",
+  "Pullman", "Radisson", "Vienna International", "Yachts de Paris", "Shana Graphics",
 ];
 
 /**

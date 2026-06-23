@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTASection from "../components/CTASection.astro";
+import { partners, partnersIntro, contact } from "../data/site";
+
+const title = "Nos partenaires | Réseau de lieux et prestataires — Euro Events";
+const description =
+  "Le réseau de partenaires d'Euro Events : chaînes hôtelières, lieux d'exception, traiteurs, transferts et animations en Europe et au-delà, sélectionnés pour leur qualité depuis 2006.";
+---
+
+<BaseLayout title={title} description={description} path="/partenaires/">
+  <Breadcrumbs items={[{ label: "Partenaires" }]} />
+  <PageHero
+    eyebrow="Notre réseau"
+    title="Un carnet d'adresses construit sur vingt ans"
+    subtitle={partnersIntro}
+  />
+
+  <section class="section bg-white">
+    <div class="container">
+      <p class="eyebrow">Quelques-uns de nos partenaires</p>
+      <ul class="partners-grid">
+        {partners.map((p) => <li class="partner">{p}</li>)}
+      </ul>
+      <p class="partners-note">
+        <span class="note-tag">Note</span> Liste non exhaustive, enrichie en permanence.
+        Les logos officiels des partenaires seront ajoutés ultérieurement.
+      </p>
+    </div>
+  </section>
+
+  <!-- Devenez partenaire -->
+  <section class="section bg-prune">
+    <div class="container partner-cta">
+      <div>
+        <p class="eyebrow">Vous êtes prestataire&nbsp;?</p>
+        <h2>Rejoignez notre réseau de partenaires.</h2>
+        <p class="lead">
+          Lieu, traiteur, animation, transfert, décoration… Faites-vous référencer
+          gratuitement après validation qualité, et soyez recommandé à nos clients.
+        </p>
+      </div>
+      <div class="partner-cta-action">
+        <a
+          href={`mailto:${contact.email}?subject=Devenir partenaire Euro Events`}
+          class="btn btn--accent btn--lg"
+        >
+          Devenir partenaire
+        </a>
+        <a href={`mailto:${contact.email}`} class="partner-mail">{contact.email}</a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .partners-grid {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+  }
+  .partner {
+    background: var(--color-blanc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 96px;
+    padding: 1.1rem 1rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--color-encre);
+    transition: background 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .partner:hover { background: var(--color-calcaire); color: var(--color-laiton-fonce); }
+  .partners-note { margin-top: 1.5rem; color: var(--color-muted); }
+
+  .partner-cta {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .partner-cta h2 { color: var(--color-blanc); }
+  .partner-cta-action { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .partner-mail {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: var(--color-laiton-clair);
+  }
+  .partner-mail:hover { color: var(--color-blanc); }
+
+  @media (max-width: 900px) { .partners-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 680px) {
+    .partners-grid { grid-template-columns: repeat(2, 1fr); }
+    .partner-cta { grid-template-columns: 1fr; }
+  }
+</style>

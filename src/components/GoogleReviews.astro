@@ -1,148 +1,97 @@
 ---
 /**
- * Avis Google.
- * ⚠️ INTÉGRATION À FINALISER : afficher les vrais avis Google de l'agence.
- * Deux options selon le choix client :
- *   1) Widget tiers (ex. Elfsight, Trustindex, EmbedSocial) — coller le snippet dans le bloc prévu.
- *   2) API Google Places — récupérer les avis au build et les injecter ici.
- * En attendant, ce bloc affiche des avis PLACEHOLDERS clairement provisoires + la note agrégée.
+ * Section Avis Google.
+ * Lien réel vers la fiche Google de l'agence ; les textes d'avis et la note
+ * chiffrée sont des PLACEHOLDERS à remplacer par les avis réels (ou un widget).
+ * Aucune donnée structurée AggregateRating n'est émise tant que la note n'est
+ * pas vérifiable (on évite un faux balisage SEO).
  */
-import { site } from "../data/site";
-
-// Note agrégée provisoire (à remplacer par les vraies données Google).
-const rating = { value: "4.9", count: 87, placeholder: true };
+import { googleReviewsUrl } from "../data/site";
 
 const reviews = [
   {
-    name: "Client vérifié",
-    stars: 5,
+    name: "Responsable événementiel",
     text: "Réactivité et professionnalisme. Une sélection de lieux parfaite pour notre séminaire, et tout cela gratuitement.",
   },
   {
-    name: "Client vérifié",
-    stars: 5,
+    name: "Office Manager",
     text: "Un accompagnement de A à Z, des prestataires de qualité et un budget tenu. Je recommande vivement.",
   },
   {
-    name: "Client vérifié",
-    stars: 5,
+    name: "Assistante de direction",
     text: "Gain de temps énorme. Une vraie experte à l'écoute, pas une plateforme impersonnelle.",
   },
 ];
-
-// Données structurées AggregateRating (à activer avec de vraies données vérifiables).
-const aggregateLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": `${site.url}/#organization`,
-  name: site.legalName,
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: rating.value,
-    reviewCount: rating.count,
-    bestRating: "5",
-  },
-};
 ---
 
-<section class="section bg-ivory">
+<section class="section bg-cream">
   <div class="container">
-    <div class="section-head text-center reveal">
-      <p class="eyebrow">Avis Google</p>
-      <h2>Ce que disent nos clients</h2>
-      <div class="rating-summary">
-        <span class="rating-stars" aria-hidden="true">★★★★★</span>
-        <span class="rating-value">{rating.value} / 5</span>
-        <span class="rating-count">· {rating.count} avis Google</span>
+    <div class="gr-head">
+      <div>
+        <p class="eyebrow">Avis Google</p>
+        <h2>Ce qu'en disent nos clients.</h2>
       </div>
+      <a href={googleReviewsUrl} target="_blank" rel="noopener" class="btn btn--outline gr-cta">
+        Voir tous nos avis Google
+      </a>
     </div>
 
-    <!-- ⬇️ Emplacement du widget d'avis Google (coller le snippet du prestataire ici). -->
-    <div class="grid grid-3" data-google-reviews-placeholder>
+    <div class="gr-grid">
       {
         reviews.map((r) => (
-          <article class="card review reveal">
-            <div class="review-head">
-              <span class="g-badge" aria-hidden="true">G</span>
-              <div>
-                <span class="review-name">{r.name}</span>
-                <span class="review-stars" aria-label={`${r.stars} étoiles sur 5`}>
-                  {"★".repeat(r.stars)}
-                </span>
-              </div>
-            </div>
-            <p>{r.text}</p>
-          </article>
+          <figure class="gr-card reveal">
+            <span class="gr-stars" aria-label="5 étoiles sur 5">★★★★★</span>
+            <blockquote>{r.text}</blockquote>
+            <figcaption>{r.name}</figcaption>
+          </figure>
         ))
       }
     </div>
-    <p class="reviews-note">
-      <small>Avis affichés à titre indicatif — intégration du widget Google à finaliser.</small>
+    <p class="gr-note">
+      <span class="note-tag">Note</span> Avis illustratifs — à remplacer par les avis Google réels
+      (ou un widget). La note moyenne sera affichée une fois confirmée.
     </p>
   </div>
 </section>
 
-<script type="application/ld+json" set:html={JSON.stringify(aggregateLd)} is:inline />
-
 <style>
-  .rating-summary {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-  .rating-stars {
-    color: var(--color-gold);
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-  }
-  .rating-value {
-    font-weight: 700;
-    color: var(--color-primary-dark);
-  }
-  .rating-count {
-    color: var(--color-muted);
-  }
-  .review {
-    padding: 1.6rem 1.5rem;
-  }
-  .review-head {
+  .gr-head {
     display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
   }
-  .g-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #fff;
+  .gr-head h2 { margin: 0; }
+  .gr-cta { flex-shrink: 0; }
+  .gr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--color-border);
     border: 1px solid var(--color-border);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    color: #4285f4;
-    flex-shrink: 0;
   }
-  .review-name {
-    display: block;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-  .review-stars {
-    color: var(--color-gold);
-    font-size: 0.9rem;
-  }
-  .review p {
+  .gr-card {
+    background: var(--color-blanc);
+    padding: 2rem 1.8rem;
     margin: 0;
-    color: var(--color-ink-soft);
+    display: flex;
+    flex-direction: column;
   }
-  .reviews-note {
-    text-align: center;
-    margin-top: 1.5rem;
+  .gr-stars { color: var(--color-laiton); letter-spacing: 2px; margin-bottom: 1rem; }
+  .gr-card blockquote {
+    margin: 0 0 1.2rem;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    flex: 1;
+  }
+  .gr-card figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-muted);
   }
+  .gr-note { margin-top: 1.5rem; color: var(--color-muted); }
 </style>
