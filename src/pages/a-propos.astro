@@ -12,17 +12,14 @@ const description =
 
 const values = [
   {
-    icon: "🤍",
     title: "L'humain avant tout",
     text: "Une relation de confiance, une écoute attentive et un accompagnement personnalisé à chaque étape.",
   },
   {
-    icon: "🎯",
     title: "L'exigence du résultat",
     text: "Des prestataires sélectionnés avec soin, un budget respecté et des événements à la hauteur de vos enjeux.",
   },
   {
-    icon: "🔒",
     title: "La transparence",
     text: "Un service 100 % gratuit pour l'entreprise, sans frais cachés ni mauvaise surprise.",
   },
@@ -94,9 +91,9 @@ const values = [
       </div>
       <div class="grid grid-3">
         {
-          values.map((v) => (
-            <article class="card value-card reveal">
-              <span class="icon-badge">{v.icon}</span>
+          values.map((v, i) => (
+            <article class="value-card reveal">
+              <span class="value-num">{String(i + 1).padStart(2, "0")}</span>
               <h3>{v.title}</h3>
               <p>{v.text}</p>
             </article>
@@ -158,8 +155,19 @@ const values = [
     color: var(--color-ink-soft);
   }
   .value-card {
-    padding: 1.8rem 1.6rem;
+    padding: 1.8rem 0;
+    border-top: 2px solid var(--color-laiton);
   }
+  .value-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--color-laiton-fonce);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+  .value-card h3 { margin-bottom: 0.4rem; }
+  .value-card p { color: var(--color-ink-soft); margin: 0; }
   @media (max-width: 860px) {
     .about-grid {
       grid-template-columns: 1fr;

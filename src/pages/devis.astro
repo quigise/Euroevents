@@ -9,10 +9,10 @@ const description =
   "Décrivez votre événement en quelques étapes : type, participants, lieu, dates et budget. Notre experte vous renvoie une sélection de prestataires et des devis sous 24-48 h. 100 % gratuit.";
 
 const reassurance = [
-  { icon: "💸", text: "Service 100 % gratuit, sans engagement" },
-  { icon: "⚡", text: "Réponse sous 24 à 48 h" },
-  { icon: "👤", text: "Une experte dédiée à votre projet" },
-  { icon: "🤝", text: "Tarifs négociés, budget respecté" },
+  "Service 100 % gratuit, sans engagement",
+  "Réponse sous 24 à 48 h",
+  "Une experte dédiée à votre projet",
+  "Tarifs négociés, budget respecté",
 ];
 ---
 
@@ -29,13 +29,7 @@ const reassurance = [
           prestataires et vous renvoie des devis adaptés à votre budget, sous 24-48 h.
         </p>
         <ul class="devis-reassurance">
-          {
-            reassurance.map((r) => (
-              <li>
-                <span aria-hidden="true">{r.icon}</span> {r.text}
-              </li>
-            ))
-          }
+          {reassurance.map((r) => <li>{r}</li>)}
         </ul>
       </div>
     </div>
@@ -54,9 +48,7 @@ const reassurance = [
 
 <style>
   .devis-hero {
-    background:
-      radial-gradient(circle at 85% 0%, rgba(168, 119, 224, 0.5), transparent 45%),
-      linear-gradient(180deg, var(--color-cream), var(--color-ivory));
+    background: var(--color-calcaire);
     padding-block: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2.5rem);
     border-bottom: 1px solid var(--color-border);
   }
@@ -73,14 +65,20 @@ const reassurance = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.7rem 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary-dark);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-laiton-fonce);
   }
   .devis-reassurance li {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.95rem;
+    gap: 0.5rem;
+  }
+  .devis-reassurance li::before {
+    content: "—";
+    color: var(--color-laiton);
   }
   .devis-phone {
     text-align: center;

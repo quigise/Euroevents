@@ -4,46 +4,44 @@ export interface Props {
   eyebrow?: string;
 }
 const {
-  title = "Notre concept en 3 étapes",
-  eyebrow = "Simple, rapide, gratuit",
+  title = "Trois temps, une seule interlocutrice.",
+  eyebrow = "Le procédé",
 } = Astro.props;
 
 const steps = [
   {
     n: "01",
-    title: "Vous nous transmettez votre besoin",
-    text: "Type d'événement, nombre de participants, dates, lieu souhaité, budget indicatif. Par téléphone ou via notre formulaire, en quelques minutes.",
-    icon: "📝",
+    title: "Vous nous confiez votre projet",
+    text: "Type d'événement, nombre de convives, dates, lieu pressenti, budget. En quelques minutes, par téléphone ou en ligne.",
   },
   {
     n: "02",
-    title: "Notre experte sélectionne",
-    text: "Une véritable experte événementielle recherche, compare et négocie les meilleurs prestataires selon vos objectifs et vos contraintes.",
-    icon: "🔍",
+    title: "Notre experte compose la shortlist",
+    text: "Elle recherche, compare et négocie à la main les lieux et prestataires qui servent vraiment vos objectifs.",
   },
   {
     n: "03",
-    title: "Vous êtes mis en relation, gratuitement",
-    text: "Vous recevez une sélection de prestataires et des devis sous 24-48 h. Vous choisissez, nous vous accompagnons jusqu'au jour J.",
-    icon: "🤝",
+    title: "Vous recevez votre sélection",
+    text: "Une shortlist argumentée et des devis, sous 24 à 48 h. Vous choisissez ; nous vous accompagnons jusqu'au jour J.",
   },
 ];
 ---
 
-<section class="section bg-ivory">
+<section class="section bg-white">
   <div class="container">
-    <div class="section-head text-center reveal">
+    <div class="steps-head">
       <p class="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
     </div>
-    <ol class="steps">
+    <ol class="timeline">
       {
         steps.map((s) => (
-          <li class="step card reveal">
-            <span class="step-num">{s.n}</span>
-            <span class="icon-badge">{s.icon}</span>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
+          <li class="tl-item reveal">
+            <span class="tl-num">{s.n}</span>
+            <div class="tl-body">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
           </li>
         ))
       }
@@ -52,38 +50,25 @@ const steps = [
 </section>
 
 <style>
-  .steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .steps-head { max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .tl-item {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.2rem, 2.5vw, 1.8rem);
-    counter-reset: step;
+    grid-template-columns: 5.5rem 1fr;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding: 2.2rem 0;
+    border-top: 1px solid var(--color-border);
+    align-items: start;
   }
-  .step {
-    position: relative;
-    padding: 2.2rem 1.8rem 1.8rem;
+  .tl-item:last-child { border-bottom: 1px solid var(--color-border); }
+  .tl-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 700;
+    color: var(--color-laiton);
+    line-height: 1;
   }
-  .step-num {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.4rem;
-    font-family: var(--font-serif);
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: var(--color-amber-200);
-  }
-  .step h3 {
-    margin-bottom: 0.5rem;
-  }
-  .step p {
-    margin: 0;
-    color: var(--color-ink-soft);
-  }
-  @media (max-width: 880px) {
-    .steps {
-      grid-template-columns: 1fr;
-    }
-  }
+  .tl-body { max-width: 56ch; }
+  .tl-body h3 { margin-bottom: 0.4rem; }
+  .tl-body p { margin: 0; color: var(--color-ink-soft); }
 </style>

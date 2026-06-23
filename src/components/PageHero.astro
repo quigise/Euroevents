@@ -3,7 +3,6 @@ export interface Props {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  /** Affiche les CTA sous le titre. */
   cta?: boolean;
 }
 import { contact } from "../data/site";
@@ -11,38 +10,37 @@ const { eyebrow, title, subtitle, cta = false } = Astro.props;
 ---
 
 <section class="page-hero">
-  <div class="container container-narrow">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1>{title}</h1>
-    {subtitle && <p class="lead">{subtitle}</p>}
-    {
-      cta && (
-        <div class="btn-row">
-          <a href="/devis/" class="btn btn--primary">Demander un devis gratuit</a>
-          <a href={`tel:${contact.phoneHref}`} class="btn btn--outline">
-            {contact.phoneDisplay}
-          </a>
-        </div>
-      )
-    }
+  <div class="container">
+    <div class="page-hero-inner">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {subtitle && <p class="lead">{subtitle}</p>}
+      {
+        cta && (
+          <div class="btn-row">
+            <a href="/devis/" class="btn btn--accent">Demander ma sélection gratuite</a>
+            <a href={`tel:${contact.phoneHref}`} class="btn btn--outline">
+              {contact.phoneDisplay}
+            </a>
+          </div>
+        )
+      }
+    </div>
   </div>
 </section>
 
 <style>
   .page-hero {
-    background:
-      radial-gradient(circle at 88% 0%, rgba(168, 119, 224, 0.55), transparent 42%),
-      linear-gradient(180deg, var(--color-cream), var(--color-ivory));
-    padding-block: clamp(2.6rem, 6vw, 4.5rem);
+    background: var(--color-blanc);
+    padding-block: clamp(2.8rem, 6vw, 4.8rem) clamp(2.2rem, 4vw, 3.2rem);
     border-bottom: 1px solid var(--color-border);
   }
-  .page-hero h1 {
-    margin-bottom: 0.6rem;
+  .page-hero-inner {
+    max-width: 56rem;
+    border-left: 2px solid var(--color-laiton);
+    padding-left: clamp(1.2rem, 3vw, 2.2rem);
   }
-  .page-hero .lead {
-    max-width: 60ch;
-  }
-  .page-hero .btn-row {
-    margin-top: 1.6rem;
-  }
+  .page-hero h1 { margin-bottom: 0.5rem; }
+  .page-hero .lead { max-width: 60ch; }
+  .page-hero .btn-row { margin-top: 1.8rem; }
 </style>

@@ -4,87 +4,67 @@ export interface Props {
   eyebrow?: string;
 }
 const {
-  title = "Pourquoi passer par Euro Events ?",
-  eyebrow = "Nos atouts",
+  title = "Une maison, pas une plateforme.",
+  eyebrow = "Pourquoi nous",
 } = Astro.props;
 
 const benefits = [
-  {
-    icon: "💸",
-    title: "100 % gratuit pour vous",
-    text: "Aucun honoraire, aucune commission à votre charge. Notre service est entièrement gratuit pour l'entreprise cliente.",
-  },
-  {
-    icon: "👤",
-    title: "Un interlocuteur unique",
-    text: "Une seule experte vous accompagne du premier échange jusqu'au jour J. Pas de plateforme, pas de standard anonyme.",
-  },
-  {
-    icon: "⚡",
-    title: "Une réponse sous 24-48 h",
-    text: "Vous recevez rapidement une sélection de prestataires et des devis prêts à comparer.",
-  },
-  {
-    icon: "🎯",
-    title: "Votre budget respecté",
-    text: "Nous travaillons à partir de votre enveloppe et négocions pour vous, sans dépassement.",
-  },
-  {
-    icon: "⭐",
-    title: "Des prestataires de qualité",
-    text: "Un réseau de partenaires éprouvés, sélectionnés à la main selon vos exigences.",
-  },
-  {
-    icon: "⏱️",
-    title: "Un vrai gain de temps",
-    text: "Fini les dizaines d'appels et de devis : nous faisons la recherche à votre place.",
-  },
+  ["Gratuit pour votre entreprise", "Aucun honoraire, aucune commission à votre charge. Notre rémunération vient des prestataires, jamais de vous."],
+  ["Une interlocutrice, pas un standard", "La même experte du premier échange au jour J. Une relation, pas un ticket."],
+  ["Une réponse sous 24-48 h", "Le temps d'une vraie curation, sans l'attente d'un devis classique."],
+  ["Votre budget tenu", "Nous partons de votre enveloppe et négocions pour vous. Pas de dépassement, pas de surprise."],
+  ["Des prestataires éprouvés", "Un carnet d'adresses construit sur vingt ans, sélectionné à la main."],
+  ["Un vrai gain de temps", "Fini les dizaines d'appels et de devis : nous cherchons à votre place."],
 ];
 ---
 
 <section class="section bg-white">
   <div class="container">
-    <div class="section-head text-center reveal">
+    <div class="benefits-head">
       <p class="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
-      <p class="lead">
-        Une <strong>expertise humaine</strong>, pas un annuaire automatisé. La différence
-        se ressent à chaque étape.
-      </p>
     </div>
-    <div class="grid grid-3">
+    <dl class="benefits-list">
       {
-        benefits.map((b) => (
-          <article class="benefit reveal">
-            <span class="icon-badge">{b.icon}</span>
-            <h3>{b.title}</h3>
-            <p>{b.text}</p>
-          </article>
+        benefits.map((b, i) => (
+          <div class="benefit reveal">
+            <dt><span class="benefit-num">{String(i + 1).padStart(2, "0")}</span>{b[0]}</dt>
+            <dd>{b[1]}</dd>
+          </div>
         ))
       }
-    </div>
+    </dl>
   </div>
 </section>
 
 <style>
-  .benefit {
-    padding: 1.6rem 1.5rem;
-    border-radius: var(--radius-lg);
-    background: var(--color-ivory);
-    border: 1px solid var(--color-border);
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  .benefit:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-  .benefit h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.4rem;
-  }
-  .benefit p {
+  .benefits-head { max-width: 640px; margin-bottom: clamp(2.2rem, 4vw, 3.2rem); }
+  .benefits-list {
     margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.98rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 clamp(2rem, 5vw, 4rem);
+  }
+  .benefit { padding: 1.7rem 0; border-top: 1px solid var(--color-border); }
+  .benefit dt {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-encre);
+    margin-bottom: 0.5rem;
+  }
+  .benefit-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--color-laiton-fonce);
+  }
+  .benefit dd { margin: 0 0 0 2.8rem; color: var(--color-ink-soft); }
+  @media (max-width: 760px) {
+    .benefits-list { grid-template-columns: 1fr; }
+    .benefit dd { margin-left: 0; }
   }
 </style>

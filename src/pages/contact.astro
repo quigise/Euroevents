@@ -25,9 +25,7 @@ const description =
         <h2>Nos coordonnées</h2>
 
         <ul class="contact-list">
-          <li>
-            <span class="ci-icon" aria-hidden="true">📍</span>
-            <div>
+          <li>            <div>
               <strong>Adresse</strong>
               <address>
                 {contact.addressStreet}<br />
@@ -35,23 +33,17 @@ const description =
               </address>
             </div>
           </li>
-          <li>
-            <span class="ci-icon" aria-hidden="true">📞</span>
-            <div>
+          <li>            <div>
               <strong>Téléphone</strong>
               <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
             </div>
           </li>
-          <li>
-            <span class="ci-icon" aria-hidden="true">✉️</span>
-            <div>
+          <li>            <div>
               <strong>Email</strong>
               <a href={`mailto:${contact.email}`}>{contact.email}</a>
             </div>
           </li>
-          <li>
-            <span class="ci-icon" aria-hidden="true">🕗</span>
-            <div>
+          <li>            <div>
               <strong>Horaires</strong>
               <span>{contact.hours}</span>
             </div>
@@ -115,17 +107,17 @@ const description =
     gap: 1.3rem;
   }
   .contact-list li {
-    display: flex;
-    gap: 0.9rem;
-  }
-  .ci-icon {
-    font-size: 1.3rem;
-    flex-shrink: 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-laiton);
   }
   .contact-list strong {
     display: block;
-    color: var(--color-primary-dark);
-    margin-bottom: 0.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-laiton-fonce);
+    margin-bottom: 0.25rem;
   }
   .contact-list address {
     font-style: normal;

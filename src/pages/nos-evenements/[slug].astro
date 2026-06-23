@@ -68,7 +68,7 @@ const jsonLd = [
   <section class="ev-hero">
     <div class="container ev-hero-inner">
       <div class="ev-hero-content reveal">
-        <p class="eyebrow">{event.icon} {event.title}</p>
+        <p class="eyebrow">{event.title}</p>
         <h1>{event.heading}</h1>
         <p class="lead">{event.intro}</p>
         <div class="btn-row">
@@ -110,29 +110,20 @@ const jsonLd = [
   </section>
 
   <!-- Réassurance gratuité -->
-  <section class="section--tight bg-cream">
+  <section class="section--tight bg-navy">
     <div class="container">
       <div class="assurance reveal">
         <div class="assurance-item">
-          <span class="icon-badge">💸</span>
-          <div>
-            <strong>100 % gratuit</strong>
-            <span>Aucun frais pour votre entreprise</span>
-          </div>
+          <span class="assurance-key">100 % gratuit</span>
+          <span class="assurance-val">Aucun frais pour votre entreprise</span>
         </div>
         <div class="assurance-item">
-          <span class="icon-badge">⚡</span>
-          <div>
-            <strong>24-48 h</strong>
-            <span>Pour recevoir vos premières propositions</span>
-          </div>
+          <span class="assurance-key">24-48 h</span>
+          <span class="assurance-val">Pour recevoir vos premières propositions</span>
         </div>
         <div class="assurance-item">
-          <span class="icon-badge">👤</span>
-          <div>
-            <strong>Interlocuteur unique</strong>
-            <span>Une experte du brief au jour J</span>
-          </div>
+          <span class="assurance-key">Une experte</span>
+          <span class="assurance-val">Un seul interlocuteur, du brief au jour J</span>
         </div>
       </div>
     </div>
@@ -184,9 +175,7 @@ const jsonLd = [
 
 <style>
   .ev-hero {
-    background:
-      radial-gradient(circle at 92% 0%, rgba(168, 119, 224, 0.5), transparent 45%),
-      var(--color-ivory);
+    background: var(--color-blanc);
     border-bottom: 1px solid var(--color-border);
   }
   .ev-hero-inner {
@@ -226,26 +215,25 @@ const jsonLd = [
   .assurance {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
   }
   .assurance-item {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.4rem clamp(1rem, 3vw, 2rem);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
   }
-  .assurance-item .icon-badge {
-    margin-bottom: 0;
-    flex-shrink: 0;
+  .assurance-item:first-child { border-left: none; }
+  .assurance-key {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--color-blanc);
   }
-  .assurance-item strong {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-    color: var(--color-primary-dark);
-  }
-  .assurance-item span {
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
+  .assurance-val { color: #c8bdd6; font-size: 0.95rem; }
+  @media (max-width: 680px) {
+    .assurance { grid-template-columns: 1fr; gap: 1.2rem; }
+    .assurance-item { border-left: none; }
   }
   .example-card {
     background: #fff;

@@ -36,11 +36,11 @@ const jsonLd = {
     <div class="container">
       <div class="grid grid-2 events-pillar">
         {
-          events.map((e) => (
-            <a href={`/nos-evenements/${e.slug}/`} class="card pillar-card reveal">
+          events.map((e, i) => (
+            <a href={`/nos-evenements/${e.slug}/`} class="pillar-card reveal">
               <div class="pillar-media">
                 <img src={e.image} alt={e.imageAlt} loading="lazy" decoding="async" />
-                <span class="pillar-icon">{e.icon}</span>
+                <span class="pillar-index">{String(i + 1).padStart(2, "0")}</span>
               </div>
               <div class="pillar-body">
                 <h2>{e.title}</h2>
@@ -63,38 +63,35 @@ const jsonLd = {
   .pillar-card {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     color: var(--color-ink);
   }
-  .pillar-card:hover {
-    color: var(--color-ink);
-  }
+  .pillar-card:hover { color: var(--color-ink); }
   .pillar-media {
     position: relative;
     aspect-ratio: 16 / 9;
-    background: var(--color-cream);
+    background: var(--color-prune);
+    overflow: hidden;
+    border-radius: var(--radius-img);
   }
   .pillar-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.7s var(--ease);
   }
-  .pillar-icon {
+  .pillar-card:hover .pillar-media img { transform: scale(1.04); }
+  .pillar-index {
     position: absolute;
-    bottom: -22px;
-    left: 1.5rem;
-    width: 56px;
-    height: 56px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-    font-size: 1.7rem;
+    bottom: 0.7rem;
+    left: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--color-blanc);
+    text-shadow: 0 1px 6px rgba(38, 20, 82, 0.7);
   }
   .pillar-body {
-    padding: 2rem 1.7rem 1.8rem;
+    padding: 1.4rem 0.2rem 0;
     flex: 1;
     display: flex;
     flex-direction: column;
