@@ -73,18 +73,27 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
   .logo-item:hover { opacity: 1; color: var(--color-laiton-fonce); }
   .logo-cloud--dark .logo-item { color: var(--color-blanc); }
 
-  /* Vrais logos (images) : hauteur uniforme, traitement sobre, couleur au survol */
+  /* Vrais logos (images) : tuiles uniformes (les visuels ont leur propre fond) */
   .logo-item--img {
-    opacity: 0.7;
-    filter: grayscale(1);
-    transition: opacity 0.3s var(--ease), filter 0.3s var(--ease);
+    opacity: 1;
+    background: var(--color-blanc);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.7rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(72px, 8vw, 92px);
+    width: clamp(150px, 18vw, 190px);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
+  .logo-item--img:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
   .logo-item--img img {
-    height: clamp(26px, 3.2vw, 38px);
+    max-height: 100%;
+    max-width: 100%;
     width: auto;
     object-fit: contain;
+    border-radius: 3px;
   }
-  .logo-item--img:hover { opacity: 1; filter: grayscale(0); }
-  .logo-cloud--dark .logo-item--img { filter: grayscale(1) brightness(0) invert(1); opacity: 0.8; }
-  .logo-cloud--dark .logo-item--img:hover { filter: none; opacity: 1; }
 </style>

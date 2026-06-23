@@ -64,26 +64,13 @@ export const mainNav: { label: string; href: string }[] = [
 ];
 
 /**
- * Logos clients pour la preuve sociale.
- *
- * ⚠️ À COMPLÉTER : déposer les fichiers de logos officiels dans
- * `public/images/logos/` (SVG de préférence, sinon PNG fond transparent) puis
- * renseigner `logo` ci-dessous. Tant que `logo` est absent, le nom s'affiche en
- * toutes lettres (repli élégant).
- *
- * N'afficher QUE de vrais clients ayant autorisé l'usage de leur marque.
- * Seuls Groupe Rocher, La Banque Postale et SNCF sont confirmés par le brief ;
- * les autres sont à valider avant publication.
+ * Logos clients pour la preuve sociale (clients réels fournis par l'agence).
+ * Pour en ajouter : déposer le fichier dans `public/images/logos/` et l'ajouter ici.
  */
 export const clientLogos: { name: string; logo?: string }[] = [
-  { name: "Groupe Rocher" },
-  { name: "La Banque Postale" },
-  { name: "SNCF" },
-  { name: "BNP Paribas" },
-  { name: "L'Oréal" },
-  { name: "Orange" },
-  { name: "AXA" },
-  { name: "Decathlon" },
+  { name: "SNCF", logo: "/images/logos/sncf.jpg" },
+  { name: "La Banque Postale", logo: "/images/logos/la-banque-postale.jpg" },
+  { name: "Groupe Rocher", logo: "/images/logos/groupe-rocher.jpg" },
 ];
 
 /** Chiffres clés (à ajuster avec les données réelles de l'agence). */
