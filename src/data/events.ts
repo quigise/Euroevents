@@ -97,9 +97,9 @@ export const events: EventType[] = [
         "Budget respecté, une seule interlocutrice, et un taux de satisfaction de 96 % auprès des participants.",
     },
     icon: "🏛️",
-    image: "/images/events/seminaire.svg",
+    image: "/images/events/seminaire.jpg",
     imageAlt:
-      "Salle de séminaire d'entreprise lumineuse avec participants en réunion",
+      "Participants en séminaire d'entreprise, assis en conférence dans un hôtel",
   },
   {
     slug: "conventions",
@@ -161,9 +161,9 @@ export const events: EventType[] = [
         "Un événement à la hauteur de l'enjeu, livré dans le budget négocié, avec un prestataire unique pour piloter l'ensemble.",
     },
     icon: "🎤",
-    image: "/images/events/convention.svg",
+    image: "/images/events/convention.jpg",
     imageAlt:
-      "Grande salle de convention avec scène éclairée et public nombreux",
+      "Conférencier sur scène devant une grande audience en auditorium",
   },
   {
     slug: "soirees-entreprise",
@@ -225,8 +225,8 @@ export const events: EventType[] = [
         "Une soirée saluée par les collaborateurs, organisée sans frais d'agence et dans le budget fixé.",
     },
     icon: "✨",
-    image: "/images/events/soiree.svg",
-    imageAlt: "Soirée d'entreprise élégante avec convives et éclairage chaleureux",
+    image: "/images/events/soiree.jpg",
+    imageAlt: "Dîner d'entreprise élégant avec tables rondes dressées et éclairage chaleureux",
   },
   {
     slug: "team-building",

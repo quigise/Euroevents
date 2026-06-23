@@ -24,8 +24,8 @@ export const contact = {
   addressZip: "75012",
   addressCity: "Paris",
   addressCountry: "France",
-  phoneDisplay: "07 68 01 01 94",
-  phoneHref: "+33768010194", // format international cliquable
+  phoneDisplay: "01 40 02 00 04",
+  phoneHref: "+33140020004", // format international cliquable
   // Email public affiché sur le site (la réception des formulaires Web3Forms
   // est configurée séparément dans le tableau de bord Web3Forms via la clé).
   email: "contact@euro-events.fr",
