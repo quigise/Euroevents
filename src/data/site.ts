@@ -24,8 +24,8 @@ export const contact = {
   addressZip: "75012",
   addressCity: "Paris",
   addressCountry: "France",
-  phoneDisplay: "01 43 43 00 00", // À CONFIRMER — numéro affiché
-  phoneHref: "+33143430000", // À CONFIRMER — format international cliquable
+  phoneDisplay: "07 68 01 01 94",
+  phoneHref: "+33768010194", // format international cliquable
   email: "laurence.houri@euro-events.fr",
   // Horaires d'ouverture.
   hours: "Du lundi au vendredi, de 8h à 20h",
