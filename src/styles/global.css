@@ -64,7 +64,7 @@
   --color-gold: var(--color-laiton);
 
   /* ---- Typographie ---- */
-  --font-display: "Bodoni Moda", Didot, "Times New Roman", serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-sans: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", monospace;
   /* alias historiques */
