@@ -54,11 +54,15 @@ public/
 
 ## 🎨 Charte graphique
 
-Définie en variables CSS dans `src/styles/global.css` :
+Définie en variables CSS dans `src/styles/global.css`, **inspirée du logo Euro Events** :
 
-- **Base claire** ivoire/crème, **bleu profond** (confiance grands comptes),
-  **accent chaleureux** ambre/terracotta.
+- **Violet de marque** repris du dégradé du logo (violet profond `#2c1a57` → lavande
+  `#a877e0`), sur une **base claire** légèrement teintée lavande.
+- **Accent orchidée** lumineux (`#7c3fc4`) pour les CTA, contrastant sur fond clair et sombre.
 - **Titres** : Fraunces (serif). **Corps** : Outfit (sans-serif). Via Google Fonts.
+
+> Note : pour limiter les modifications, les anciens tokens `--color-navy-*` / `--color-amber-*`
+> sont conservés comme **alias** pointant vers la palette violette/orchidée.
 
 ---
 

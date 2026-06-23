@@ -1,43 +1,59 @@
 /* =========================================================================
    Euro Events — Feuille de styles globale
-   Charte graphique : base claire & aérée, bleu profond (confiance grands comptes),
-   accent chaleureux ambre/terracotta. Typo : Fraunces (titres) + Outfit (corps).
+   Charte graphique inspirée du logo : violet profond → lavande (dégradé du logo),
+   sur une base claire & aérée légèrement teintée lavande. Accent orchidée lumineux
+   pour les CTA. Typo : Fraunces (titres) + Outfit (corps).
    ========================================================================= */
 
 /* ----- Variables de la charte ----- */
 :root {
-  /* Couleurs — base claire */
-  --color-ivory: #faf7f2;
-  --color-cream: #f4efe7;
+  /* Couleurs — base claire (blanc cassé légèrement lavande) */
+  --color-ivory: #faf8fc;
+  --color-cream: #f1ecf7;
   --color-white: #ffffff;
 
-  /* Bleu profond — confiance, sérieux grands comptes (pas un bleu froid corporate) */
-  --color-navy-900: #0f2540;
-  --color-navy-800: #16345a;
-  --color-navy-700: #1d4374;
-  --color-navy-600: #2a568c;
-  --color-navy-100: #e6edf5;
+  /* Violet de marque (repris du dégradé du logo : profond → lavande) */
+  --color-violet-900: #2c1a57; /* le plus profond — sections sombres, footer */
+  --color-violet-800: #382269;
+  --color-violet-700: #463084; /* titres, marque */
+  --color-violet-600: #5b43a0;
+  --color-violet-500: #7657be;
+  --color-violet-400: #9d82d6;
+  --color-violet-200: #dacfee;
+  --color-violet-100: #ece6f7;
 
-  /* Accent chaleureux — ambre / terracotta doux / doré */
-  --color-amber-600: #c2682e;
-  --color-amber-500: #d97e3f;
-  --color-amber-400: #e6a063;
-  --color-amber-200: #f3d9bf;
-  --color-gold: #c9a24b;
+  /* Accent orchidée — CTA, surlignages (contraste sur fond clair ET sombre) */
+  --color-orchid-600: #6a30ac;
+  --color-orchid-500: #7c3fc4;
+  --color-orchid-400: #a877e0;
+  --color-orchid-200: #e3d4f5;
+  --color-gold: #c9a24b; /* étoiles d'avis uniquement (convention Google) */
 
-  /* Texte */
-  --color-ink: #1c2430;
-  --color-ink-soft: #4a5563;
-  --color-muted: #6b7585;
-  --color-border: #e6e0d6;
+  /* Alias rétro-compatibles : le code historique référence navy/amber.
+     Ils pointent désormais vers la palette violette/orchidée. */
+  --color-navy-900: var(--color-violet-900);
+  --color-navy-800: var(--color-violet-800);
+  --color-navy-700: var(--color-violet-700);
+  --color-navy-600: var(--color-violet-600);
+  --color-navy-100: var(--color-violet-100);
+  --color-amber-600: var(--color-orchid-600);
+  --color-amber-500: var(--color-orchid-500);
+  --color-amber-400: var(--color-orchid-400);
+  --color-amber-200: var(--color-orchid-200);
+
+  /* Texte (anthracite légèrement violacé, comme le mot « EURO EVENTS » du logo) */
+  --color-ink: #241d33;
+  --color-ink-soft: #4d4660;
+  --color-muted: #6f6982;
+  --color-border: #e7e1f0;
 
   /* Sémantique */
   --color-bg: var(--color-ivory);
   --color-surface: var(--color-white);
-  --color-primary: var(--color-navy-800);
-  --color-primary-dark: var(--color-navy-900);
-  --color-accent: var(--color-amber-500);
-  --color-accent-dark: var(--color-amber-600);
+  --color-primary: var(--color-violet-800);
+  --color-primary-dark: var(--color-violet-900);
+  --color-accent: var(--color-orchid-500);
+  --color-accent-dark: var(--color-orchid-600);
 
   /* Typographie */
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
@@ -48,9 +64,9 @@
   --radius-md: 14px;
   --radius-lg: 22px;
   --radius-pill: 999px;
-  --shadow-sm: 0 1px 3px rgba(15, 37, 64, 0.06), 0 1px 2px rgba(15, 37, 64, 0.04);
-  --shadow-md: 0 8px 24px rgba(15, 37, 64, 0.08), 0 2px 6px rgba(15, 37, 64, 0.05);
-  --shadow-lg: 0 20px 48px rgba(15, 37, 64, 0.12), 0 6px 14px rgba(15, 37, 64, 0.06);
+  --shadow-sm: 0 1px 3px rgba(44, 26, 87, 0.07), 0 1px 2px rgba(44, 26, 87, 0.05);
+  --shadow-md: 0 8px 24px rgba(44, 26, 87, 0.1), 0 2px 6px rgba(44, 26, 87, 0.06);
+  --shadow-lg: 0 20px 48px rgba(44, 26, 87, 0.16), 0 6px 14px rgba(44, 26, 87, 0.08);
 
   /* Mise en page */
   --container: 1200px;
@@ -239,12 +255,12 @@ p {
   text-align: center;
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
     background-color 0.2s var(--ease), color 0.2s var(--ease);
-  box-shadow: 0 6px 18px rgba(194, 104, 46, 0.28);
+  box-shadow: 0 6px 18px rgba(124, 63, 196, 0.3);
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(194, 104, 46, 0.36);
+  box-shadow: 0 10px 26px rgba(124, 63, 196, 0.4);
   color: #fff;
 }
 
@@ -256,18 +272,18 @@ p {
 }
 
 .btn--navy {
-  --btn-bg: var(--color-navy-800);
-  box-shadow: 0 6px 18px rgba(15, 37, 64, 0.22);
+  --btn-bg: var(--color-violet-800);
+  box-shadow: 0 6px 18px rgba(44, 26, 87, 0.25);
 }
 .btn--navy:hover {
-  --btn-bg: var(--color-navy-900);
-  box-shadow: 0 10px 26px rgba(15, 37, 64, 0.3);
+  --btn-bg: var(--color-violet-900);
+  box-shadow: 0 10px 26px rgba(44, 26, 87, 0.32);
 }
 
 .btn--outline {
   --btn-bg: transparent;
-  --btn-color: var(--color-navy-800);
-  border-color: var(--color-navy-200, #c3d0e0);
+  --btn-color: var(--color-violet-800);
+  border-color: var(--color-violet-200);
   box-shadow: none;
 }
 .btn--outline:hover {
@@ -352,7 +368,7 @@ p {
   width: 56px;
   height: 56px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--color-amber-200), var(--color-cream));
+  background: linear-gradient(135deg, var(--color-orchid-200), var(--color-violet-100));
   font-size: 1.7rem;
   margin-bottom: 1rem;
 }
