@@ -375,8 +375,18 @@ const featured = testimonials[0];
   .dossier-body h3 { font-size: 1.35rem; margin-bottom: 0.5rem; }
   .dossier-body p { color: var(--color-ink-soft); flex: 1; margin-bottom: 1.1rem; font-size: 0.98rem; }
 
-  .dossier--all { background: var(--color-encre); color: var(--color-blanc); }
-  .dossier--all:hover { background: var(--color-prune); color: var(--color-blanc); }
+  .dossier--all {
+    background-image: linear-gradient(rgba(38, 20, 82, 0.86), rgba(38, 20, 82, 0.92)),
+      url("/images/autre-projet.jpg");
+    background-size: cover;
+    background-position: center;
+    color: var(--color-blanc);
+  }
+  .dossier--all:hover {
+    background-image: linear-gradient(rgba(38, 20, 82, 0.74), rgba(38, 20, 82, 0.84)),
+      url("/images/autre-projet.jpg");
+    color: var(--color-blanc);
+  }
   .dossier-all-inner { padding: 1.8rem 1.6rem; display: flex; flex-direction: column; height: 100%; }
   .dossier--all .dossier-index { position: static; color: var(--color-laiton-clair); margin-bottom: auto; }
   .dossier--all h3 { color: var(--color-blanc); font-size: 1.35rem; margin: 1.2rem 0 0.5rem; }

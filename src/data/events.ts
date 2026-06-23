@@ -288,8 +288,8 @@ export const events: EventType[] = [
         "Des équipes ressoudées, une logistique fluide et un coût maîtrisé grâce aux tarifs négociés.",
     },
     icon: "🤝",
-    image: "/images/events/teambuilding.svg",
-    imageAlt: "Équipe participant à une activité de team building en extérieur",
+    image: "/images/events/teambuilding.jpg",
+    imageAlt: "Équipe en activité de team building outdoor, défi sur l'eau en gilets de sauvetage",
   },
   {
     slug: "reunions-journees-etude",
@@ -351,8 +351,8 @@ export const events: EventType[] = [
         "Une journée productive, une réservation simplifiée et un devis sans frais d'intermédiaire.",
     },
     icon: "📊",
-    image: "/images/events/reunion.svg",
-    imageAlt: "Salle de réunion professionnelle équipée pour une journée d'étude",
+    image: "/images/events/reunion.jpg",
+    imageAlt: "Salle de réunion moderne et lumineuse disposée en rangées pour une journée d'étude",
   },
 ];
 
