@@ -5,16 +5,16 @@ import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer bg-navy">
+<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <Logo variant="light" />
         <p class="footer-tagline">{site.tagline}</p>
         <div class="footer-social" aria-label="Réseaux sociaux">
-          <a href={social.facebook} aria-label="Facebook" rel="noopener" target="_blank">f</a>
-          <a href={social.linkedin} aria-label="LinkedIn" rel="noopener" target="_blank">in</a>
-          <a href={social.instagram} aria-label="Instagram" rel="noopener" target="_blank">◎</a>
+          <a href={social.facebook} aria-label="Facebook" rel="noopener" target="_blank">Facebook</a>
+          <a href={social.linkedin} aria-label="LinkedIn" rel="noopener" target="_blank">LinkedIn</a>
+          <a href={social.instagram} aria-label="Instagram" rel="noopener" target="_blank">Instagram</a>
         </div>
       </div>
 
@@ -22,39 +22,35 @@ const year = new Date().getFullYear();
         <h2 class="footer-title">Navigation</h2>
         <ul>
           {mainNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-          <li><a href="/devis/">Demander un devis</a></li>
+          <li><a href="/devis/">Demander ma sélection</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h2 class="footer-title">Nos événements</h2>
+        <h2 class="footer-title">Événements</h2>
         <ul>
           {events.map((e) => <li><a href={`/nos-evenements/${e.slug}/`}>{e.title}</a></li>)}
         </ul>
       </div>
 
       <div class="footer-col">
-        <h2 class="footer-title">Contact</h2>
+        <h2 class="footer-title">L'agence</h2>
         <address class="footer-contact">
-          <p>
-            {contact.addressStreet}<br />
-            {contact.addressZip} {contact.addressCity}
-          </p>
+          <p>{contact.addressStreet}<br />{contact.addressZip} {contact.addressCity}</p>
           <p>
             <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a><br />
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </p>
           <p class="footer-hours">{contact.hours}</p>
         </address>
-        <a href="/devis/" class="btn btn--primary footer-cta">Devis gratuit</a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© {year} {site.legalName}. Tous droits réservés.</p>
+      <p>© {year} {site.legalName} · Maison de curation événementielle</p>
       <ul class="footer-legal">
         <li><a href="/mentions-legales/">Mentions légales</a></li>
-        <li><a href="/politique-confidentialite/">Politique de confidentialité</a></li>
+        <li><a href="/politique-confidentialite/">Confidentialité</a></li>
       </ul>
     </div>
   </div>
@@ -62,117 +58,61 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    padding-block: clamp(3rem, 6vw, 4.5rem) 1.5rem;
+    background: var(--color-encre);
+    color: #c4b9d2;
+    padding-block: clamp(3.5rem, 6vw, 5rem) 1.8rem;
+    border-top: 3px solid var(--color-laiton);
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+    grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
     gap: clamp(1.8rem, 4vw, 3rem);
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 2.8rem;
+    border-bottom: 1px solid rgba(252, 250, 245, 0.12);
   }
-  .footer-tagline {
-    margin-top: 1rem;
-    color: #b7add0;
-    font-size: 0.95rem;
-    max-width: 30ch;
-  }
-  .footer-social {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 1.2rem;
-  }
+  .footer-tagline { margin-top: 1.2rem; color: #a99cb8; font-size: 0.96rem; max-width: 34ch; }
+  .footer-social { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.3rem; }
   .footer-social a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: background 0.2s var(--ease), transform 0.2s var(--ease);
-  }
-  .footer-social a:hover {
-    background: var(--color-accent);
-    transform: translateY(-2px);
-  }
-  .footer-title {
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-amber-400);
-    margin-bottom: 1rem;
+    color: var(--color-laiton-clair);
   }
-  .footer-col ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.55rem;
+  .footer-social a:hover { color: var(--color-blanc); }
+  .footer-title {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-laiton-clair);
+    margin-bottom: 1.2rem;
   }
-  .footer-col a,
-  .footer-contact a {
-    color: #cdc4e2;
-    font-size: 0.96rem;
-  }
-  .footer-col a:hover,
-  .footer-contact a:hover {
-    color: #fff;
-  }
-  .footer-contact {
-    font-style: normal;
-    color: #cdc4e2;
-    font-size: 0.96rem;
-  }
-  .footer-contact p {
-    margin-bottom: 0.8rem;
-  }
-  .footer-hours {
-    color: #9a93b5;
-    font-size: 0.9rem;
-  }
-  .footer-cta {
-    margin-top: 0.4rem;
-  }
+  .footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .footer-col a, .footer-contact a { color: #c4b9d2; font-size: 0.96rem; }
+  .footer-col a:hover, .footer-contact a:hover { color: var(--color-blanc); }
+  .footer-contact { font-style: normal; color: #c4b9d2; font-size: 0.96rem; }
+  .footer-contact p { margin-bottom: 0.8rem; }
+  .footer-hours { color: #8f84a0; font-size: 0.9rem; }
   .footer-bottom {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1.5rem;
-    color: #8b83a8;
-    font-size: 0.88rem;
+    padding-top: 1.6rem;
+    color: #8f84a0;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
   }
-  .footer-legal {
-    display: flex;
-    gap: 1.2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .footer-legal a {
-    color: #8b83a8;
-  }
-  .footer-legal a:hover {
-    color: #fff;
-  }
-  @media (max-width: 860px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+  .footer-legal { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
+  .footer-legal a { color: #8f84a0; }
+  .footer-legal a:hover { color: var(--color-blanc); }
+  @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
   }
 </style>

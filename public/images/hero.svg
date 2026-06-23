@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="560" height="640" viewBox="0 0 560 640" role="img" aria-label="Événement d'exception">
   <defs>
-    <linearGradient id="gh107xw" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#463084"/>
-      <stop offset="1" stop-color="#2c1a57"/>
+    <linearGradient id="gcb05if" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a2a5c"/>
+      <stop offset="1" stop-color="#221733"/>
     </linearGradient>
-    <linearGradient id="ah107xw" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#9d82d6" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#c9b8e8" stop-opacity="0.2"/>
+    <linearGradient id="acb05if" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#a87c3a" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#c49a52" stop-opacity="0.2"/>
     </linearGradient>
   </defs>
-  <rect width="560" height="640" fill="url(#gh107xw)"/>
-  <circle cx="459.2" cy="128" r="204.8" fill="url(#ah107xw)" opacity="0.55"/>
+  <rect width="560" height="640" fill="url(#gcb05if)"/>
+  <circle cx="459.2" cy="128" r="204.8" fill="url(#acb05if)" opacity="0.55"/>
   <circle cx="67.2" cy="563.2" r="166.4" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(280, 320)" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif">
     <text y="-6" font-size="77">✦</text>
     <text y="70" font-size="32" font-weight="600" opacity="0.95">Événement d'exception</text>
-    <text y="122" font-size="18" fill="#ece6f7" opacity="0.7" font-family="Arial, sans-serif" letter-spacing="3">EURO EVENTS</text>
+    <text y="122" font-size="18" fill="#ebe4d7" opacity="0.7" font-family="Arial, sans-serif" letter-spacing="3">EURO EVENTS</text>
   </g>
 </svg>

@@ -2,18 +2,13 @@
 import { contact } from "../data/site";
 ---
 
-<div class="floating-cta" aria-hidden="false">
-  <a
-    href={`tel:${contact.phoneHref}`}
-    class="fab fab--phone"
-    aria-label={`Appeler Euro Events au ${contact.phoneDisplay}`}
-  >
-    <span aria-hidden="true">📞</span>
+<div class="floating-cta">
+  <a href={`tel:${contact.phoneHref}`} class="fab fab--phone" aria-label={`Appeler Euro Events au ${contact.phoneDisplay}`}>
+    <span class="fab-ico" aria-hidden="true">☏</span>
     <span class="fab-label">Appeler</span>
   </a>
-  <a href="/devis/" class="fab fab--quote" aria-label="Demander un devis gratuit">
-    <span aria-hidden="true">✉️</span>
-    <span class="fab-label">Devis gratuit</span>
+  <a href="/devis/" class="fab fab--quote" aria-label="Demander ma sélection gratuite">
+    <span class="fab-label">Ma sélection gratuite</span>
   </a>
 </div>
 
@@ -31,42 +26,23 @@ import { contact } from "../data/site";
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.8rem 1.2rem;
-    border-radius: var(--radius-pill);
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #fff;
-    box-shadow: var(--shadow-lg);
-    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    padding: 0.85rem 1.3rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
   }
-  .fab:hover {
-    transform: translateY(-2px);
-    color: #fff;
-  }
-  .fab--quote {
-    background: var(--color-accent);
-  }
-  .fab--quote:hover {
-    background: var(--color-accent-dark);
-  }
-  .fab--phone {
-    background: var(--color-navy-800);
-  }
-  .fab--phone:hover {
-    background: var(--color-navy-900);
-  }
+  .fab--quote { background: var(--color-laiton); color: var(--color-encre); }
+  .fab--quote:hover { background: var(--color-encre); color: var(--color-blanc); transform: translateY(-2px); }
+  .fab--phone { background: var(--color-encre); color: var(--color-blanc); }
+  .fab--phone:hover { background: var(--color-prune); color: var(--color-blanc); transform: translateY(-2px); }
+  .fab-ico { font-size: 1.1rem; }
 
-  /* Sur mobile : barre compacte en bas, labels masqués pour le téléphone */
   @media (max-width: 600px) {
-    .floating-cta {
-      flex-direction: row;
-      left: 0.8rem;
-      right: 0.8rem;
-      justify-content: stretch;
-    }
-    .fab {
-      flex: 1;
-      justify-content: center;
-    }
+    .floating-cta { flex-direction: row; left: 0.8rem; right: 0.8rem; }
+    .fab { flex: 1; justify-content: center; }
   }
 </style>

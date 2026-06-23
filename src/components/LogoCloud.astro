@@ -12,12 +12,8 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
     <p class="logo-cloud-title">{title}</p>
     <ul class="logo-list">
       {
-        /* ⚠️ PLACEHOLDERS : remplacer par les vrais logos clients fournis (SVG/PNG). */
-        clientLogos.map((c) => (
-          <li class="logo-item" title={c.name}>
-            {c.name}
-          </li>
-        ))
+        /* ⚠️ PLACEHOLDERS : remplacer par les vrais logos clients (SVG monochromes). */
+        clientLogos.map((c) => <li class="logo-item">{c.name}</li>)
       }
     </ul>
   </div>
@@ -25,27 +21,22 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
 
 <style>
   .logo-cloud {
-    padding-block: clamp(2rem, 4vw, 3rem);
+    padding-block: clamp(2.5rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
   }
-  .logo-cloud--light {
-    background: var(--color-white);
-    border-block: 1px solid var(--color-border);
-  }
-  .logo-cloud--dark {
-    background: var(--color-navy-900);
-  }
+  .logo-cloud--light { background: var(--color-pierre); }
+  .logo-cloud--dark { background: var(--color-encre); }
   .logo-cloud-title {
     text-align: center;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    font-weight: 600;
-    color: var(--color-muted);
-    margin-bottom: 1.6rem;
+    color: var(--color-laiton-fonce);
+    margin-bottom: 1.8rem;
   }
-  .logo-cloud--dark .logo-cloud-title {
-    color: #9a93b5;
-  }
+  .logo-cloud--dark .logo-cloud-title { color: var(--color-laiton-clair); }
   .logo-list {
     list-style: none;
     margin: 0;
@@ -54,23 +45,24 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: clamp(1.2rem, 4vw, 3rem);
+    gap: clamp(1.2rem, 3vw, 2.4rem);
   }
   .logo-item {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.15rem;
-    color: var(--color-navy-700);
-    opacity: 0.72;
-    filter: grayscale(1);
-    transition: opacity 0.2s var(--ease);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    letter-spacing: 0.01em;
+    color: var(--color-encre);
+    opacity: 0.82;
+    transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
     white-space: nowrap;
   }
-  .logo-item:hover {
-    opacity: 1;
+  .logo-item:not(:last-child)::after {
+    content: "·";
+    margin-left: clamp(1.2rem, 3vw, 2.4rem);
+    color: var(--color-laiton);
+    opacity: 0.7;
   }
-  .logo-cloud--dark .logo-item {
-    color: #d8cfe9;
-    opacity: 0.6;
-  }
+  .logo-item:hover { opacity: 1; color: var(--color-laiton-fonce); }
+  .logo-cloud--dark .logo-item { color: var(--color-blanc); }
 </style>

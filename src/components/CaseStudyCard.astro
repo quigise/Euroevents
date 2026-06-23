@@ -7,103 +7,70 @@ export interface Props {
 const { study, detailed = false } = Astro.props;
 ---
 
-<article class="case card reveal">
+<article class="case reveal">
   <div class="case-media">
     <img src={study.image} alt={study.imageAlt} loading="lazy" decoding="async" />
-    <span class="case-tag">{study.eventType}</span>
   </div>
-  <div class="case-body">
-    <div class="case-meta">
-      <span>{study.sector}</span>
-      <span>·</span>
-      <span>{study.participants}</span>
-    </div>
-    <h3>{study.title}</h3>
-    {
-      detailed ? (
-        <dl class="case-detail">
-          <div>
-            <dt>Contexte</dt>
-            <dd>{study.context}</dd>
-          </div>
-          <div>
-            <dt>Notre solution</dt>
-            <dd>{study.solution}</dd>
-          </div>
-          <div>
-            <dt>Résultat</dt>
-            <dd>{study.result}</dd>
-          </div>
-        </dl>
-      ) : (
-        <p>{study.context}</p>
-      )
-    }
+  <div class="case-meta">
+    <span>{study.eventType}</span>
+    <span class="case-dot">·</span>
+    <span>{study.participants}</span>
   </div>
+  <h3>{study.title}</h3>
+  {
+    detailed ? (
+      <dl class="case-detail">
+        <div>
+          <dt>Contexte</dt>
+          <dd>{study.context}</dd>
+        </div>
+        <div>
+          <dt>Notre sélection</dt>
+          <dd>{study.solution}</dd>
+        </div>
+        <div>
+          <dt>Résultat</dt>
+          <dd>{study.result}</dd>
+        </div>
+      </dl>
+    ) : (
+      <p class="case-teaser">{study.context}</p>
+    )
+  }
 </article>
 
 <style>
-  .case {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+  .case { display: flex; flex-direction: column; }
   .case-media {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    background: var(--color-cream);
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    border-radius: var(--radius-img);
+    background: var(--color-prune);
+    margin-bottom: 1.1rem;
   }
-  .case-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .case-tag {
-    position: absolute;
-    top: 0.9rem;
-    left: 0.9rem;
-    background: rgba(44, 26, 87, 0.88);
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 0.35rem 0.75rem;
-    border-radius: var(--radius-pill);
-  }
-  .case-body {
-    padding: 1.5rem 1.6rem 1.7rem;
-  }
+  .case-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+  .case:hover .case-media img { transform: scale(1.04); }
   .case-meta {
     display: flex;
     gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--color-muted);
-    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.6rem;
+    color: var(--color-laiton-fonce);
+    margin-bottom: 0.5rem;
   }
-  .case-body h3 {
-    margin-bottom: 0.7rem;
-  }
-  .case-body p {
-    color: var(--color-ink-soft);
-    margin: 0;
-  }
-  .case-detail {
-    margin: 0;
-    display: grid;
-    gap: 0.9rem;
-  }
+  .case-dot { color: var(--color-mauve); }
+  .case h3 { font-size: 1.35rem; margin-bottom: 0.6rem; }
+  .case-teaser { color: var(--color-ink-soft); margin: 0; }
+  .case-detail { margin: 0; display: grid; gap: 0.9rem; padding-top: 0.4rem; }
   .case-detail dt {
-    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent-dark);
-    font-weight: 700;
-    margin-bottom: 0.15rem;
+    letter-spacing: 0.1em;
+    color: var(--color-laiton-fonce);
+    margin-bottom: 0.2rem;
   }
-  .case-detail dd {
-    margin: 0;
-    color: var(--color-ink-soft);
-  }
+  .case-detail dd { margin: 0; color: var(--color-ink-soft); }
 </style>
