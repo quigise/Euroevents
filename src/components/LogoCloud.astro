@@ -12,8 +12,15 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
     <p class="logo-cloud-title">{title}</p>
     <ul class="logo-list">
       {
-        /* ⚠️ PLACEHOLDERS : remplacer par les vrais logos clients (SVG monochromes). */
-        clientLogos.map((c) => <li class="logo-item">{c.name}</li>)
+        clientLogos.map((c) =>
+          c.logo ? (
+            <li class="logo-item logo-item--img">
+              <img src={c.logo} alt={c.name} loading="lazy" decoding="async" />
+            </li>
+          ) : (
+            <li class="logo-item">{c.name}</li>
+          )
+        )
       }
     </ul>
   </div>
@@ -57,7 +64,7 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
     transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
     white-space: nowrap;
   }
-  .logo-item:not(:last-child)::after {
+  .logo-item:not(.logo-item--img):not(:last-child)::after {
     content: "·";
     margin-left: clamp(1.2rem, 3vw, 2.4rem);
     color: var(--color-laiton);
@@ -65,4 +72,19 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
   }
   .logo-item:hover { opacity: 1; color: var(--color-laiton-fonce); }
   .logo-cloud--dark .logo-item { color: var(--color-blanc); }
+
+  /* Vrais logos (images) : hauteur uniforme, traitement sobre, couleur au survol */
+  .logo-item--img {
+    opacity: 0.7;
+    filter: grayscale(1);
+    transition: opacity 0.3s var(--ease), filter 0.3s var(--ease);
+  }
+  .logo-item--img img {
+    height: clamp(26px, 3.2vw, 38px);
+    width: auto;
+    object-fit: contain;
+  }
+  .logo-item--img:hover { opacity: 1; filter: grayscale(0); }
+  .logo-cloud--dark .logo-item--img { filter: grayscale(1) brightness(0) invert(1); opacity: 0.8; }
+  .logo-cloud--dark .logo-item--img:hover { filter: none; opacity: 1; }
 </style>

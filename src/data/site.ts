@@ -63,8 +63,19 @@ export const mainNav: { label: string; href: string }[] = [
   { label: "Contact", href: "/contact/" },
 ];
 
-/** Quelques logos clients pour la preuve sociale (placeholders à remplacer par les vrais visuels). */
-export const clientLogos: { name: string }[] = [
+/**
+ * Logos clients pour la preuve sociale.
+ *
+ * ⚠️ À COMPLÉTER : déposer les fichiers de logos officiels dans
+ * `public/images/logos/` (SVG de préférence, sinon PNG fond transparent) puis
+ * renseigner `logo` ci-dessous. Tant que `logo` est absent, le nom s'affiche en
+ * toutes lettres (repli élégant).
+ *
+ * N'afficher QUE de vrais clients ayant autorisé l'usage de leur marque.
+ * Seuls Groupe Rocher, La Banque Postale et SNCF sont confirmés par le brief ;
+ * les autres sont à valider avant publication.
+ */
+export const clientLogos: { name: string; logo?: string }[] = [
   { name: "Groupe Rocher" },
   { name: "La Banque Postale" },
   { name: "SNCF" },
