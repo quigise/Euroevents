@@ -1,0 +1,182 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Steps from "../components/Steps.astro";
+import CTASection from "../components/CTASection.astro";
+import { contact } from "../data/site";
+
+const title = "Notre concept : la recherche gratuite de prestataires | Euro Events";
+const description =
+  "Comment fonctionne Euro Events ? Vous transmettez votre besoin, notre experte sélectionne et négocie les meilleurs prestataires, vous recevez des devis sous 24-48 h. 100 % gratuit, expertise humaine.";
+
+const compare = [
+  {
+    label: "Sélection",
+    platform: "Résultats automatiques, classés par algorithme",
+    ours: "Recommandations humaines, pensées pour votre projet",
+  },
+  {
+    label: "Interlocuteur",
+    platform: "Standard anonyme, multiples contacts",
+    ours: "Une experte unique, du brief au jour J",
+  },
+  {
+    label: "Coût",
+    platform: "Commissions parfois cachées",
+    ours: "100 % gratuit pour l'entreprise, tarifs négociés",
+  },
+  {
+    label: "Accompagnement",
+    platform: "Mise en relation, puis vous gérez seul",
+    ours: "Suivi aussi loin que vous le souhaitez",
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/notre-concept/">
+  <Breadcrumbs items={[{ label: "Notre concept" }]} />
+  <PageHero
+    eyebrow="Comment ça marche"
+    title="Une experte qui cherche pour vous. Gratuitement."
+    subtitle="Euro Events n'est pas une plateforme ni un annuaire automatisé. C'est une véritable experte événementielle qui sélectionne, compare et négocie pour vous les meilleurs prestataires — selon votre budget, vos objectifs et vos contraintes."
+    cta
+  />
+
+  <!-- Le modèle expliqué -->
+  <section class="section bg-white">
+    <div class="container container-narrow">
+      <div class="reveal">
+        <p class="eyebrow">Le modèle Euro Events</p>
+        <h2>Pourquoi est-ce réellement gratuit pour vous ?</h2>
+        <p class="lead">
+          Notre rémunération provient des prestataires que nous référençons, jamais de
+          l'entreprise cliente. Vous bénéficiez ainsi de notre réseau, de notre expertise et
+          de tarifs négociés <strong>sans aucun honoraire ni commission à votre charge</strong>.
+          Mieux : grâce à la négociation et à l'absence de frais d'agence, vous réalisez
+          souvent des économies par rapport à une recherche en direct.
+        </p>
+        <ul class="check-list">
+          <li>Pas d'honoraires, pas de commission à votre charge.</li>
+          <li>Des tarifs négociés grâce à notre volume et à nos partenariats.</li>
+          <li>Un budget cadré dès le départ, sans mauvaise surprise.</li>
+          <li>Un gain de temps considérable sur la recherche et la comparaison.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Steps title="Le parcours, étape par étape" eyebrow="Un process simple" />
+
+  <!-- Comparatif vs plateforme -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="section-head text-center reveal">
+        <p class="eyebrow">La différence</p>
+        <h2>L'expertise humaine, pas un algorithme</h2>
+      </div>
+      <div class="compare reveal">
+        <div class="compare-head">
+          <span></span>
+          <span class="compare-col compare-col--platform">Une plateforme</span>
+          <span class="compare-col compare-col--ours">Euro Events</span>
+        </div>
+        {
+          compare.map((row) => (
+            <div class="compare-row">
+              <span class="compare-label">{row.label}</span>
+              <span class="compare-col compare-col--platform">{row.platform}</span>
+              <span class="compare-col compare-col--ours">
+                <strong>{row.ours}</strong>
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Accompagnement -->
+  <section class="section bg-white">
+    <div class="container container-narrow text-center reveal">
+      <span class="icon-badge" style="margin-inline:auto">💬</span>
+      <h2>« Nous vous accompagnons aussi loin que vous le souhaitez »</h2>
+      <p class="lead">
+        Certains clients veulent simplement une sélection de lieux ; d'autres nous confient
+        l'organisation complète. Vous gardez la main, nous nous adaptons à votre niveau de
+        délégation — toujours avec le même interlocuteur.
+      </p>
+      <div class="btn-row btn-row--center">
+        <a href="/devis/" class="btn btn--primary btn--lg">Démarrer mon projet</a>
+        <a href={`tel:${contact.phoneHref}`} class="btn btn--outline btn--lg">
+          {contact.phoneDisplay}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .compare {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .compare-head,
+  .compare-row {
+    display: grid;
+    grid-template-columns: 0.8fr 1.4fr 1.4fr;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    align-items: center;
+  }
+  .compare-head {
+    background: var(--color-navy-900);
+    color: #fff;
+  }
+  .compare-head .compare-col {
+    font-weight: 700;
+    font-family: var(--font-serif);
+  }
+  .compare-head .compare-col--ours {
+    color: var(--color-amber-400);
+  }
+  .compare-row + .compare-row,
+  .compare-row {
+    border-top: 1px solid var(--color-border);
+  }
+  .compare-label {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+  .compare-col--platform {
+    color: var(--color-muted);
+  }
+  .compare-col--ours strong {
+    color: var(--color-primary-dark);
+  }
+  @media (max-width: 700px) {
+    .compare-head {
+      display: none;
+    }
+    .compare-row {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+      padding: 1.2rem 1.4rem;
+    }
+    .compare-col--platform::before {
+      content: "Plateforme : ";
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+    .compare-col--ours::before {
+      content: "Euro Events : ";
+      font-weight: 700;
+      color: var(--color-accent-dark);
+    }
+  }
+</style>

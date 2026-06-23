@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { contact } from "../data/site";
+
+const title = "Demande de devis gratuit | Euro Events";
+const description =
+  "Décrivez votre événement en quelques étapes : type, participants, lieu, dates et budget. Notre experte vous renvoie une sélection de prestataires et des devis sous 24-48 h. 100 % gratuit.";
+
+const reassurance = [
+  { icon: "💸", text: "Service 100 % gratuit, sans engagement" },
+  { icon: "⚡", text: "Réponse sous 24 à 48 h" },
+  { icon: "👤", text: "Une experte dédiée à votre projet" },
+  { icon: "🤝", text: "Tarifs négociés, budget respecté" },
+];
+---
+
+<BaseLayout title={title} description={description} path="/devis/">
+  <Breadcrumbs items={[{ label: "Demande de devis" }]} />
+
+  <section class="devis-hero">
+    <div class="container">
+      <div class="devis-head reveal">
+        <p class="eyebrow">Demande de devis gratuite</p>
+        <h1>Recevez vos propositions en quelques minutes</h1>
+        <p class="lead">
+          Répondez à 5 questions simples. Notre experte recherche pour vous les meilleurs
+          prestataires et vous renvoie des devis adaptés à votre budget, sous 24-48 h.
+        </p>
+        <ul class="devis-reassurance">
+          {
+            reassurance.map((r) => (
+              <li>
+                <span aria-hidden="true">{r.icon}</span> {r.text}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="container container-narrow">
+      <QuoteForm />
+      <p class="devis-phone">
+        Une demande urgente ?
+        <a href={`tel:${contact.phoneHref}`}>Appelez-nous au {contact.phoneDisplay}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .devis-hero {
+    background:
+      radial-gradient(circle at 85% 0%, rgba(243, 217, 191, 0.5), transparent 45%),
+      linear-gradient(180deg, var(--color-cream), var(--color-ivory));
+    padding-block: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2.5rem);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .devis-head {
+    max-width: 720px;
+  }
+  .devis-head h1 {
+    margin-bottom: 0.6rem;
+  }
+  .devis-reassurance {
+    list-style: none;
+    padding: 0;
+    margin: 1.6rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+  }
+  .devis-reassurance li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+  }
+  .devis-phone {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--color-ink-soft);
+  }
+</style>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Séminaire — 120 pers.">
+  <defs>
+    <linearGradient id="gzpqmb8" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16345a"/>
+      <stop offset="1" stop-color="#0f2540"/>
+    </linearGradient>
+    <linearGradient id="azpqmb8" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#d97e3f" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#e6a063" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#gzpqmb8)"/>
+  <circle cx="656" cy="120" r="192" fill="url(#azpqmb8)" opacity="0.55"/>
+  <circle cx="96" cy="528" r="156" fill="#ffffff" opacity="0.05"/>
+  <g transform="translate(400, 300)" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif">
+    <text y="-6" font-size="72">🏛️</text>
+    <text y="66" font-size="30" font-weight="600" opacity="0.95">Séminaire — 120 pers.</text>
+    <text y="114" font-size="17" fill="#f4efe7" opacity="0.7" font-family="Arial, sans-serif" letter-spacing="3">EURO EVENTS</text>
+  </g>
+</svg>

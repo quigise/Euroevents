@@ -1,0 +1,72 @@
+---
+import { contact } from "../data/site";
+---
+
+<div class="floating-cta" aria-hidden="false">
+  <a
+    href={`tel:${contact.phoneHref}`}
+    class="fab fab--phone"
+    aria-label={`Appeler Euro Events au ${contact.phoneDisplay}`}
+  >
+    <span aria-hidden="true">📞</span>
+    <span class="fab-label">Appeler</span>
+  </a>
+  <a href="/devis/" class="fab fab--quote" aria-label="Demander un devis gratuit">
+    <span aria-hidden="true">✉️</span>
+    <span class="fab-label">Devis gratuit</span>
+  </a>
+</div>
+
+<style>
+  .floating-cta {
+    position: fixed;
+    right: clamp(0.8rem, 2vw, 1.4rem);
+    bottom: clamp(0.8rem, 2vw, 1.4rem);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .fab:hover {
+    transform: translateY(-2px);
+    color: #fff;
+  }
+  .fab--quote {
+    background: var(--color-accent);
+  }
+  .fab--quote:hover {
+    background: var(--color-accent-dark);
+  }
+  .fab--phone {
+    background: var(--color-navy-800);
+  }
+  .fab--phone:hover {
+    background: var(--color-navy-900);
+  }
+
+  /* Sur mobile : barre compacte en bas, labels masqués pour le téléphone */
+  @media (max-width: 600px) {
+    .floating-cta {
+      flex-direction: row;
+      left: 0.8rem;
+      right: 0.8rem;
+      justify-content: stretch;
+    }
+    .fab {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+</style>

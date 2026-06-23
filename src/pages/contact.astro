@@ -1,0 +1,171 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { contact, social } from "../data/site";
+
+const title = "Contact | Euro Events — Agence événementielle à Paris";
+const description =
+  "Contactez Euro Events : 10 rue du Colonel Rozanoff, 75012 Paris. Par téléphone, email ou via notre formulaire. Réponse rapide, du lundi au vendredi de 8h à 20h.";
+---
+
+<BaseLayout title={title} description={description} path="/contact/">
+  <Breadcrumbs items={[{ label: "Contact" }]} />
+  <PageHero
+    eyebrow="Contact"
+    title="Parlons de votre projet"
+    subtitle="Une question, un projet d'événement ? Écrivez-nous ou appelez-nous : notre experte vous répond rapidement, gratuitement et sans engagement."
+  />
+
+  <section class="section bg-white">
+    <div class="container contact-grid">
+      <!-- Coordonnées -->
+      <aside class="contact-info reveal">
+        <h2>Nos coordonnées</h2>
+
+        <ul class="contact-list">
+          <li>
+            <span class="ci-icon" aria-hidden="true">📍</span>
+            <div>
+              <strong>Adresse</strong>
+              <address>
+                {contact.addressStreet}<br />
+                {contact.addressZip} {contact.addressCity}, {contact.addressCountry}
+              </address>
+            </div>
+          </li>
+          <li>
+            <span class="ci-icon" aria-hidden="true">📞</span>
+            <div>
+              <strong>Téléphone</strong>
+              <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+            </div>
+          </li>
+          <li>
+            <span class="ci-icon" aria-hidden="true">✉️</span>
+            <div>
+              <strong>Email</strong>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </div>
+          </li>
+          <li>
+            <span class="ci-icon" aria-hidden="true">🕗</span>
+            <div>
+              <strong>Horaires</strong>
+              <span>{contact.hours}</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="contact-social">
+          <strong>Suivez-nous</strong>
+          <div class="contact-social-links">
+            <a href={social.facebook} target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+            <a href={social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+            <a href={social.instagram} target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          </div>
+        </div>
+
+        <a href="/devis/" class="btn btn--primary btn--block" style="margin-top:1.5rem">
+          Plutôt une demande de devis ?
+        </a>
+      </aside>
+
+      <!-- Formulaire -->
+      <div class="contact-form-wrap reveal">
+        <h2>Écrivez-nous</h2>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- Carte -->
+  <section class="map-section" aria-label="Localisation de l'agence">
+    <iframe
+      title="Carte — Euro Events, 10 rue du Colonel Rozanoff, 75012 Paris"
+      src={contact.mapsEmbed}
+      width="100%"
+      height="420"
+      style="border:0;"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .contact-info {
+    background: var(--color-ivory);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+  }
+  .contact-list {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+    display: grid;
+    gap: 1.3rem;
+  }
+  .contact-list li {
+    display: flex;
+    gap: 0.9rem;
+  }
+  .ci-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .contact-list strong {
+    display: block;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.15rem;
+  }
+  .contact-list address {
+    font-style: normal;
+    color: var(--color-ink-soft);
+  }
+  .contact-social strong {
+    display: block;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.6rem;
+  }
+  .contact-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .contact-social-links a {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.45rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .contact-form-wrap {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+  }
+  .map-section {
+    line-height: 0;
+  }
+  .map-section iframe {
+    display: block;
+    filter: grayscale(0.2);
+  }
+  @media (max-width: 880px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

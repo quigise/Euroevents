@@ -1,0 +1,17 @@
+{
+  "name": "euro-events",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Site web de l'Agence Euro Events — recherche gratuite de prestataires pour vos événements professionnels.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.1.1"
+  }
+}

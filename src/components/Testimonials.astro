@@ -1,0 +1,75 @@
+---
+import { testimonials } from "../data/testimonials";
+export interface Props {
+  limit?: number;
+  title?: string;
+  eyebrow?: string;
+}
+const {
+  limit = testimonials.length,
+  title = "Ils nous ont fait confiance",
+  eyebrow = "Témoignages",
+} = Astro.props;
+const items = testimonials.slice(0, limit);
+---
+
+<section class="section bg-cream">
+  <div class="container">
+    <div class="section-head text-center reveal">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+    <div class="grid grid-3">
+      {
+        items.map((t) => (
+          <figure class="card testimonial reveal">
+            <div class="quote-mark" aria-hidden="true">“</div>
+            <blockquote>{t.quote}</blockquote>
+            <figcaption>
+              <span class="t-author">{t.author}</span>
+              <span class="t-role">
+                {t.role} · {t.company}
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial {
+    padding: 2rem 1.8rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .quote-mark {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    line-height: 0.6;
+    color: var(--color-amber-400);
+    margin-bottom: 0.6rem;
+  }
+  blockquote {
+    margin: 0 0 1.4rem;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    flex: 1;
+  }
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+  }
+  .t-author {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+  }
+  .t-role {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+</style>

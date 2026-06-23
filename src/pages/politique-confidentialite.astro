@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site, contact } from "../data/site";
+
+const title = "Politique de confidentialité | Euro Events";
+const description =
+  "Politique de confidentialité du site Euro Events : quelles données nous collectons, pourquoi, et comment exercer vos droits (RGPD).";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/politique-confidentialite/"
+  noindex
+>
+  <Breadcrumbs items={[{ label: "Politique de confidentialité" }]} />
+  <PageHero title="Politique de confidentialité" />
+
+  <section class="section bg-white legal">
+    <div class="container container-narrow">
+      <p class="legal-note">
+        ⚠️ Modèle à faire valider juridiquement et à compléter (DPO, durées de conservation
+        exactes, base légale) avant mise en production.
+      </p>
+
+      <h2>1. Responsable du traitement</h2>
+      <p>
+        Le responsable du traitement des données collectées sur ce site est {site.legalName},
+        {contact.addressStreet}, {contact.addressZip} {contact.addressCity}.
+        Contact : <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+      </p>
+
+      <h2>2. Données collectées</h2>
+      <p>
+        Nous collectons les données que vous nous transmettez via nos formulaires de contact
+        et de demande de devis : nom, prénom, entreprise, email, téléphone, ainsi que les
+        informations relatives à votre projet d'événement (type, participants, lieu, dates,
+        budget, message).
+      </p>
+
+      <h2>3. Finalités</h2>
+      <p>
+        Ces données sont utilisées exclusivement pour répondre à votre demande, vous adresser
+        une sélection de prestataires et des devis, et assurer le suivi de votre projet. Elles
+        ne sont jamais revendues.
+      </p>
+
+      <h2>4. Base légale</h2>
+      <p>
+        Le traitement repose sur votre consentement et sur l'intérêt légitime de l'agence à
+        répondre à vos sollicitations commerciales.
+      </p>
+
+      <h2>5. Destinataires</h2>
+      <p>
+        Vos données sont traitées par Euro Events et, le cas échéant, transmises aux
+        prestataires concernés dans le seul but d'établir un devis. L'envoi des formulaires est
+        assuré par le service Web3Forms.
+      </p>
+
+      <h2>6. Durée de conservation</h2>
+      <p>
+        Vos données sont conservées pour la durée nécessaire au traitement de votre demande et
+        à la relation commerciale, puis archivées ou supprimées conformément à la réglementation
+        [ durée précise à compléter ].
+      </p>
+
+      <h2>7. Vos droits</h2>
+      <p>
+        Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement,
+        d'opposition et de portabilité de vos données. Pour les exercer, écrivez à
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>. Vous pouvez également
+        introduire une réclamation auprès de la CNIL.
+      </p>
+
+      <h2>8. Cookies</h2>
+      <p>
+        Ce site utilise un minimum de cookies techniques nécessaires à son fonctionnement.
+        En cas d'ajout d'outils de mesure d'audience, un bandeau de consentement sera mis en
+        place [ à compléter selon les outils déployés ].
+      </p>
+    </div>
+  </section>
+</BaseLayout>

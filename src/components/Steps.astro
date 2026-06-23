@@ -1,0 +1,89 @@
+---
+export interface Props {
+  title?: string;
+  eyebrow?: string;
+}
+const {
+  title = "Notre concept en 3 étapes",
+  eyebrow = "Simple, rapide, gratuit",
+} = Astro.props;
+
+const steps = [
+  {
+    n: "01",
+    title: "Vous nous transmettez votre besoin",
+    text: "Type d'événement, nombre de participants, dates, lieu souhaité, budget indicatif. Par téléphone ou via notre formulaire, en quelques minutes.",
+    icon: "📝",
+  },
+  {
+    n: "02",
+    title: "Notre experte sélectionne",
+    text: "Une véritable experte événementielle recherche, compare et négocie les meilleurs prestataires selon vos objectifs et vos contraintes.",
+    icon: "🔍",
+  },
+  {
+    n: "03",
+    title: "Vous êtes mis en relation, gratuitement",
+    text: "Vous recevez une sélection de prestataires et des devis sous 24-48 h. Vous choisissez, nous vous accompagnons jusqu'au jour J.",
+    icon: "🤝",
+  },
+];
+---
+
+<section class="section bg-ivory">
+  <div class="container">
+    <div class="section-head text-center reveal">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+    <ol class="steps">
+      {
+        steps.map((s) => (
+          <li class="step card reveal">
+            <span class="step-num">{s.n}</span>
+            <span class="icon-badge">{s.icon}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.2rem, 2.5vw, 1.8rem);
+    counter-reset: step;
+  }
+  .step {
+    position: relative;
+    padding: 2.2rem 1.8rem 1.8rem;
+  }
+  .step-num {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.4rem;
+    font-family: var(--font-serif);
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--color-amber-200);
+  }
+  .step h3 {
+    margin-bottom: 0.5rem;
+  }
+  .step p {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+  @media (max-width: 880px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

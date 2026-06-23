@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Pages utilitaires non indexées
+Disallow: /merci/
+
+Sitemap: https://www.euro-events.fr/sitemap-index.xml

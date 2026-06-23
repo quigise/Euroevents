@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Gallery from "../components/Gallery.astro";
+import CTASection from "../components/CTASection.astro";
+
+const title = "Galerie photos | Lieux & événements — Euro Events";
+const description =
+  "Parcourez notre galerie : lieux d'exception, séminaires, conventions et soirées d'entreprise organisés grâce à Euro Events. Trouvons ensemble le cadre idéal pour votre événement.";
+
+// ⚠️ PLACEHOLDERS : remplacer par les vraies photos fournies par le client.
+const images = [
+  { src: "/images/gallery/g1.svg", alt: "Salle de séminaire lumineuse", caption: "Séminaire résidentiel" },
+  { src: "/images/gallery/g2.svg", alt: "Dîner de gala dans un lieu d'exception", caption: "Soirée de gala" },
+  { src: "/images/gallery/g3.svg", alt: "Plénière de convention avec scène", caption: "Convention plénière" },
+  { src: "/images/gallery/g4.svg", alt: "Activité de team building en extérieur", caption: "Team building outdoor" },
+  { src: "/images/gallery/g5.svg", alt: "Cocktail dînatoire d'entreprise", caption: "Cocktail dînatoire" },
+  { src: "/images/gallery/g6.svg", alt: "Château accueillant un événement d'entreprise", caption: "Lieu d'exception" },
+  { src: "/images/gallery/g7.svg", alt: "Salle de réunion équipée", caption: "Journée d'étude" },
+  { src: "/images/gallery/g8.svg", alt: "Scénographie et mise en lumière d'un événement", caption: "Scénographie" },
+  { src: "/images/gallery/g9.svg", alt: "Rooftop parisien privatisé pour une soirée", caption: "Rooftop parisien" },
+];
+---
+
+<BaseLayout title={title} description={description} path="/galerie/">
+  <Breadcrumbs items={[{ label: "Galerie" }]} />
+  <PageHero
+    eyebrow="Galerie photos"
+    title="Des lieux et des moments d'exception"
+    subtitle="Un aperçu des lieux et événements que nous trouvons et coordonnons pour les entreprises. Cliquez sur une image pour l'agrandir."
+  />
+
+  <section class="section bg-white">
+    <div class="container">
+      <p class="gallery-note reveal">
+        <span aria-hidden="true">🛈</span> Galerie illustrative — les visuels définitifs
+        (photos réelles de lieux et d'événements) seront intégrés prochainement.
+      </p>
+      <Gallery images={images} />
+    </div>
+  </section>
+
+  <CTASection title="Un lieu vous fait envie ? Parlons-en." />
+</BaseLayout>
+
+<style>
+  .gallery-note {
+    text-align: center;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+    background: var(--color-cream);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.8rem 1.2rem;
+  }
+</style>

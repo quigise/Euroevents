@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CaseStudyCard from "../components/CaseStudyCard.astro";
+import LogoCloud from "../components/LogoCloud.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CTASection from "../components/CTASection.astro";
+import { caseStudies } from "../data/caseStudies";
+
+const title = "Références & études de cas | Euro Events";
+const description =
+  "Découvrez les références et études de cas d'Euro Events : séminaires, conventions et soirées d'entreprise organisés pour des PME et des grands comptes. Contexte, solution, résultat.";
+---
+
+<BaseLayout title={title} description={description} path="/references/">
+  <Breadcrumbs items={[{ label: "Références" }]} />
+  <PageHero
+    eyebrow="Références & études de cas"
+    title="La confiance de centaines d'entreprises"
+    subtitle="De la PME au grand compte, nous accompagnons les entreprises dans la réussite de leurs événements professionnels. Voici quelques exemples représentatifs de notre savoir-faire."
+  />
+
+  <LogoCloud title="Quelques-unes des entreprises accompagnées" />
+
+  <section class="section bg-ivory">
+    <div class="container">
+      <div class="section-head text-center reveal">
+        <p class="eyebrow">Études de cas</p>
+        <h2>Comment nous avons aidé nos clients</h2>
+        <p class="lead">
+          Chaque projet est unique. Voici comment nous traduisons un besoin en événement réussi.
+        </p>
+      </div>
+      <div class="grid grid-3">
+        {caseStudies.map((study) => <CaseStudyCard study={study} detailed />)}
+      </div>
+      <p class="placeholder-note reveal">
+        <span aria-hidden="true">🛈</span>
+        D'autres études de cas détaillées seront ajoutées prochainement. Vous souhaitez une
+        référence dans votre secteur ? <a href="/contact/">Contactez-nous</a>.
+      </p>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <CTASection title="Et si votre prochain événement était notre prochaine réussite ?" />
+</BaseLayout>
+
+<style>
+  .placeholder-note {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: var(--color-muted);
+    background: var(--color-cream);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.4rem;
+  }
+</style>

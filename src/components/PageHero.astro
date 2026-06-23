@@ -1,0 +1,48 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  /** Affiche les CTA sous le titre. */
+  cta?: boolean;
+}
+import { contact } from "../data/site";
+const { eyebrow, title, subtitle, cta = false } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="container container-narrow">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {subtitle && <p class="lead">{subtitle}</p>}
+    {
+      cta && (
+        <div class="btn-row">
+          <a href="/devis/" class="btn btn--primary">Demander un devis gratuit</a>
+          <a href={`tel:${contact.phoneHref}`} class="btn btn--outline">
+            {contact.phoneDisplay}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    background:
+      radial-gradient(circle at 88% 0%, rgba(243, 217, 191, 0.55), transparent 42%),
+      linear-gradient(180deg, var(--color-cream), var(--color-ivory));
+    padding-block: clamp(2.6rem, 6vw, 4.5rem);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .page-hero h1 {
+    margin-bottom: 0.6rem;
+  }
+  .page-hero .lead {
+    max-width: 60ch;
+  }
+  .page-hero .btn-row {
+    margin-top: 1.6rem;
+  }
+</style>

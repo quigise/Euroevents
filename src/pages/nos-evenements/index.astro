@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Benefits from "../../components/Benefits.astro";
+import CTASection from "../../components/CTASection.astro";
+import { events } from "../../data/events";
+
+const title = "Nos événements : séminaires, conventions, soirées, team building | Euro Events";
+const description =
+  "Euro Events recherche gratuitement les prestataires de tous vos événements professionnels : séminaires, conventions, soirées d'entreprise, team building, réunions et journées d'étude. Devis sous 24-48 h.";
+
+// JSON-LD : liste des services proposés.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: events.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: e.title,
+    url: new URL(`/nos-evenements/${e.slug}/`, "https://www.euro-events.fr").href,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} path="/nos-evenements/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: "Nos événements" }]} />
+  <PageHero
+    eyebrow="Nos domaines d'expertise"
+    title="Tous vos événements professionnels, un seul interlocuteur"
+    subtitle="Quel que soit votre projet, nous trouvons gratuitement les meilleurs prestataires : lieux, traiteurs, animations, transferts, hôtesses, décoration… Choisissez votre type d'événement pour en savoir plus."
+    cta
+  />
+
+  <section class="section bg-white">
+    <div class="container">
+      <div class="grid grid-2 events-pillar">
+        {
+          events.map((e) => (
+            <a href={`/nos-evenements/${e.slug}/`} class="card pillar-card reveal">
+              <div class="pillar-media">
+                <img src={e.image} alt={e.imageAlt} loading="lazy" decoding="async" />
+                <span class="pillar-icon">{e.icon}</span>
+              </div>
+              <div class="pillar-body">
+                <h2>{e.title}</h2>
+                <p>{e.cardTeaser}</p>
+                <span class="link-arrow">Découvrir</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Benefits title="Le même engagement pour chaque événement" eyebrow="Nos atouts" />
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--color-ink);
+  }
+  .pillar-card:hover {
+    color: var(--color-ink);
+  }
+  .pillar-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--color-cream);
+  }
+  .pillar-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pillar-icon {
+    position: absolute;
+    bottom: -22px;
+    left: 1.5rem;
+    width: 56px;
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    font-size: 1.7rem;
+  }
+  .pillar-body {
+    padding: 2rem 1.7rem 1.8rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .pillar-body h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .pillar-body p {
+    color: var(--color-ink-soft);
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+</style>

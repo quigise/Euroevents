@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site, contact } from "../data/site";
+
+const title = "Mentions légales | Euro Events";
+const description = "Mentions légales du site de l'Agence Euro Events.";
+---
+
+<BaseLayout title={title} description={description} path="/mentions-legales/" noindex>
+  <Breadcrumbs items={[{ label: "Mentions légales" }]} />
+  <PageHero title="Mentions légales" />
+
+  <section class="section bg-white legal">
+    <div class="container container-narrow">
+      <p class="legal-note">
+        ⚠️ Les informations ci-dessous sont des <strong>emplacements à compléter</strong>
+        avec les données légales exactes de l'entreprise avant mise en production.
+      </p>
+
+      <h2>Éditeur du site</h2>
+      <p>
+        {site.legalName}<br />
+        [ Forme juridique — ex. SARL / SAS ] au capital de [ montant ] €<br />
+        Siège social : {contact.addressStreet}, {contact.addressZip} {contact.addressCity}<br />
+        SIRET : [ à compléter ] — RCS [ ville ] [ numéro ]<br />
+        N° TVA intracommunautaire : [ à compléter ]<br />
+        Téléphone : <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a><br />
+        Email : <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </p>
+
+      <h2>Directeur de la publication</h2>
+      <p>[ Nom du directeur / de la directrice de la publication ]</p>
+
+      <h2>Hébergement</h2>
+      <p>
+        Vercel Inc.<br />
+        340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis<br />
+        <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus de ce site (textes, visuels, logo, charte graphique) est
+        protégé par le droit de la propriété intellectuelle. Toute reproduction, totale ou
+        partielle, sans autorisation préalable est interdite.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        {site.legalName} s'efforce d'assurer l'exactitude des informations diffusées sur ce
+        site, sans pouvoir en garantir l'exhaustivité. Les liens vers des sites tiers ne
+        sauraient engager sa responsabilité.
+      </p>
+
+      <h2>Données personnelles & cookies</h2>
+      <p>
+        Le traitement de vos données personnelles est décrit dans notre
+        <a href="/politique-confidentialite/">politique de confidentialité</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .legal h2 {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+  }
+  .legal p {
+    color: var(--color-ink-soft);
+  }
+  .legal-note {
+    background: var(--color-amber-200);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.3rem;
+    color: var(--color-accent-dark) !important;
+    font-size: 0.95rem;
+  }
+</style>

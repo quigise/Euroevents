@@ -1,0 +1,263 @@
+---
+import { mainNav, contact } from "../data/site";
+import Logo from "./Logo.astro";
+
+const currentPath = Astro.url.pathname;
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="header-logo" aria-label="Euro Events — accueil">
+      <Logo />
+    </a>
+
+    <nav class="header-nav" aria-label="Navigation principale">
+      <ul>
+        {
+          mainNav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={["nav-link", { "is-active": isActive(item.href) }]}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href={`tel:${contact.phoneHref}`} class="header-phone" aria-label={`Appeler le ${contact.phoneDisplay}`}>
+        <span aria-hidden="true">📞</span>
+        <span class="header-phone-num">{contact.phoneDisplay}</span>
+      </a>
+      <a href="/devis/" class="btn btn--primary header-cta">Devis gratuit</a>
+      <button
+        class="nav-toggle"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation mobile -->
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <nav aria-label="Navigation mobile">
+      <ul>
+        {
+          mainNav.map((item) => (
+            <li>
+              <a href={item.href} class:list={["mobile-link", { "is-active": isActive(item.href) }]}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="mobile-nav-actions">
+      <a href="/devis/" class="btn btn--primary btn--block">Demander un devis gratuit</a>
+      <a href={`tel:${contact.phoneHref}`} class="btn btn--outline btn--block">
+        Appeler le {contact.phoneDisplay}
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    transition: box-shadow 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .site-header.is-scrolled {
+    box-shadow: var(--shadow-md);
+    background: rgba(250, 247, 242, 0.96);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: var(--header-height);
+  }
+  .header-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .header-nav {
+    margin-left: auto;
+  }
+  .header-nav ul {
+    display: flex;
+    gap: 0.3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-link {
+    display: inline-block;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    border-radius: var(--radius-sm);
+  }
+  .nav-link:hover {
+    color: var(--color-primary-dark);
+    background: rgba(15, 37, 64, 0.05);
+  }
+  .nav-link.is-active {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+  }
+  .nav-link.is-active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 60%;
+    margin: 2px auto 0;
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+  }
+  .header-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary-dark);
+    white-space: nowrap;
+  }
+  .header-phone:hover {
+    color: var(--color-accent-dark);
+  }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--color-primary-dark);
+    border-radius: 2px;
+    transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-nav {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-ivory);
+    padding: 1rem clamp(1.1rem, 4vw, 2.5rem) 1.5rem;
+  }
+  .mobile-nav ul {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+  }
+  .mobile-link {
+    display: block;
+    padding: 0.85rem 0.5rem;
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--color-primary-dark);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .mobile-link.is-active {
+    color: var(--color-accent-dark);
+    font-weight: 600;
+  }
+  .mobile-nav-actions {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  /* Affichage responsive */
+  @media (max-width: 1024px) {
+    .header-nav,
+    .header-phone {
+      display: none;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+    .header-nav {
+      margin-left: 0;
+    }
+    .header-actions {
+      margin-left: auto;
+    }
+  }
+  @media (max-width: 540px) {
+    .header-cta {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Ombre du header au scroll
+  const header = document.getElementById("site-header");
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Menu mobile
+  const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!open));
+    toggle.setAttribute("aria-label", open ? "Ouvrir le menu" : "Fermer le menu");
+    if (mobileNav) mobileNav.hidden = open;
+  });
+  // Fermer au clic sur un lien
+  mobileNav?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      toggle?.setAttribute("aria-expanded", "false");
+      if (mobileNav) mobileNav.hidden = true;
+    })
+  );
+</script>

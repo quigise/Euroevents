@@ -1,0 +1,260 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Steps from "../components/Steps.astro";
+import Benefits from "../components/Benefits.astro";
+import EventCards from "../components/EventCards.astro";
+import Stats from "../components/Stats.astro";
+import Testimonials from "../components/Testimonials.astro";
+import LogoCloud from "../components/LogoCloud.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+import CTASection from "../components/CTASection.astro";
+import CaseStudyCard from "../components/CaseStudyCard.astro";
+import { contact, site } from "../data/site";
+import { caseStudies } from "../data/caseStudies";
+
+const title =
+  "Euro Events — Agence événementielle à Paris | Recherche gratuite de prestataires";
+const description = site.description;
+---
+
+<BaseLayout title={title} description={description} path="/">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <p class="eyebrow">Agence événementielle · Paris · Depuis 2006</p>
+        <h1>
+          Nous trouvons <span class="hl">gratuitement</span> tous les prestataires de vos
+          événements professionnels.
+        </h1>
+        <p class="lead">
+          Séminaires, conventions, soirées, team building : transmettez-nous votre besoin.
+          Une véritable experte vous renvoie une sélection de prestataires et des devis
+          sous 24-48 h. Service 100 % gratuit, interlocuteur unique, tarifs négociés.
+        </p>
+        <div class="btn-row">
+          <a href="/devis/" class="btn btn--primary btn--lg">Demander un devis gratuit</a>
+          <a href={`tel:${contact.phoneHref}`} class="btn btn--outline btn--lg">
+            <span aria-hidden="true">📞</span> Nous appeler
+          </a>
+        </div>
+        <ul class="hero-trust">
+          <li>✓ 100 % gratuit</li>
+          <li>✓ Sans engagement</li>
+          <li>✓ Réponse sous 24-48 h</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card hero-card--1">
+          <span class="hc-icon">🏛️</span>
+          <span>Lieux d'exception</span>
+        </div>
+        <div class="hero-card hero-card--2">
+          <span class="hc-icon">🤝</span>
+          <span>Interlocuteur unique</span>
+        </div>
+        <div class="hero-card hero-card--3">
+          <span class="hc-badge">0 €</span>
+          <span>de frais pour vous</span>
+        </div>
+        <div class="hero-photo">
+          <!-- ⚠️ PLACEHOLDER : remplacer par un visuel événementiel haut de gamme. -->
+          <img
+            src="/images/hero.svg"
+            alt="Événement professionnel organisé par Euro Events"
+            width="560"
+            height="640"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LogoCloud title="Plus de 20 ans au service des entreprises" />
+
+  <Steps />
+
+  <Benefits />
+
+  <EventCards />
+
+  <Stats />
+
+  <!-- Aperçu références -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="section-head text-center reveal">
+        <p class="eyebrow">Références & études de cas</p>
+        <h2>Des événements à la hauteur de vos enjeux</h2>
+        <p class="lead">
+          Découvrez comment nous accompagnons les entreprises, de la PME au grand compte.
+        </p>
+      </div>
+      <div class="grid grid-3">
+        {caseStudies.map((study) => <CaseStudyCard study={study} />)}
+      </div>
+      <div class="btn-row btn-row--center" style="margin-top:2.5rem">
+        <a href="/references/" class="btn btn--navy">Voir toutes nos références</a>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials limit={3} />
+
+  <GoogleReviews />
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(243, 217, 191, 0.6), transparent 40%),
+      radial-gradient(circle at 0% 90%, rgba(230, 237, 245, 0.8), transparent 45%),
+      var(--color-ivory);
+    overflow: hidden;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.3rem, 5vw, 3.7rem);
+    margin-bottom: 1rem;
+  }
+  .hero .hl {
+    color: var(--color-accent-dark);
+    position: relative;
+    white-space: nowrap;
+  }
+  .hero .hl::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.05em;
+    height: 0.28em;
+    background: var(--color-amber-200);
+    z-index: -1;
+    border-radius: 2px;
+  }
+  .hero .lead {
+    max-width: 54ch;
+    margin-bottom: 1.8rem;
+  }
+  .hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.8rem 0 0;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    font-size: 0.96rem;
+  }
+
+  /* Visuel hero : photo + cartes flottantes */
+  .hero-visual {
+    position: relative;
+    min-height: 460px;
+  }
+  .hero-photo {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 7 / 8;
+    background: linear-gradient(135deg, var(--color-navy-700), var(--color-navy-900));
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(4px);
+    padding: 0.75rem 1.1rem;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-md);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--color-primary-dark);
+    animation: float 5s ease-in-out infinite;
+  }
+  .hero-card--1 {
+    top: 8%;
+    left: -6%;
+  }
+  .hero-card--2 {
+    bottom: 18%;
+    left: -8%;
+    animation-delay: 1.5s;
+  }
+  .hero-card--3 {
+    top: 12%;
+    right: -5%;
+    animation-delay: 0.8s;
+  }
+  .hc-icon {
+    font-size: 1.3rem;
+  }
+  .hc-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      min-height: 0;
+      max-width: 460px;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .hero-card--1 {
+      left: 0;
+    }
+    .hero-card--2 {
+      left: 0;
+    }
+    .hero-card--3 {
+      right: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-card {
+      animation: none;
+    }
+  }
+</style>

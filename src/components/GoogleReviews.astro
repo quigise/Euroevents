@@ -1,0 +1,148 @@
+---
+/**
+ * Avis Google.
+ * ⚠️ INTÉGRATION À FINALISER : afficher les vrais avis Google de l'agence.
+ * Deux options selon le choix client :
+ *   1) Widget tiers (ex. Elfsight, Trustindex, EmbedSocial) — coller le snippet dans le bloc prévu.
+ *   2) API Google Places — récupérer les avis au build et les injecter ici.
+ * En attendant, ce bloc affiche des avis PLACEHOLDERS clairement provisoires + la note agrégée.
+ */
+import { site } from "../data/site";
+
+// Note agrégée provisoire (à remplacer par les vraies données Google).
+const rating = { value: "4.9", count: 87, placeholder: true };
+
+const reviews = [
+  {
+    name: "Client vérifié",
+    stars: 5,
+    text: "Réactivité et professionnalisme. Une sélection de lieux parfaite pour notre séminaire, et tout cela gratuitement.",
+  },
+  {
+    name: "Client vérifié",
+    stars: 5,
+    text: "Un accompagnement de A à Z, des prestataires de qualité et un budget tenu. Je recommande vivement.",
+  },
+  {
+    name: "Client vérifié",
+    stars: 5,
+    text: "Gain de temps énorme. Une vraie experte à l'écoute, pas une plateforme impersonnelle.",
+  },
+];
+
+// Données structurées AggregateRating (à activer avec de vraies données vérifiables).
+const aggregateLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${site.url}/#organization`,
+  name: site.legalName,
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: rating.value,
+    reviewCount: rating.count,
+    bestRating: "5",
+  },
+};
+---
+
+<section class="section bg-ivory">
+  <div class="container">
+    <div class="section-head text-center reveal">
+      <p class="eyebrow">Avis Google</p>
+      <h2>Ce que disent nos clients</h2>
+      <div class="rating-summary">
+        <span class="rating-stars" aria-hidden="true">★★★★★</span>
+        <span class="rating-value">{rating.value} / 5</span>
+        <span class="rating-count">· {rating.count} avis Google</span>
+      </div>
+    </div>
+
+    <!-- ⬇️ Emplacement du widget d'avis Google (coller le snippet du prestataire ici). -->
+    <div class="grid grid-3" data-google-reviews-placeholder>
+      {
+        reviews.map((r) => (
+          <article class="card review reveal">
+            <div class="review-head">
+              <span class="g-badge" aria-hidden="true">G</span>
+              <div>
+                <span class="review-name">{r.name}</span>
+                <span class="review-stars" aria-label={`${r.stars} étoiles sur 5`}>
+                  {"★".repeat(r.stars)}
+                </span>
+              </div>
+            </div>
+            <p>{r.text}</p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="reviews-note">
+      <small>Avis affichés à titre indicatif — intégration du widget Google à finaliser.</small>
+    </p>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(aggregateLd)} is:inline />
+
+<style>
+  .rating-summary {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .rating-stars {
+    color: var(--color-gold);
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+  .rating-value {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+  .rating-count {
+    color: var(--color-muted);
+  }
+  .review {
+    padding: 1.6rem 1.5rem;
+  }
+  .review-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.9rem;
+  }
+  .g-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: #4285f4;
+    flex-shrink: 0;
+  }
+  .review-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .review-stars {
+    color: var(--color-gold);
+    font-size: 0.9rem;
+  }
+  .review p {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+  .reviews-note {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--color-muted);
+  }
+</style>

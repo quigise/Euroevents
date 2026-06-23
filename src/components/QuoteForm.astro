@@ -1,0 +1,435 @@
+---
+import { WEB3FORMS_KEY, contact } from "../data/site";
+import { events } from "../data/events";
+
+export interface Props {
+  /** Pré-sélection d'un type d'événement (deep-link depuis une page événement). */
+  preselect?: string;
+}
+const { preselect } = Astro.props;
+---
+
+<form class="ee-form quote-form" id="quote-form" novalidate>
+  <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+  <input
+    type="hidden"
+    name="subject"
+    value="Nouvelle demande de devis — configurateur Euro Events"
+  />
+  <input type="hidden" name="from_name" value="Site Euro Events — Devis" />
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+  <!-- Barre de progression -->
+  <div class="stepper" aria-hidden="true">
+    <div class="stepper-bar"><span class="stepper-fill" id="stepper-fill"></span></div>
+    <div class="stepper-labels">
+      <span class="active">Événement</span>
+      <span>Participants</span>
+      <span>Lieu & dates</span>
+      <span>Budget</span>
+      <span>Coordonnées</span>
+    </div>
+  </div>
+
+  <!-- Étape 1 — Type d'événement -->
+  <fieldset class="step is-active" data-step="1">
+    <legend><span class="step-kicker">Étape 1/5</span> Quel type d'événement organisez-vous ?</legend>
+    <div class="option-grid">
+      {
+        events.map((ev) => (
+          <label class="option-card">
+            <input
+              type="radio"
+              name="type_evenement"
+              value={ev.title}
+              required
+              checked={preselect === ev.slug}
+            />
+            <span class="option-icon">{ev.icon}</span>
+            <span class="option-label">{ev.title}</span>
+          </label>
+        ))
+      }
+      <label class="option-card">
+        <input type="radio" name="type_evenement" value="Autre / projet sur mesure" required />
+        <span class="option-icon">✷</span>
+        <span class="option-label">Autre projet</span>
+      </label>
+    </div>
+    <div class="step-actions">
+      <span></span>
+      <button type="button" class="btn btn--primary" data-next>Continuer</button>
+    </div>
+  </fieldset>
+
+  <!-- Étape 2 — Participants -->
+  <fieldset class="step" data-step="2" hidden>
+    <legend><span class="step-kicker">Étape 2/5</span> Combien de participants attendez-vous ?</legend>
+    <div class="option-grid option-grid--compact">
+      {
+        ["Moins de 30", "30 à 100", "100 à 300", "300 à 600", "Plus de 600"].map((r) => (
+          <label class="option-card option-card--sm">
+            <input type="radio" name="participants" value={r} required />
+            <span class="option-label">{r}</span>
+          </label>
+        ))
+      }
+    </div>
+    <div class="step-actions">
+      <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
+      <button type="button" class="btn btn--primary" data-next>Continuer</button>
+    </div>
+  </fieldset>
+
+  <!-- Étape 3 — Lieu & dates -->
+  <fieldset class="step" data-step="3" hidden>
+    <legend><span class="step-kicker">Étape 3/5</span> Où et quand ?</legend>
+    <div class="field">
+      <label for="q-lieu">Lieu ou région souhaité(e)</label>
+      <input id="q-lieu" name="lieu" type="text" placeholder="Ex. Paris, Lyon, bord de mer, à définir…" />
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="q-date">Date (ou période) envisagée</label>
+        <input id="q-date" name="date_souhaitee" type="text" placeholder="Ex. septembre 2026, à définir" />
+      </div>
+      <div class="field">
+        <label for="q-duree">Durée</label>
+        <select id="q-duree" name="duree">
+          <option value="">— Sélectionner —</option>
+          <option>Quelques heures</option>
+          <option>Une journée</option>
+          <option>2 jours / 1 nuit</option>
+          <option>3 jours et +</option>
+          <option>À définir</option>
+        </select>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
+      <button type="button" class="btn btn--primary" data-next>Continuer</button>
+    </div>
+  </fieldset>
+
+  <!-- Étape 4 — Budget -->
+  <fieldset class="step" data-step="4" hidden>
+    <legend><span class="step-kicker">Étape 4/5</span> Quel budget indicatif ?</legend>
+    <p class="step-hint">Une fourchette suffit. Elle nous aide à cibler les bonnes propositions.</p>
+    <div class="option-grid option-grid--compact">
+      {
+        [
+          "< 5 000 €",
+          "5 000 – 15 000 €",
+          "15 000 – 50 000 €",
+          "50 000 – 100 000 €",
+          "> 100 000 €",
+          "À définir",
+        ].map((b) => (
+          <label class="option-card option-card--sm">
+            <input type="radio" name="budget" value={b} />
+            <span class="option-label">{b}</span>
+          </label>
+        ))
+      }
+    </div>
+    <div class="step-actions">
+      <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
+      <button type="button" class="btn btn--primary" data-next>Continuer</button>
+    </div>
+  </fieldset>
+
+  <!-- Étape 5 — Coordonnées -->
+  <fieldset class="step" data-step="5" hidden>
+    <legend><span class="step-kicker">Étape 5/5</span> Vos coordonnées</legend>
+    <p class="step-hint">Notre experte vous recontacte sous 24-48 h avec une première sélection.</p>
+    <div class="field-row">
+      <div class="field">
+        <label for="q-name">Nom et prénom <span aria-hidden="true">*</span></label>
+        <input id="q-name" name="name" type="text" required autocomplete="name" />
+      </div>
+      <div class="field">
+        <label for="q-company">Entreprise</label>
+        <input id="q-company" name="entreprise" type="text" autocomplete="organization" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="q-email">Email <span aria-hidden="true">*</span></label>
+        <input id="q-email" name="email" type="email" required autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="q-phone">Téléphone <span aria-hidden="true">*</span></label>
+        <input id="q-phone" name="telephone" type="tel" required autocomplete="tel" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="q-message">Précisions (facultatif)</label>
+      <textarea id="q-message" name="message" rows="3" placeholder="Objectifs, contraintes, idées…"></textarea>
+    </div>
+    <label class="consent">
+      <input type="checkbox" required />
+      <span>
+        J'accepte d'être recontacté(e) au sujet de ma demande.
+        Voir la <a href="/politique-confidentialite/">politique de confidentialité</a>.
+      </span>
+    </label>
+    <div class="step-actions">
+      <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
+      <button type="submit" class="btn btn--primary btn--lg">Recevoir mes propositions gratuites</button>
+    </div>
+  </fieldset>
+
+  <p class="form-status" role="status" aria-live="polite"></p>
+  <p class="form-alt">
+    Vous préférez en parler de vive voix ?
+    <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+    — {contact.hours.toLowerCase()}.
+  </p>
+</form>
+
+<script>
+  import { submitWeb3Form } from "../scripts/forms";
+
+  const form = document.getElementById("quote-form") as HTMLFormElement | null;
+  if (form) {
+    // Pré-sélection via paramètre d'URL (?type=team-building) depuis les pages événements.
+    const params = new URLSearchParams(window.location.search);
+    const typeSlug = params.get("type");
+    if (typeSlug) {
+      const map: Record<string, string> = {
+        "seminaires-entreprise": "Séminaires d'entreprise",
+        conventions: "Conventions",
+        "soirees-entreprise": "Soirées d'entreprise",
+        "team-building": "Team building",
+        "reunions-journees-etude": "Réunions & journées d'étude",
+      };
+      const wanted = map[typeSlug];
+      if (wanted) {
+        const radio = form.querySelector<HTMLInputElement>(
+          `input[name="type_evenement"][value="${wanted}"]`
+        );
+        if (radio) radio.checked = true;
+      }
+    }
+
+    const steps = Array.from(form.querySelectorAll<HTMLElement>(".step"));
+    const fill = form.querySelector<HTMLElement>("#stepper-fill");
+    const labels = Array.from(form.querySelectorAll<HTMLElement>(".stepper-labels span"));
+    let index = steps.findIndex((s) => s.classList.contains("is-active"));
+    if (index < 0) index = 0;
+
+    function render() {
+      steps.forEach((s, i) => {
+        const active = i === index;
+        s.classList.toggle("is-active", active);
+        s.hidden = !active;
+      });
+      labels.forEach((l, i) => l.classList.toggle("active", i <= index));
+      if (fill) fill.style.width = `${((index + 1) / steps.length) * 100}%`;
+      // Focus sur la légende pour l'accessibilité
+      const legend = steps[index].querySelector("legend");
+      legend?.setAttribute("tabindex", "-1");
+      (legend as HTMLElement | null)?.focus?.();
+    }
+
+    // Valide les champs requis de l'étape courante uniquement
+    function validateStep(stepEl: HTMLElement): boolean {
+      const fields = Array.from(
+        stepEl.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+          "input, select, textarea"
+        )
+      );
+      for (const f of fields) {
+        if (!f.checkValidity()) {
+          f.reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    form.querySelectorAll<HTMLButtonElement>("[data-next]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        if (!validateStep(steps[index])) return;
+        if (index < steps.length - 1) {
+          index++;
+          render();
+        }
+      })
+    );
+    form.querySelectorAll<HTMLButtonElement>("[data-prev]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          render();
+        }
+      })
+    );
+
+    // Avance automatiquement après le choix sur les étapes à boutons radio "carte"
+    form.querySelectorAll<HTMLElement>(".option-card input[type=radio]").forEach((input) => {
+      input.addEventListener("change", () => {
+        const stepEl = input.closest(".step") as HTMLElement;
+        // Petite temporisation pour laisser voir la sélection
+        setTimeout(() => {
+          if (steps.indexOf(stepEl) === index && index < steps.length - 1) {
+            index++;
+            render();
+          }
+        }, 220);
+      });
+    });
+
+    submitWeb3Form(form);
+    render();
+  }
+</script>
+
+<style>
+  .quote-form {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+  }
+  .stepper {
+    margin-bottom: 1.8rem;
+  }
+  .stepper-bar {
+    height: 6px;
+    background: var(--color-cream);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .stepper-fill {
+    display: block;
+    height: 100%;
+    width: 20%;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-amber-400));
+    border-radius: 999px;
+    transition: width 0.4s var(--ease);
+  }
+  .stepper-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+    gap: 0.3rem;
+  }
+  .stepper-labels span {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-muted);
+    text-align: center;
+    flex: 1;
+    transition: color 0.3s var(--ease);
+  }
+  .stepper-labels span.active {
+    color: var(--color-accent-dark);
+  }
+
+  .step {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+  .step[hidden] {
+    display: none;
+  }
+  .step legend {
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+    padding: 0;
+    outline: none;
+  }
+  .step-kicker {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-dark);
+    margin-bottom: 0.4rem;
+  }
+  .step-hint {
+    margin: -0.4rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 0.96rem;
+  }
+
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+  .option-grid--compact {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+  .option-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1.2rem 0.8rem;
+    background: var(--color-ivory);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease),
+      transform 0.2s var(--ease);
+  }
+  .option-card--sm {
+    padding: 1rem 0.8rem;
+  }
+  .option-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-amber-400);
+  }
+  .option-card input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+  .option-card:has(input:checked) {
+    border-color: var(--color-accent);
+    background: var(--color-amber-200);
+  }
+  .option-card:has(input:focus-visible) {
+    outline: 3px solid var(--color-amber-400);
+    outline-offset: 2px;
+  }
+  .option-icon {
+    font-size: 1.8rem;
+  }
+  .option-label {
+    font-size: 0.95rem;
+  }
+
+  .step-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 560px) {
+    .stepper-labels span {
+      font-size: 0;
+    }
+    .stepper-labels span.active {
+      font-size: 0.74rem;
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+export interface Props {
+  title?: string;
+  eyebrow?: string;
+}
+const {
+  title = "Pourquoi passer par Euro Events ?",
+  eyebrow = "Nos atouts",
+} = Astro.props;
+
+const benefits = [
+  {
+    icon: "💸",
+    title: "100 % gratuit pour vous",
+    text: "Aucun honoraire, aucune commission à votre charge. Notre service est entièrement gratuit pour l'entreprise cliente.",
+  },
+  {
+    icon: "👤",
+    title: "Un interlocuteur unique",
+    text: "Une seule experte vous accompagne du premier échange jusqu'au jour J. Pas de plateforme, pas de standard anonyme.",
+  },
+  {
+    icon: "⚡",
+    title: "Une réponse sous 24-48 h",
+    text: "Vous recevez rapidement une sélection de prestataires et des devis prêts à comparer.",
+  },
+  {
+    icon: "🎯",
+    title: "Votre budget respecté",
+    text: "Nous travaillons à partir de votre enveloppe et négocions pour vous, sans dépassement.",
+  },
+  {
+    icon: "⭐",
+    title: "Des prestataires de qualité",
+    text: "Un réseau de partenaires éprouvés, sélectionnés à la main selon vos exigences.",
+  },
+  {
+    icon: "⏱️",
+    title: "Un vrai gain de temps",
+    text: "Fini les dizaines d'appels et de devis : nous faisons la recherche à votre place.",
+  },
+];
+---
+
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-head text-center reveal">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p class="lead">
+        Une <strong>expertise humaine</strong>, pas un annuaire automatisé. La différence
+        se ressent à chaque étape.
+      </p>
+    </div>
+    <div class="grid grid-3">
+      {
+        benefits.map((b) => (
+          <article class="benefit reveal">
+            <span class="icon-badge">{b.icon}</span>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefit {
+    padding: 1.6rem 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-ivory);
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .benefit:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .benefit h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .benefit p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.98rem;
+  }
+</style>

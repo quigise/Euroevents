@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Stats from "../components/Stats.astro";
+import CTASection from "../components/CTASection.astro";
+import { site } from "../data/site";
+
+const title = "À propos d'Euro Events | Agence événementielle depuis 2006";
+const description =
+  "Depuis 2006, Euro Events met l'expertise humaine au service des entreprises pour organiser leurs événements professionnels. Découvrez notre histoire, nos valeurs et notre approche.";
+
+const values = [
+  {
+    icon: "🤍",
+    title: "L'humain avant tout",
+    text: "Une relation de confiance, une écoute attentive et un accompagnement personnalisé à chaque étape.",
+  },
+  {
+    icon: "🎯",
+    title: "L'exigence du résultat",
+    text: "Des prestataires sélectionnés avec soin, un budget respecté et des événements à la hauteur de vos enjeux.",
+  },
+  {
+    icon: "🔒",
+    title: "La transparence",
+    text: "Un service 100 % gratuit pour l'entreprise, sans frais cachés ni mauvaise surprise.",
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/a-propos/">
+  <Breadcrumbs items={[{ label: "À propos" }]} />
+  <PageHero
+    eyebrow="Notre histoire"
+    title="Depuis 2006, une experte à vos côtés"
+    subtitle="Euro Events est née d'une conviction simple : organiser un événement professionnel ne devrait jamais être une source de stress. Notre métier, c'est de chercher pour vous — gratuitement, avec exigence et humanité."
+  />
+
+  <!-- Histoire -->
+  <section class="section bg-white">
+    <div class="container about-grid">
+      <div class="about-text reveal">
+        <p class="eyebrow">L'agence</p>
+        <h2>Plus de 20 ans d'expertise événementielle</h2>
+        <p>
+          Fondée en {site.foundedYear}, Euro Events accompagne depuis plus de deux décennies
+          les entreprises dans la recherche et la coordination des prestataires de leurs
+          événements professionnels. Au fil des années, l'agence a tissé un réseau de
+          partenaires de confiance — lieux, traiteurs, animateurs, prestataires techniques —
+          et affiné une méthode qui place l'écoute et le sur-mesure au cœur de chaque projet.
+        </p>
+        <p>
+          Notre différence n'est pas technologique, elle est humaine. Là où d'autres
+          proposent des plateformes automatisées, nous offrons l'attention d'une véritable
+          experte qui comprend vos enjeux, anticipe vos besoins et négocie pour vous les
+          meilleures conditions.
+        </p>
+        <ul class="check-list">
+          <li>Un réseau de prestataires éprouvés partout en France.</li>
+          <li>Une méthode rodée par des centaines d'événements.</li>
+          <li>Un engagement constant : la gratuité totale pour le client.</li>
+        </ul>
+      </div>
+      <aside class="about-portrait reveal">
+        <!-- ⚠️ EMPLACEMENT À REMPLIR : photo + parcours de l'experte. -->
+        <div class="portrait-media">
+          <img
+            src="/images/equipe.svg"
+            alt="Portrait de l'experte événementielle d'Euro Events"
+            loading="lazy"
+          />
+        </div>
+        <div class="portrait-caption">
+          <strong>Votre experte événementielle</strong>
+          <span class="placeholder-inline">[ À compléter : prénom, parcours et photo ]</span>
+          <p>
+            « Mon rôle, c'est de transformer votre besoin en un événement réussi, en vous
+            faisant gagner du temps et de la sérénité. »
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <Stats />
+
+  <!-- Valeurs -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="section-head text-center reveal">
+        <p class="eyebrow">Nos valeurs</p>
+        <h2>Ce qui nous guide au quotidien</h2>
+      </div>
+      <div class="grid grid-3">
+        {
+          values.map((v) => (
+            <article class="card value-card reveal">
+              <span class="icon-badge">{v.icon}</span>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection title="Faisons connaissance" text="Parlez-nous de votre projet : notre experte vous recontacte sous 24-48 h, gratuitement et sans engagement." />
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+  .about-portrait {
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
+    background: var(--color-ivory);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .portrait-media {
+    aspect-ratio: 4 / 4;
+    background: linear-gradient(135deg, var(--color-amber-200), var(--color-cream));
+  }
+  .portrait-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .portrait-caption {
+    padding: 1.4rem 1.5rem 1.6rem;
+  }
+  .portrait-caption strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--color-primary-dark);
+  }
+  .placeholder-inline {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--color-accent-dark);
+    background: var(--color-amber-200);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.5rem;
+    margin: 0.5rem 0 0.8rem;
+  }
+  .portrait-caption p {
+    margin: 0;
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+  .value-card {
+    padding: 1.8rem 1.6rem;
+  }
+  @media (max-width: 860px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-portrait {
+      position: static;
+      max-width: 420px;
+    }
+  }
+</style>

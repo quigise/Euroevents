@@ -1,0 +1,159 @@
+---
+import { WEB3FORMS_KEY, contact } from "../data/site";
+---
+
+<form class="ee-form" id="contact-form" novalidate>
+  <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+  <input type="hidden" name="subject" value="Nouveau message — formulaire de contact Euro Events" />
+  <input type="hidden" name="from_name" value="Site Euro Events" />
+  <!-- Anti-spam (honeypot Web3Forms) -->
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+  <div class="field-row">
+    <div class="field">
+      <label for="c-name">Nom et prénom <span aria-hidden="true">*</span></label>
+      <input id="c-name" name="name" type="text" required autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="c-company">Entreprise</label>
+      <input id="c-company" name="entreprise" type="text" autocomplete="organization" />
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label for="c-email">Email <span aria-hidden="true">*</span></label>
+      <input id="c-email" name="email" type="email" required autocomplete="email" />
+    </div>
+    <div class="field">
+      <label for="c-phone">Téléphone</label>
+      <input id="c-phone" name="telephone" type="tel" autocomplete="tel" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="c-subject">Sujet</label>
+    <input id="c-subject" name="sujet" type="text" placeholder="Ex. Séminaire de 80 personnes en septembre" />
+  </div>
+
+  <div class="field">
+    <label for="c-message">Votre message <span aria-hidden="true">*</span></label>
+    <textarea id="c-message" name="message" rows="5" required></textarea>
+  </div>
+
+  <label class="consent">
+    <input type="checkbox" required />
+    <span>
+      J'accepte que mes données soient utilisées pour être recontacté(e).
+      Voir la <a href="/politique-confidentialite/">politique de confidentialité</a>.
+    </span>
+  </label>
+
+  <button type="submit" class="btn btn--primary btn--lg btn--block">Envoyer mon message</button>
+
+  <p class="form-status" role="status" aria-live="polite"></p>
+  <p class="form-alt">
+    Ou appelez-nous directement au
+    <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>.
+  </p>
+</form>
+
+<script>
+  import { submitWeb3Form } from "../scripts/forms";
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  if (form) submitWeb3Form(form);
+</script>
+
+<style is:global>
+  .ee-form {
+    display: grid;
+    gap: 1.1rem;
+  }
+  .ee-form .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .ee-form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .ee-form label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary-dark);
+  }
+  .ee-form label span[aria-hidden] {
+    color: var(--color-accent-dark);
+  }
+  .ee-form input[type="text"],
+  .ee-form input[type="email"],
+  .ee-form input[type="tel"],
+  .ee-form input[type="date"],
+  .ee-form input[type="number"],
+  .ee-form select,
+  .ee-form textarea {
+    width: 100%;
+    padding: 0.8rem 0.95rem;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-ink);
+    background: #fff;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .ee-form input:focus,
+  .ee-form select:focus,
+  .ee-form textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(217, 126, 63, 0.15);
+  }
+  .ee-form textarea {
+    resize: vertical;
+  }
+  .ee-form .hp {
+    position: absolute !important;
+    left: -9999px;
+    opacity: 0;
+  }
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 400 !important;
+    color: var(--color-ink-soft);
+    line-height: 1.4;
+  }
+  .consent input {
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-accent);
+  }
+  .form-status {
+    margin: 0;
+    font-weight: 600;
+    min-height: 1.2em;
+  }
+  .form-status.is-error {
+    color: #b3261e;
+  }
+  .form-status.is-success {
+    color: #1b7a4b;
+  }
+  .form-alt {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 560px) {
+    .ee-form .field-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
