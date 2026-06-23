@@ -36,8 +36,8 @@ export const caseStudies: CaseStudy[] = [
       "Sélection de trois domaines avec devis comparatifs, organisation de l'hébergement, des salles de sous-commission, d'un atelier de cohésion et d'un dîner régional. Interlocutrice unique du brief au jour J.",
     result:
       "Budget respecté, logistique sans accroc et 96 % de satisfaction auprès des participants.",
-    image: "/images/cases/case-1.svg",
-    imageAlt: "Domaine accueillant un séminaire d'entreprise",
+    image: "/images/gallery/seminaire-qa.jpg",
+    imageAlt: "Séminaire d'entreprise, échanges avec la salle",
     placeholder: true,
   },
   {
@@ -52,8 +52,8 @@ export const caseStudies: CaseStudy[] = [
       "Recherche d'un lieu central grande capacité, coordination de la scénographie, de la technique audiovisuelle et d'un cocktail dînatoire pour 600 personnes.",
     result:
       "Événement à la hauteur de l'enjeu, livré dans le budget négocié, avec un pilotage unique de tous les prestataires.",
-    image: "/images/cases/case-2.svg",
-    imageAlt: "Salle de convention avec scène et public",
+    image: "/images/gallery/sommet.jpg",
+    imageAlt: "Grande convention sur scène devant une audience nombreuse",
     placeholder: true,
   },
   {
@@ -68,8 +68,8 @@ export const caseStudies: CaseStudy[] = [
       "Privatisation d'un lieu avec vue, sélection d'un traiteur, d'un DJ et d'un photobooth, et gestion complète de la décoration.",
     result:
       "Soirée saluée par les collaborateurs, organisée sans frais d'agence et dans le budget fixé.",
-    image: "/images/cases/case-3.svg",
-    imageAlt: "Soirée de gala d'entreprise sur un rooftop parisien",
+    image: "/images/gallery/reception.jpg",
+    imageAlt: "Réception de gala d'entreprise dans un lieu d'exception",
     placeholder: true,
   },
 ];
