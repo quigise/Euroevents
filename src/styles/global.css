@@ -9,16 +9,16 @@
   /* ---- Palette monochrome + 1 accent (la couleur vient des photos) ---- */
   --color-encre: #15151c;      /* quasi-noir : texte, sections sombres, scrim */
   --color-prune: #241f2e;      /* aubergine très assourdi (≈ noir) : second sombre */
-  --color-laiton: #5f4b9e;     /* ACCENT indigo unique : CTA, filets, « SÉL. » */
-  --color-laiton-clair: #a99cf0; /* indigo clair : accents sur fond sombre */
-  --color-laiton-fonce: #4f3f86; /* indigo foncé lisible sur blanc (liens, œilletons) */
+  --color-laiton: #463a73;     /* ACCENT indigo/aubergine sourd : CTA, filets, « SÉL. » */
+  --color-laiton-clair: #8a7fbe; /* indigo clair : micro-détails uniquement */
+  --color-laiton-fonce: #3a3060; /* indigo foncé lisible sur blanc (liens, œilletons) */
+  --color-accent-strong: #564897; /* survol CTA */
   --color-pierre: #ffffff;     /* FOND principal : blanc */
   --color-calcaire: #f4f4f6;   /* brume : gris froid très clair, bandes alternées */
   --color-mauve: #7a7a85;      /* gris neutre : légendes, méta */
   --color-blanc: #ffffff;
   --color-prune-pale: #ebe9f2;
   --color-laiton-pale: #ece9f6;
-  --color-accent-strong: #6f5cc0; /* indigo plus vif : survols CTA */
 
   /* ---- Texte (anthracite neutre) ---- */
   --color-ink: #16161d;
@@ -87,6 +87,12 @@
   --header-height: 80px;
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* ---- Harmonisation colorimétrique des photos (Lot 5) ----
+     Traitement unifiant léger appliqué à toutes les photos de contenu pour
+     une cohérence de série (même température/contraste), sans dénaturer.
+     Centralisé ici : modifier cette seule variable ajuste tout le site. */
+  --photo-filter: saturate(0.9) contrast(1.05) brightness(1.01);
 }
 
 /* ----- Reset léger ----- */
@@ -114,6 +120,22 @@ body {
 }
 
 img, picture, svg, video { max-width: 100%; height: auto; display: block; }
+
+/* ----- Harmonisation colorimétrique des photos de contenu (Lot 5) -----
+   Filtre unifiant appliqué globalement aux photos (hero, univers, galerie,
+   dossiers, événements, à propos). Les logos / SVG / marques sont exclus.
+   Utilise une seule variable (--photo-filter) pour piloter tout le site. */
+.hero-slide,
+.univers-media img,
+.gallery-item img,
+.case-media img,
+.pillar-media img,
+.ev-hero-media img,
+.portrait-media img,
+.lb-img,
+.photo-tune {
+  filter: var(--photo-filter);
+}
 
 a { color: var(--color-encre); text-decoration: none; transition: color 0.2s var(--ease); }
 a:hover { color: var(--color-laiton-fonce); }
@@ -215,13 +237,13 @@ strong { font-weight: 700; }
     border-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
 .btn:hover {
-  background-color: var(--color-laiton);
-  border-color: var(--color-laiton);
-  color: var(--color-encre);
+  background-color: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  color: var(--color-blanc);
 }
 .btn--primary { --btn-bg: var(--color-encre); }
-.btn--accent { --btn-bg: var(--color-laiton); --btn-color: var(--color-encre); }
-.btn--accent:hover { background-color: var(--color-encre); border-color: var(--color-encre); color: var(--color-blanc); }
+.btn--accent { --btn-bg: var(--color-laiton); --btn-color: var(--color-blanc); }
+.btn--accent:hover { background-color: var(--color-accent-strong); border-color: var(--color-accent-strong); color: var(--color-blanc); }
 .btn--navy { --btn-bg: var(--color-prune); }
 
 .btn--outline {

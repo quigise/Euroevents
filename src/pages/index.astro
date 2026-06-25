@@ -114,12 +114,6 @@ const galerie = [
       <span class="hl-meta" id="hero-meta">Val de Loire</span>
     </figcaption>
 
-    <div class="hero-dots" role="tablist" aria-label="Photos">
-      {heroSlides.map((_, i) => (
-        <button type="button" class:list={["hero-dot", { "is-active": i === 0 }]} data-index={i} aria-label={`Photo ${i + 1}`} />
-      ))}
-    </div>
-
     <a href="#manifeste" class="hero-scroll" aria-label="Faire défiler">
       <span>Découvrir</span>
       <span class="hero-scroll-line"></span>
@@ -271,7 +265,8 @@ const galerie = [
   .hero-scrim {
     position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(12,12,18,0.55) 0%, rgba(12,12,18,0.12) 32%, rgba(12,12,18,0.55) 72%, rgba(12,12,18,0.9) 100%);
+      linear-gradient(180deg, rgba(12,12,18,0.55) 0%, rgba(12,12,18,0.18) 30%, rgba(12,12,18,0.55) 66%, rgba(12,12,18,0.95) 100%),
+      radial-gradient(120% 80% at 0% 100%, rgba(12,12,18,0.7) 0%, rgba(12,12,18,0) 55%);
   }
   .hero-content { position: relative; z-index: 2; padding-bottom: clamp(2.5rem, 7vw, 5rem); padding-top: 8rem; width: 100%; }
   .hero-eyebrow {
@@ -299,8 +294,8 @@ const galerie = [
     font-family: var(--font-italic);
     font-style: italic;
     font-weight: 400;
-    letter-spacing: -0.01em;
-    color: var(--color-laiton-clair);
+    letter-spacing: -0.005em;
+    color: #fff;
   }
   .hero-actions { gap: 1rem; animation: fade 1s var(--ease) 0.7s both; }
   @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -399,25 +394,21 @@ const galerie = [
   const root = document.getElementById("hero-carousel");
   if (root) {
     const slides = Array.from(root.querySelectorAll<HTMLElement>(".hero-slide"));
-    const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".hero-dot"));
     const placeEl = document.getElementById("hero-place");
     const metaEl = document.getElementById("hero-meta");
     const tabEl = document.getElementById("hero-tab");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let i = 0;
-    let timer: ReturnType<typeof setInterval> | undefined;
 
     function go(n: number) {
       i = (n + slides.length) % slides.length;
       slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
-      dots.forEach((d, k) => d.classList.toggle("is-active", k === i));
       const a = slides[i];
       if (placeEl && a.dataset.place) placeEl.textContent = a.dataset.place;
       if (metaEl && a.dataset.meta) metaEl.textContent = a.dataset.meta;
       if (tabEl && a.dataset.sel) tabEl.textContent = a.dataset.sel;
     }
-    function restart() { if (timer) clearInterval(timer); if (!reduce && slides.length > 1) timer = setInterval(() => go(i + 1), 4000); }
-    dots.forEach((d) => d.addEventListener("click", () => { go(Number(d.dataset.index)); restart(); }));
-    restart();
+    // Fondu très lent (8 s), sans puces ; figé si l'utilisateur réduit les animations.
+    if (!reduce && slides.length > 1) setInterval(() => go(i + 1), 8000);
   }
 </script>

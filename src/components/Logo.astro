@@ -1,45 +1,21 @@
 ---
 /**
- * Logo officiel Euro Events (fichier fourni par le client : public/images/logo.png,
- * fond transparent, lockup vertical : marque chevron violette + « EURO EVENTS » + slogan).
- *
- * - variant "default" : affiché tel quel sur fond clair (header).
- * - variant "light"   : le texte du logo étant foncé, on le pose sur une pastille
- *   claire pour rester lisible sur le footer violet.
+ * Logo Euro Events (sans le slogan « moteur de recherche », retiré pour cohérence
+ * avec le positionnement « curation humaine »). Version blanche pour fond sombre.
  */
 export interface Props {
   variant?: "default" | "light";
 }
 const { variant = "default" } = Astro.props;
+const src = variant === "light" ? "/images/logo-noslogan-white.png" : "/images/logo-noslogan.png";
 ---
 
 <span class:list={["logo", `logo--${variant}`]}>
-  <img
-    src="/images/logo.png"
-    alt="Euro Events — Le moteur de recherche de tous vos événements"
-    width="150"
-    height="153"
-    decoding="async"
-  />
+  <img src={src} alt="Euro Events" width="150" height="145" decoding="async" />
 </span>
 
 <style>
-  .logo {
-    display: inline-flex;
-    align-items: center;
-  }
-  .logo img {
-    width: auto;
-    height: 56px;
-  }
-  /* Footer (fond violet) : pastille claire pour faire ressortir le logo foncé. */
-  .logo--light {
-    background: var(--color-white);
-    padding: 0.55rem 0.8rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-  }
-  .logo--light img {
-    height: 66px;
-  }
+  .logo { display: inline-flex; align-items: center; }
+  .logo img { width: auto; height: 60px; }
+  .logo--light img { height: 64px; }
 </style>

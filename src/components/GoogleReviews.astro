@@ -1,97 +1,54 @@
 ---
 /**
- * Section Avis Google.
- * Lien réel vers la fiche Google de l'agence ; les textes d'avis et la note
- * chiffrée sont des PLACEHOLDERS à remplacer par les avis réels (ou un widget).
- * Aucune donnée structurée AggregateRating n'est émise tant que la note n'est
- * pas vérifiable (on évite un faux balisage SEO).
+ * Avis Google — bande compacte : note moyenne + lien vers la fiche Google.
+ * (Les témoignages développés vivent dans la section Témoignages, pour éviter le doublon.)
+ * ⚠️ La note chiffrée est un PLACEHOLDER à confirmer avec les vrais avis.
  */
 import { googleReviewsUrl } from "../data/site";
-
-const reviews = [
-  {
-    name: "Responsable événementiel",
-    text: "Réactivité et professionnalisme. Une sélection de lieux parfaite pour notre séminaire, et tout cela gratuitement.",
-  },
-  {
-    name: "Office Manager",
-    text: "Un accompagnement de A à Z, des prestataires de qualité et un budget tenu. Je recommande vivement.",
-  },
-  {
-    name: "Assistante de direction",
-    text: "Gain de temps énorme. Une vraie experte à l'écoute, pas une plateforme impersonnelle.",
-  },
-];
+const rating = "4,9";
 ---
 
-<section class="section bg-cream">
-  <div class="container">
-    <div class="gr-head">
-      <div>
-        <p class="eyebrow">Avis Google</p>
-        <h2>Ce qu'en disent nos clients.</h2>
+<section class="section--tight google-band">
+  <div class="container gb-inner">
+    <div class="gb-score">
+      <span class="gb-value">{rating}<span class="gb-out">/5</span></span>
+      <div class="gb-right">
+        <span class="gb-stars" aria-label={`${rating} sur 5`}>★★★★★</span>
+        <span class="gb-label">
+          <span class="g-mark" aria-hidden="true">G</span> Avis Google
+        </span>
       </div>
-      <a href={googleReviewsUrl} target="_blank" rel="noopener" class="btn btn--outline gr-cta">
+    </div>
+    <div class="gb-cta">
+      <a href={googleReviewsUrl} target="_blank" rel="noopener" class="btn btn--outline">
         Voir tous nos avis Google
       </a>
+      <p class="gb-note"><small>Note illustrative — à confirmer avec les avis Google réels.</small></p>
     </div>
-
-    <div class="gr-grid">
-      {
-        reviews.map((r) => (
-          <figure class="gr-card reveal">
-            <span class="gr-stars" aria-label="5 étoiles sur 5">★★★★★</span>
-            <blockquote>{r.text}</blockquote>
-            <figcaption>{r.name}</figcaption>
-          </figure>
-        ))
-      }
-    </div>
-    <p class="gr-note">
-      <span class="note-tag">Note</span> Avis illustratifs — à remplacer par les avis Google réels
-      (ou un widget). La note moyenne sera affichée une fois confirmée.
-    </p>
   </div>
 </section>
 
 <style>
-  .gr-head {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1.5rem;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
+  .google-band { background: var(--color-calcaire); border-block: 1px solid var(--color-border); }
+  .gb-inner {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 1.5rem 2.5rem;
   }
-  .gr-head h2 { margin: 0; }
-  .gr-cta { flex-shrink: 0; }
-  .gr-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1px;
-    background: var(--color-border);
-    border: 1px solid var(--color-border);
+  .gb-score { display: flex; align-items: center; gap: 1.4rem; }
+  .gb-value {
+    font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 6vw, 4rem);
+    line-height: 1; letter-spacing: -0.04em; color: var(--color-encre);
   }
-  .gr-card {
-    background: var(--color-blanc);
-    padding: 2rem 1.8rem;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+  .gb-out { font-size: 0.4em; color: var(--color-muted); font-weight: 700; margin-left: 0.1em; }
+  .gb-right { display: flex; flex-direction: column; gap: 0.3rem; }
+  .gb-stars { color: #f5a623; font-size: 1.25rem; letter-spacing: 2px; }
+  .gb-label { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.95rem; color: var(--color-ink-soft); }
+  .g-mark {
+    display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px;
+    border-radius: 50%; background: #fff; border: 1px solid var(--color-border);
+    font-family: var(--font-display); font-weight: 800; color: #4285f4; font-size: 0.8rem;
   }
-  .gr-stars { color: var(--color-laiton); letter-spacing: 2px; margin-bottom: 1rem; }
-  .gr-card blockquote {
-    margin: 0 0 1.2rem;
-    font-size: 1.05rem;
-    color: var(--color-ink);
-    flex: 1;
-  }
-  .gr-card figcaption {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-  }
-  .gr-note { margin-top: 1.5rem; color: var(--color-muted); }
+  .gb-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .gb-note { margin: 0; color: var(--color-muted); }
+  @media (max-width: 600px) { .gb-cta { align-items: stretch; } }
 </style>

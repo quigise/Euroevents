@@ -9,7 +9,7 @@ export const site = {
   legalName: "Agence Euro Events",
   // Phrase de positionnement, réutilisée dans plusieurs métas.
   tagline:
-    "Depuis plus de 20 ans, nous recherchons gratuitement pour vous tous les prestataires de vos événements professionnels.",
+    "La sélection humaine de tous vos événements professionnels — lieux et prestataires choisis à la main, gratuitement, depuis 2006.",
   description:
     "Agence événementielle à Paris. Euro Events recherche gratuitement pour les entreprises les meilleurs prestataires (lieux, traiteurs, animations, transferts…) pour leurs séminaires, conventions, soirées et team building. Service 100 % gratuit, interlocuteur unique, réponse sous 24-48 h.",
   // Domaine de production (à confirmer lors de la migration).
@@ -94,9 +94,9 @@ export const partners: string[] = [
  * Pour en ajouter : déposer le fichier dans `public/images/logos/` et l'ajouter ici.
  */
 export const clientLogos: { name: string; logo?: string }[] = [
-  { name: "SNCF", logo: "/images/logos/sncf.jpg" },
-  { name: "La Banque Postale", logo: "/images/logos/la-banque-postale.jpg" },
-  { name: "Groupe Rocher", logo: "/images/logos/groupe-rocher.jpg" },
+  { name: "SNCF", logo: "/images/logos/sncf-mono.png" },
+  { name: "La Banque Postale", logo: "/images/logos/la-banque-postale-mono.png" },
+  { name: "Groupe Rocher", logo: "/images/logos/groupe-rocher-mono.png" },
 ];
 
 /** Chiffres clés (à ajuster avec les données réelles de l'agence). */
