@@ -133,7 +133,8 @@ const galerie = [
 
   <!-- ====================== MANIFESTE ====================== -->
   <section class="section manifeste" id="manifeste">
-    <div class="container container-narrow">
+    <div class="container manifeste-inner">
+      <span class="manifeste-watermark" aria-hidden="true">2006</span>
       <p class="eyebrow reveal">Le métier</p>
       <p class="manifeste-text reveal">
         Nous <strong>dénichons</strong> les lieux. <strong>Négocions</strong> les prestataires.
@@ -341,19 +342,35 @@ const galerie = [
   @media (max-width: 640px) { .hero-scroll, .hero-legend { display: none; } }
 
   /* ========== MANIFESTE ========== */
-  .manifeste { padding-block: clamp(4rem, 9vw, 8rem); }
+  .manifeste { padding-block: clamp(3rem, 6vw, 5.5rem); }
+  /* Bloc centré : le vide est réparti symétriquement, donc intentionnel.
+     Un grand « 2006 » en filigrane ancre l'espace sans concurrencer le texte. */
+  .manifeste-inner { position: relative; text-align: center; }
+  .manifeste-inner .eyebrow { justify-content: center; position: relative; z-index: 1; }
+  .manifeste-watermark {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(9rem, 30vw, 26rem); line-height: 1; letter-spacing: -0.05em;
+    color: var(--color-laiton); opacity: 0.06;
+    z-index: 0; pointer-events: none; user-select: none; white-space: nowrap;
+  }
   .manifeste-text {
+    position: relative; z-index: 1;
     font-family: var(--font-display);
     font-weight: 800;
     font-size: clamp(1.7rem, 4.2vw, 3.3rem);
     line-height: 1.12;
     letter-spacing: -0.03em;
     color: var(--color-encre);
-    margin: 0.6rem 0 0;
+    max-width: 19ch;
+    margin: 0.7rem auto 0;
     text-wrap: balance;
   }
   .manifeste-text strong { font-weight: 800; }
   .manifeste .hl-accent { font-family: var(--font-italic); font-style: italic; font-weight: 400; color: var(--color-laiton); }
+  @media (max-width: 520px) {
+    .manifeste-watermark { font-size: 40vw; opacity: 0.05; }
+  }
 
   /* ========== PROCÉDÉ ========== */
   .procede-head { max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
