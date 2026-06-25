@@ -144,10 +144,28 @@ const { images, categories } = Astro.props;
   }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
   .gallery-item:hover img { transform: scale(1.05); }
+  /* Assombrissement progressif au survol */
+  .gallery-item::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(transparent 35%, rgba(12, 12, 18, 0.66));
+    opacity: 0; transition: opacity 0.3s var(--ease);
+  }
+  .gallery-item:hover::after { opacity: 1; }
   .gallery-caption {
-    position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 0.9rem 0.7rem;
-    font-size: 0.82rem; font-weight: 600; color: #fff; text-align: left;
-    background: linear-gradient(transparent, rgba(12, 12, 18, 0.78));
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 0.9rem 0.8rem;
+    font-size: 0.82rem; font-weight: 600; color: #fff; text-align: left; z-index: 1;
+    opacity: 0; transform: translateY(0.5rem);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; transform: none; }
+  /* Tactile / mouvement réduit : légende toujours visible */
+  @media (hover: none) {
+    .gallery-item::after { opacity: 1; }
+    .gallery-caption { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-item::after { opacity: 1; }
+    .gallery-caption { opacity: 1; transform: none; }
   }
   @media (max-width: 820px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 480px) { .gallery { grid-template-columns: 1fr; } }

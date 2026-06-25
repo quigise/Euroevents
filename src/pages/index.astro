@@ -5,8 +5,19 @@ import CaseStudyCard from "../components/CaseStudyCard.astro";
 import GoogleReviews from "../components/GoogleReviews.astro";
 import CTASection from "../components/CTASection.astro";
 import Testimonials from "../components/Testimonials.astro";
-import { contact, site } from "../data/site";
+import Stats from "../components/Stats.astro";
+import { contact, site, partners } from "../data/site";
 import { caseStudies } from "../data/caseStudies";
+
+// Chiffres clés — uniquement des données réelles / vérifiables.
+// (Le nombre d'événements organisés n'est pas confirmé : volontairement non affiché.)
+const anneesExpertise = new Date().getFullYear() - site.foundedYear;
+const homeStats = [
+  { value: `${anneesExpertise} ans`, label: "d'expertise, depuis 2006" },
+  { value: "24-48 h", label: "pour recevoir votre shortlist" },
+  { value: "0 €", label: "de frais pour votre entreprise" },
+  { value: `${partners.length}+`, label: "partenaires sélectionnés" },
+];
 
 const title =
   "Euro Events — Maison de curation événementielle à Paris | Sélection gratuite de prestataires";
@@ -123,8 +134,8 @@ const galerie = [
   <!-- ====================== MANIFESTE ====================== -->
   <section class="section manifeste" id="manifeste">
     <div class="container container-narrow">
-      <p class="eyebrow">Le métier</p>
-      <p class="manifeste-text">
+      <p class="eyebrow reveal">Le métier</p>
+      <p class="manifeste-text reveal">
         Nous <strong>dénichons</strong> les lieux. <strong>Négocions</strong> les prestataires.
         <strong>Orchestrons</strong> chaque détail. Depuis vingt ans, une experte sélectionne
         pour vous — <span class="hl-accent">à la main, et gratuitement.</span>
@@ -135,7 +146,7 @@ const galerie = [
   <!-- ====================== PROCÉDÉ ====================== -->
   <section class="section bg-cream procede">
     <div class="container">
-      <div class="procede-head">
+      <div class="procede-head reveal">
         <p class="eyebrow">Le procédé</p>
         <h2>Trois temps, une seule interlocutrice.</h2>
       </div>
@@ -150,30 +161,30 @@ const galerie = [
     </div>
   </section>
 
-  <!-- ====================== UNIVERS (blocs alternés) ====================== -->
+  <!-- ====================== UNIVERS (blocs alternés, image full-bleed) ====================== -->
   <section class="section univers">
     <div class="container">
-      <div class="univers-head">
+      <div class="univers-head reveal">
         <p class="eyebrow">Nos univers</p>
         <h2>Ce que nous composons pour vous.</h2>
       </div>
-      <div class="univers-list">
-        {
-          univers.map((u, i) => (
-            <article class:list={["univers-row reveal", { "is-reverse": i % 2 === 1 }]}>
-              <a href={u.href} class="univers-media">
-                <img src={u.img} alt={u.alt} loading="lazy" decoding="async" />
-              </a>
-              <div class="univers-body">
-                <span class="univers-sel">{u.sel}</span>
-                <h3>{u.title}</h3>
-                <p>{u.text}</p>
-                <a href={u.href} class="link-arrow">{u.cta}</a>
-              </div>
-            </article>
-          ))
-        }
-      </div>
+    </div>
+    <div class="univers-list">
+      {
+        univers.map((u, i) => (
+          <article class:list={["univers-row reveal", { "is-reverse": i % 2 === 1 }]}>
+            <a href={u.href} class="univers-media">
+              <img src={u.img} alt={u.alt} loading="lazy" decoding="async" />
+            </a>
+            <div class="univers-body">
+              <span class="univers-sel">{u.sel}</span>
+              <h3>{u.title}</h3>
+              <p>{u.text}</p>
+              <a href={u.href} class="link-arrow">{u.cta}</a>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -182,7 +193,7 @@ const galerie = [
   <!-- ====================== POURQUOI ÇA MARCHE ====================== -->
   <section class="section bg-navy approche">
     <div class="container approche-grid">
-      <div class="approche-intro">
+      <div class="approche-intro reveal">
         <p class="eyebrow">Pourquoi nous</p>
         <h2>Une maison, pas une plateforme.</h2>
         <p class="lead">
@@ -205,7 +216,7 @@ const galerie = [
   <!-- ====================== APERÇU GALERIE ====================== -->
   <section class="section galerie-preview">
     <div class="container">
-      <div class="shortlist-head">
+      <div class="shortlist-head reveal">
         <div>
           <p class="eyebrow">La galerie</p>
           <h2>Lieux & moments d'exception.</h2>
@@ -225,7 +236,7 @@ const galerie = [
   <!-- ====================== RÉFÉRENCES DATÉES ====================== -->
   <section class="section bg-cream">
     <div class="container">
-      <div class="shortlist-head">
+      <div class="shortlist-head reveal">
         <div>
           <p class="eyebrow">Au dossier</p>
           <h2>Quelques événements signés Euro Events.</h2>
@@ -237,6 +248,9 @@ const galerie = [
       </div>
     </div>
   </section>
+
+  <!-- ====================== CHIFFRES CLÉS (réassurance) ====================== -->
+  <Stats items={homeStats} />
 
   <Testimonials />
 
@@ -352,19 +366,32 @@ const galerie = [
   .tl-body p { margin: 0; color: var(--color-ink-soft); }
 
   /* ========== UNIVERS ========== */
+  /* Gouttière entre le bord d'écran et le conteneur centré. */
+  .univers { --edge: max(1.2rem, calc((100vw - var(--container)) / 2)); }
   .univers-head { max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-  .univers-list { display: grid; gap: clamp(3rem, 7vw, 6rem); }
-  .univers-row { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(1.8rem, 5vw, 4rem); align-items: center; }
+  .univers-list { display: grid; gap: clamp(3.5rem, 8vw, 7rem); }
+  /* Deux moitiés pleine largeur : l'image atteint le bord d'écran côté extérieur,
+     le texte reste aligné sur le conteneur via le padding --edge. */
+  .univers-row { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
   .univers-row.is-reverse .univers-media { order: 2; }
-  .univers-media { display: block; overflow: hidden; border-radius: var(--radius-img); aspect-ratio: 4 / 3; background: var(--color-encre); }
+  .univers-row.is-reverse .univers-body { order: 1; }
+  .univers-media { display: block; overflow: hidden; aspect-ratio: 16 / 11; background: var(--color-encre); }
   .univers-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
   .univers-row:hover .univers-media img { transform: scale(1.04); }
+  /* Texte : côté extérieur aligné au conteneur, côté intérieur respirant. */
+  .univers-body { padding-left: clamp(1.8rem, 4vw, 3.5rem); padding-right: var(--edge); }
+  .univers-row.is-reverse .univers-body { padding-left: var(--edge); padding-right: clamp(1.8rem, 4vw, 3.5rem); }
   .univers-sel { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-laiton-fonce); display: block; margin-bottom: 1rem; }
   .univers-body h3 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 0.8rem; }
   .univers-body p { color: var(--color-ink-soft); max-width: 46ch; margin-bottom: 1.4rem; font-size: 1.05rem; }
-  @media (max-width: 820px) {
+  @media (max-width: 860px) {
     .univers-row, .univers-row.is-reverse { grid-template-columns: 1fr; }
-    .univers-row.is-reverse .univers-media { order: 0; }
+    .univers-row .univers-media, .univers-row.is-reverse .univers-media { order: 0; }
+    .univers-row .univers-body, .univers-row.is-reverse .univers-body {
+      order: 1;
+      padding: 1.6rem var(--edge) 0;
+    }
+    .univers-media { aspect-ratio: 16 / 10; }
   }
 
   /* ========== APPROCHE ========== */

@@ -43,7 +43,8 @@ const { study, detailed = false, sel } = Astro.props;
 </article>
 
 <style>
-  .case { display: flex; flex-direction: column; }
+  .case { display: flex; flex-direction: column; transition: transform 0.3s var(--ease); }
+  .case:hover { transform: translateY(-5px); }
   .case-media {
     aspect-ratio: 16 / 11;
     overflow: hidden;
@@ -53,13 +54,17 @@ const { study, detailed = false, sel } = Astro.props;
   }
   .case-media { position: relative; }
   .case-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
-  .case:hover .case-media img { transform: scale(1.04); }
+  .case:hover .case-media img { transform: scale(1.06); }
   .case-sel {
     position: absolute; top: 0.8rem; left: 0.8rem;
     font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.6); padding: 0.3rem 0.6rem;
     text-shadow: 0 1px 4px rgba(12, 12, 18, 0.5);
+    transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease);
   }
+  .case:hover .case-sel { background: var(--color-laiton); border-color: var(--color-laiton); text-shadow: none; }
+  .case h3 { transition: color 0.25s var(--ease); }
+  .case:hover h3 { color: var(--color-laiton-fonce); }
   .case-year { color: var(--color-encre); font-weight: 700; }
   .case-meta {
     display: flex;

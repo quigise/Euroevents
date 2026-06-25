@@ -151,8 +151,9 @@ h1, h2, h3, h4 {
   margin: 0 0 0.5em;
   letter-spacing: -0.025em;
 }
-h1 { font-size: clamp(2.5rem, 5.6vw, 4.3rem); }
-h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
+/* Grands titres : plus larges, lignes presque jointives, chasse resserrée. */
+h1 { font-size: clamp(2.7rem, 6.4vw, 5rem); line-height: 0.98; letter-spacing: -0.03em; }
+h2 { font-size: clamp(2.15rem, 5vw, 3.7rem); line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 0.4em; }
 h3 { font-size: clamp(1.25rem, 1.9vw, 1.55rem); letter-spacing: -0.02em; }
 
 p { margin: 0 0 1.1em; }
@@ -335,15 +336,32 @@ strong { font-weight: 700; }
 /* ----- Révélation au scroll (sobre, sélective) ----- */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(20px);
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   will-change: opacity, transform;
 }
 .reveal.is-visible { opacity: 1; transform: none; }
 
+/* Révélation d'image : léger zoom qui se résorbe (1.045 -> 1), une seule fois.
+   Appliquée aux grandes images éditoriales (univers, dossiers, aperçu galerie). */
+.reveal .univers-media img,
+.reveal .case-media img,
+.gp-item.reveal img {
+  transform: scale(1.045);
+  transition: transform 1s var(--ease);
+}
+.reveal.is-visible .univers-media img,
+.reveal.is-visible .case-media img,
+.gp-item.reveal.is-visible img {
+  transform: scale(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
+  .reveal .univers-media img,
+  .reveal .case-media img,
+  .gp-item.reveal img { transform: none; }
 }
 
 /* ----- Accessibilité ----- */

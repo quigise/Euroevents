@@ -1,12 +1,16 @@
 ---
-import { stats } from "../data/site";
+import { stats as defaultStats } from "../data/site";
+export interface Props {
+  items?: { value: string; label: string }[];
+}
+const { items = defaultStats } = Astro.props;
 ---
 
 <section class="section--tight bg-navy stats">
   <div class="container">
     <ul class="stats-grid">
       {
-        stats.map((s) => (
+        items.map((s) => (
           <li class="stat reveal">
             <span class="stat-value">{s.value}</span>
             <span class="stat-label">{s.label}</span>
