@@ -49,6 +49,13 @@ export const social = {
 export const googleReviewsUrl = "https://g.co/kgs/bh7x8mp";
 
 /**
+ * Note Google réelle de la fiche « Agence Euro Events » (source unique,
+ * partagée par la bande d'avis et le balisage structuré AggregateRating).
+ * À mettre à jour quand la note ou le nombre d'avis évolue.
+ */
+export const googleRating = { value: 5, count: 33, best: 5 } as const;
+
+/**
  * Clé d'accès Web3Forms.
  * Cette clé est conçue pour être publique (elle vit dans le HTML du formulaire).
  * Surchargeable au build via la variable d'environnement PUBLIC_WEB3FORMS_KEY (Vercel).

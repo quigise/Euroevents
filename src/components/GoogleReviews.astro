@@ -4,9 +4,9 @@
  * (Les témoignages développés vivent dans la section Témoignages, pour éviter le doublon.)
  * Note réelle issue de la fiche Google de l'agence (juin 2026).
  */
-import { googleReviewsUrl } from "../data/site";
-const rating = "5,0";
-const reviewCount = 33;
+import { googleReviewsUrl, googleRating } from "../data/site";
+const rating = googleRating.value.toLocaleString("fr-FR", { minimumFractionDigits: 1 });
+const reviewCount = googleRating.count;
 ---
 
 <section class="section--tight google-band">
