@@ -33,7 +33,7 @@ const description =
         </p>
       </div>
       <div class="grid grid-3">
-        {caseStudies.map((study) => <CaseStudyCard study={study} detailed />)}
+        {caseStudies.map((study, i) => <CaseStudyCard study={study} detailed sel={`SÉL. 0${i + 1}`} />)}
       </div>
       <p class="placeholder-note reveal">
         <span class="note-tag">Note</span> D'autres études de cas détaillées seront ajoutées prochainement. Vous souhaitez une

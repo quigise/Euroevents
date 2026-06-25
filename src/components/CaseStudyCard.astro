@@ -3,15 +3,18 @@ import type { CaseStudy } from "../data/caseStudies";
 export interface Props {
   study: CaseStudy;
   detailed?: boolean;
+  sel?: string;
 }
-const { study, detailed = false } = Astro.props;
+const { study, detailed = false, sel } = Astro.props;
 ---
 
 <article class="case reveal">
   <div class="case-media">
     <img src={study.image} alt={study.imageAlt} loading="lazy" decoding="async" />
+    {sel && <span class="case-sel">{sel}</span>}
   </div>
   <div class="case-meta">
+    {study.year && <span class="case-year">{study.year}</span>}
     <span>{study.eventType}</span>
     <span class="case-dot">·</span>
     <span>{study.participants}</span>
@@ -48,8 +51,16 @@ const { study, detailed = false } = Astro.props;
     background: var(--color-prune);
     margin-bottom: 1.1rem;
   }
+  .case-media { position: relative; }
   .case-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
   .case:hover .case-media img { transform: scale(1.04); }
+  .case-sel {
+    position: absolute; top: 0.8rem; left: 0.8rem;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.6); padding: 0.3rem 0.6rem;
+    text-shadow: 0 1px 4px rgba(12, 12, 18, 0.5);
+  }
+  .case-year { color: var(--color-encre); font-weight: 700; }
   .case-meta {
     display: flex;
     gap: 0.5rem;

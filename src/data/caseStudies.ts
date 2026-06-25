@@ -12,6 +12,7 @@ export interface CaseStudy {
   sector: string;
   eventType: string;
   participants: string;
+  year?: string;
   /** Contexte / besoin exprimé par le client. */
   context: string;
   /** Solution apportée par Euro Events. */
@@ -30,6 +31,7 @@ export const caseStudies: CaseStudy[] = [
     sector: "Industrie",
     eventType: "Séminaire résidentiel",
     participants: "120 participants",
+    year: "2024",
     context:
       "Réunir l'ensemble d'une direction commerciale sur deux jours, à moins de deux heures de Paris, pour aligner la stratégie annuelle et renforcer la cohésion.",
     solution:
@@ -46,6 +48,7 @@ export const caseStudies: CaseStudy[] = [
     sector: "Services",
     eventType: "Convention plénière",
     participants: "600 participants",
+    year: "2023",
     context:
       "Rassembler les équipes nationales pour présenter la feuille de route, avec une forte exigence sur l'image de marque et la qualité technique.",
     solution:
@@ -62,6 +65,7 @@ export const caseStudies: CaseStudy[] = [
     sector: "Banque & assurance",
     eventType: "Soirée de gala",
     participants: "300 invités",
+    year: "2024",
     context:
       "Remercier les équipes avec une soirée élégante sur un lieu parisien emblématique, dans un budget défini.",
     solution:

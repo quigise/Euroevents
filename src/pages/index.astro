@@ -239,7 +239,7 @@ const galerie = [
         <a href="/references/" class="btn btn--outline">Toutes les références</a>
       </div>
       <div class="grid grid-3">
-        {caseStudies.map((study) => <CaseStudyCard study={study} />)}
+        {caseStudies.map((study, i) => <CaseStudyCard study={study} sel={`SÉL. 0${i + 1}`} />)}
       </div>
     </div>
   </section>
