@@ -1,18 +1,35 @@
 ---
 /**
- * Galerie photos avec lightbox accessible (sans dépendance).
- * ⚠️ PLACEHOLDERS : remplacer les visuels SVG par les vraies photos de lieux/événements.
+ * Galerie filtrable par catégorie (3 colonnes) + lightbox accessible, sans dépendance.
+ * Le filtrage agit aussi sur la navigation de la lightbox (ensemble visible).
  */
 export interface GalleryImage {
   src: string;
   alt: string;
   caption?: string;
+  category: string;
+}
+export interface Category {
+  key: string;
+  label: string;
 }
 export interface Props {
   images: GalleryImage[];
+  categories: Category[];
 }
-const { images } = Astro.props;
+const { images, categories } = Astro.props;
 ---
+
+<div class="gallery-filters" role="tablist" aria-label="Filtrer par catégorie">
+  <button type="button" class="gf-chip is-active" data-filter="all" role="tab" aria-selected="true">Tout</button>
+  {
+    categories.map((c) => (
+      <button type="button" class="gf-chip" data-filter={c.key} role="tab" aria-selected="false">
+        {c.label}
+      </button>
+    ))
+  }
+</div>
 
 <div class="gallery" id="gallery">
   {
@@ -21,6 +38,7 @@ const { images } = Astro.props;
         class="gallery-item reveal"
         type="button"
         data-index={i}
+        data-category={img.category}
         aria-label={`Agrandir : ${img.alt}`}
       >
         <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
@@ -30,7 +48,6 @@ const { images } = Astro.props;
   }
 </div>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
   <button class="lb-close" type="button" aria-label="Fermer">✕</button>
   <button class="lb-nav lb-prev" type="button" aria-label="Image précédente">‹</button>
@@ -41,29 +58,49 @@ const { images } = Astro.props;
   <button class="lb-nav lb-next" type="button" aria-label="Image suivante">›</button>
 </div>
 
-<script
-  is:inline
-  define:vars={{ images }}
->
+<script is:inline define:vars={{ images }}>
   (function () {
     const data = images;
+    const grid = document.getElementById("gallery");
+    const chips = Array.from(document.querySelectorAll(".gf-chip"));
+    const items = Array.from(document.querySelectorAll(".gallery-item"));
     const lb = document.getElementById("lightbox");
     if (!lb) return;
     const imgEl = lb.querySelector(".lb-img");
     const capEl = lb.querySelector(".lb-caption");
-    let current = 0;
+    let visible = data.map((_, i) => i);
+    let pos = 0;
     let lastFocused = null;
 
-    function show(i) {
-      current = (i + data.length) % data.length;
-      const item = data[current];
+    function applyFilter(key) {
+      visible = [];
+      items.forEach((btn, i) => {
+        const show = key === "all" || btn.dataset.category === key;
+        btn.style.display = show ? "" : "none";
+        if (show) visible.push(i);
+      });
+    }
+    chips.forEach((chip) =>
+      chip.addEventListener("click", () => {
+        chips.forEach((c) => { c.classList.remove("is-active"); c.setAttribute("aria-selected", "false"); });
+        chip.classList.add("is-active");
+        chip.setAttribute("aria-selected", "true");
+        applyFilter(chip.dataset.filter);
+      })
+    );
+
+    function show(p) {
+      pos = (p + visible.length) % visible.length;
+      const item = data[visible[pos]];
       imgEl.src = item.src;
       imgEl.alt = item.alt;
       capEl.textContent = item.caption || item.alt;
     }
-    function open(i) {
+    function open(dataIndex) {
+      pos = visible.indexOf(dataIndex);
+      if (pos < 0) pos = 0;
       lastFocused = document.activeElement;
-      show(i);
+      show(pos);
       lb.hidden = false;
       document.body.style.overflow = "hidden";
       lb.querySelector(".lb-close").focus();
@@ -73,129 +110,62 @@ const { images } = Astro.props;
       document.body.style.overflow = "";
       if (lastFocused) lastFocused.focus();
     }
-
-    document.querySelectorAll(".gallery-item").forEach((btn) => {
-      btn.addEventListener("click", () => open(Number(btn.dataset.index)));
-    });
+    items.forEach((btn) => btn.addEventListener("click", () => open(Number(btn.dataset.index))));
     lb.querySelector(".lb-close").addEventListener("click", close);
-    lb.querySelector(".lb-prev").addEventListener("click", () => show(current - 1));
-    lb.querySelector(".lb-next").addEventListener("click", () => show(current + 1));
-    lb.addEventListener("click", (e) => {
-      if (e.target === lb) close();
-    });
+    lb.querySelector(".lb-prev").addEventListener("click", () => show(pos - 1));
+    lb.querySelector(".lb-next").addEventListener("click", () => show(pos + 1));
+    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
     document.addEventListener("keydown", (e) => {
       if (lb.hidden) return;
       if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") show(current - 1);
-      if (e.key === "ArrowRight") show(current + 1);
+      if (e.key === "ArrowLeft") show(pos - 1);
+      if (e.key === "ArrowRight") show(pos + 1);
     });
   })();
 </script>
 
 <style>
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
+  .gallery-filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
+  .gf-chip {
+    font-family: var(--font-sans); font-size: 0.86rem; font-weight: 600;
+    padding: 0.55rem 1.1rem; border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-strong); background: transparent;
+    color: var(--color-ink-soft); cursor: pointer;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
   }
+  .gf-chip:hover { border-color: var(--color-laiton); color: var(--color-encre); }
+  .gf-chip.is-active { background: var(--color-encre); border-color: var(--color-encre); color: #fff; }
+
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
   .gallery-item {
-    position: relative;
-    padding: 0;
-    border: none;
-    background: var(--color-cream);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    cursor: pointer;
-    aspect-ratio: 4 / 3;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    position: relative; padding: 0; border: none; background: var(--color-encre);
+    border-radius: var(--radius-img); overflow: hidden; cursor: pointer; aspect-ratio: 4 / 3;
+    transition: transform 0.4s var(--ease);
   }
-  .gallery-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .gallery-item:hover img { transform: scale(1.05); }
   .gallery-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1.4rem 0.9rem 0.7rem;
-    font-size: 0.85rem;
-    color: #fff;
-    text-align: left;
-    background: linear-gradient(transparent, rgba(44, 26, 87, 0.75));
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 0.9rem 0.7rem;
+    font-size: 0.82rem; font-weight: 600; color: #fff; text-align: left;
+    background: linear-gradient(transparent, rgba(12, 12, 18, 0.78));
   }
+  @media (max-width: 820px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .gallery { grid-template-columns: 1fr; } }
 
   .lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: clamp(1rem, 4vw, 3rem);
-    background: rgba(26, 16, 50, 0.92);
-    backdrop-filter: blur(4px);
+    position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem; padding: clamp(1rem, 4vw, 3rem); background: rgba(12, 12, 18, 0.94); backdrop-filter: blur(4px);
   }
-  .lightbox[hidden] {
-    display: none;
+  .lightbox[hidden] { display: none; }
+  .lb-figure { margin: 0; max-width: 90vw; max-height: 85vh; text-align: center; }
+  .lb-img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-img); }
+  .lb-caption { color: #e9e9ee; margin-top: 0.8rem; font-size: 0.95rem; }
+  .lb-close, .lb-nav {
+    background: rgba(255, 255, 255, 0.12); color: #fff; border: none; border-radius: 50%;
+    cursor: pointer; transition: background 0.2s var(--ease);
   }
-  .lb-figure {
-    margin: 0;
-    max-width: 90vw;
-    max-height: 85vh;
-    text-align: center;
-  }
-  .lb-img {
-    max-width: 100%;
-    max-height: 80vh;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
-  }
-  .lb-caption {
-    color: #e9eef5;
-    margin-top: 0.8rem;
-    font-size: 0.95rem;
-  }
-  .lb-close,
-  .lb-nav {
-    background: rgba(255, 255, 255, 0.12);
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.2s var(--ease);
-  }
-  .lb-close:hover,
-  .lb-nav:hover {
-    background: var(--color-accent);
-  }
-  .lb-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 46px;
-    height: 46px;
-    font-size: 1.1rem;
-  }
-  .lb-nav {
-    width: 52px;
-    height: 52px;
-    font-size: 2rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  @media (max-width: 600px) {
-    .lb-nav {
-      width: 42px;
-      height: 42px;
-      font-size: 1.5rem;
-    }
-  }
+  .lb-close:hover, .lb-nav:hover { background: var(--color-laiton); }
+  .lb-close { position: absolute; top: 1rem; right: 1rem; width: 46px; height: 46px; font-size: 1.1rem; }
+  .lb-nav { width: 52px; height: 52px; font-size: 2rem; line-height: 1; flex-shrink: 0; }
+  @media (max-width: 600px) { .lb-nav { width: 42px; height: 42px; font-size: 1.5rem; } }
 </style>

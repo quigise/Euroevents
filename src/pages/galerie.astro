@@ -9,16 +9,26 @@ const title = "Galerie photos | Lieux & événements — Euro Events";
 const description =
   "Parcourez notre galerie : lieux d'exception, séminaires, conventions et soirées d'entreprise organisés grâce à Euro Events. Trouvons ensemble le cadre idéal pour votre événement.";
 
+const categories = [
+  { key: "lieux", label: "Lieux" },
+  { key: "seminaires", label: "Séminaires & conventions" },
+  { key: "soirees", label: "Soirées & gala" },
+  { key: "teambuilding", label: "Team building" },
+];
+
 const images = [
-  { src: "/images/hero/1.jpg", alt: "Château de Chambord, lieu d'exception", caption: "Château de Chambord · Val de Loire" },
-  { src: "/images/events/soiree.jpg", alt: "Dîner de gala d'entreprise", caption: "Dîner de gala" },
-  { src: "/images/events/convention.jpg", alt: "Convention en auditorium avec conférencier", caption: "Convention plénière" },
-  { src: "/images/gallery/reception.jpg", alt: "Réception privée avec tables dressées", caption: "Réception privée" },
-  { src: "/images/events/teambuilding.jpg", alt: "Team building outdoor sur l'eau", caption: "Team building outdoor" },
-  { src: "/images/gallery/sommet.jpg", alt: "Grande conférence sur scène devant le public", caption: "Sommet & grande conférence" },
-  { src: "/images/events/reunion.jpg", alt: "Salle de réunion moderne et lumineuse", caption: "Journée d'étude" },
-  { src: "/images/gallery/seminaire-qa.jpg", alt: "Séminaire d'entreprise, échanges avec la salle", caption: "Séminaire d'entreprise" },
-  { src: "/images/autre-projet.jpg", alt: "Soirée cocktail élégante", caption: "Soirée cocktail" },
+  { src: "/images/hero/1.jpg", alt: "Château de Chambord, lieu d'exception", caption: "Château de Chambord · Val de Loire", category: "lieux" },
+  { src: "/images/events/soiree.jpg", alt: "Dîner de gala d'entreprise", caption: "Dîner de gala", category: "soirees" },
+  { src: "/images/events/convention.jpg", alt: "Convention en auditorium avec conférencier", caption: "Convention plénière", category: "seminaires" },
+  { src: "/images/gallery/reception.jpg", alt: "Réception privée avec tables dressées", caption: "Réception privée", category: "soirees" },
+  { src: "/images/events/teambuilding.jpg", alt: "Team building outdoor sur l'eau", caption: "Team building outdoor", category: "teambuilding" },
+  { src: "/images/gallery/sommet.jpg", alt: "Grande conférence sur scène devant le public", caption: "Sommet & grande conférence", category: "seminaires" },
+  { src: "/images/events/reunion.jpg", alt: "Salle de réunion moderne et lumineuse", caption: "Journée d'étude", category: "seminaires" },
+  { src: "/images/gallery/seminaire-qa.jpg", alt: "Séminaire d'entreprise, échanges avec la salle", caption: "Séminaire d'entreprise", category: "seminaires" },
+  { src: "/images/autre-projet.jpg", alt: "Soirée cocktail élégante", caption: "Soirée cocktail", category: "soirees" },
+  { src: "/images/hero/3.jpg", alt: "Lieu événementiel contemporain", caption: "Lieu contemporain", category: "lieux" },
+  { src: "/images/hero/4.jpg", alt: "Salle de réception dressée", caption: "Banquet & réception", category: "soirees" },
+  { src: "/images/hero/2.jpg", alt: "Scénographie florale dorée", caption: "Scénographie de gala", category: "soirees" },
 ];
 ---
 
@@ -32,7 +42,7 @@ const images = [
 
   <section class="section bg-white">
     <div class="container">
-      <Gallery images={images} />
+      <Gallery images={images} categories={categories} />
     </div>
   </section>
 

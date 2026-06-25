@@ -16,6 +16,8 @@ export interface Props {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** Désactiver l'indexation (pages utilitaires type "merci"). */
   noindex?: boolean;
+  /** Header transparent par-dessus un hero plein cadre (accueil). */
+  transparentHeader?: boolean;
 }
 
 const {
@@ -25,6 +27,7 @@ const {
   ogImage = "/images/og-default.svg",
   jsonLd,
   noindex = false,
+  transparentHeader = false,
 } = Astro.props;
 
 const canonical = new URL(path || Astro.url.pathname, site.url).href;
@@ -97,14 +100,14 @@ const jsonLdArray = [organizationLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <meta name="theme-color" content="#1d1b27" />
+    <meta name="theme-color" content="#15151c" />
 
-    <!-- Police : Manrope (grotesque moderne, tout le site) -->
+    <!-- Polices : Manrope (tout) + Instrument Serif (italique signature) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
     />
 
     <!-- Données structurées -->
@@ -115,7 +118,7 @@ const jsonLdArray = [organizationLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
   </head>
   <body>
     <a class="skip-link" href="#main">Aller au contenu</a>
-    <Header />
+    <Header transparent={transparentHeader} />
     <main id="main">
       <slot />
     </main>

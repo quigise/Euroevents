@@ -6,27 +6,26 @@
    ========================================================================= */
 
 :root {
-  /* ---- Palette corporate : neutres + violet de marque en ACCENT seulement ----
-     Grands aplats sombres = graphite sobre (pas violet vif). Le violet est réservé
-     aux petites touches (filets, mots-clés, CTA, index). Fonds clairs = blanc + gris froid. */
-  --color-encre: #1d1b27;      /* graphite très foncé : sections sombres, texte */
-  --color-prune: #2a2740;      /* gris-violet foncé : second niveau (usage limité) */
-  --color-laiton: #5b3fa6;     /* ACCENT violet sobre : CTA, détails, index */
-  --color-laiton-clair: #9c8ad0;
-  --color-laiton-fonce: #4c3690; /* accent foncé lisible sur blanc (liens, œilletons) */
+  /* ---- Palette monochrome + 1 accent (la couleur vient des photos) ---- */
+  --color-encre: #15151c;      /* quasi-noir : texte, sections sombres, scrim */
+  --color-prune: #241f2e;      /* aubergine très assourdi (≈ noir) : second sombre */
+  --color-laiton: #5f4b9e;     /* ACCENT indigo unique : CTA, filets, « SÉL. » */
+  --color-laiton-clair: #a99cf0; /* indigo clair : accents sur fond sombre */
+  --color-laiton-fonce: #4f3f86; /* indigo foncé lisible sur blanc (liens, œilletons) */
   --color-pierre: #ffffff;     /* FOND principal : blanc */
-  --color-calcaire: #f4f5f8;   /* gris froid très clair : bandes alternées (plus de lavande) */
-  --color-mauve: #8a8794;      /* gris neutre légèrement violacé : légendes, méta */
+  --color-calcaire: #f4f4f6;   /* brume : gris froid très clair, bandes alternées */
+  --color-mauve: #7a7a85;      /* gris neutre : légendes, méta */
   --color-blanc: #ffffff;
-  --color-prune-pale: #e7e4f1;
-  --color-laiton-pale: #ece8f6;
+  --color-prune-pale: #ebe9f2;
+  --color-laiton-pale: #ece9f6;
+  --color-accent-strong: #6f5cc0; /* indigo plus vif : survols CTA */
 
   /* ---- Texte (anthracite neutre) ---- */
-  --color-ink: #1f2430;
-  --color-ink-soft: #474d5a;
-  --color-muted: #767b88;
-  --color-border: #e6e8ee;     /* filet gris froid */
-  --color-border-strong: #d2d6df;
+  --color-ink: #16161d;
+  --color-ink-soft: #4a4a55;
+  --color-muted: #6f6f7a;
+  --color-border: #e4e4e9;
+  --color-border-strong: #d3d3da;
 
   /* ---- Sémantique ---- */
   --color-bg: var(--color-pierre);
@@ -62,11 +61,11 @@
   --color-orchid-200: var(--color-laiton-pale);
   --color-gold: var(--color-laiton);
 
-  /* ---- Typographie : grotesque moderne (corporate événementiel) ----
-     Une seule famille (Manrope), titres bold et serrés, labels en capitales. */
+  /* ---- Typographie : Manrope (tout) + Instrument Serif (italique signature) ---- */
   --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: var(--font-sans); /* anciens labels « mono » → sans capitales */
+  --font-italic: "Instrument Serif", Georgia, serif; /* mot-clé signature, en italique */
+  --font-mono: var(--font-sans);
   --font-serif: var(--font-display);
 
   /* ---- Rayons ---- */
@@ -244,6 +243,14 @@ strong { font-weight: 700; }
   border-color: var(--color-blanc);
   color: var(--color-encre);
 }
+
+/* CTA secondaire clair sur fond sombre (hero plein cadre) */
+.btn--ghostlight {
+  --btn-bg: transparent;
+  --btn-color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.btn--ghostlight:hover { background: #fff; border-color: #fff; color: var(--color-encre); }
 
 /* Lien souligné laiton (CTA secondaire éditorial) */
 .btn--ghost {
