@@ -134,7 +134,10 @@ const galerie = [
   <!-- ====================== MANIFESTE ====================== -->
   <section class="section manifeste" id="manifeste">
     <div class="container manifeste-inner">
-      <span class="manifeste-watermark" aria-hidden="true">2006</span>
+      <span class="manifeste-watermark" aria-hidden="true">
+        <span class="wm-kicker">Depuis</span>
+        <span class="wm-year">2006</span>
+      </span>
       <p class="eyebrow reveal">Le métier</p>
       <p class="manifeste-text reveal">
         Nous <strong>dénichons</strong> les lieux. <strong>Négocions</strong> les prestataires.
@@ -347,13 +350,17 @@ const galerie = [
      Un grand « 2006 » en filigrane ancre l'espace sans concurrencer le texte. */
   .manifeste-inner { position: relative; text-align: center; }
   .manifeste-inner .eyebrow { justify-content: center; position: relative; z-index: 1; }
+  /* « DEPUIS 2006 » en filigrane : kicker tracké au-dessus d'un grand millésime. */
   .manifeste-watermark {
     position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
-    font-family: var(--font-display); font-weight: 800;
-    font-size: clamp(9rem, 30vw, 26rem); line-height: 1; letter-spacing: -0.05em;
-    color: var(--color-laiton); opacity: 0.045;
-    z-index: 0; pointer-events: none; user-select: none; white-space: nowrap;
+    display: flex; flex-direction: column; align-items: center;
+    font-family: var(--font-display); font-weight: 800; line-height: 0.82;
+    text-transform: uppercase; white-space: nowrap;
+    color: var(--color-laiton); opacity: 0.05;
+    z-index: 0; pointer-events: none; user-select: none;
   }
+  .manifeste-watermark .wm-kicker { font-size: clamp(2.6rem, 8vw, 6.2rem); letter-spacing: 0.1em; }
+  .manifeste-watermark .wm-year { font-size: clamp(7rem, 25vw, 20rem); letter-spacing: -0.04em; }
   .manifeste-text {
     position: relative; z-index: 1;
     font-family: var(--font-display);
