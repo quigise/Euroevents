@@ -43,6 +43,22 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
+      "Je remercie infiniment Laurence, très professionnelle : elle a su parfaitement comprendre nos besoins et organiser un événement à la hauteur de nos attentes. Tout était pensé dans les moindres détails — timing, ambiance, prestataires.",
+    author: "Helin Rona",
+    source: "Avis Google · Local Guide",
+    when: "il y a 11 mois",
+    rating: 5,
+  },
+  {
+    quote:
+      "Bravo Laurence ! Encore une mission menée d'une main de maître. Euro Events est vraiment top, je recommande sans hésitation.",
+    author: "Elisabeth Delaleu",
+    source: "Avis Google",
+    when: "il y a 4 mois",
+    rating: 5,
+  },
+  {
+    quote:
       "Dormy House à Étretat : Laurence est vraiment super professionnelle et efficace, elle nous a trouvé ce sublime hôtel avec vue. L'activité team building — une chasse au trésor pour visiter la ville de façon ludique — a été adorée par toute l'équipe. Les repas étaient très bons également. Rien à redire, c'est un sans faute.",
     author: "Julie Michon",
     source: "Avis Google",
