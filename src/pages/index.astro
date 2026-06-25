@@ -147,8 +147,8 @@ const galerie = [
     </div>
   </section>
 
-  <!-- ====================== PROCÉDÉ ====================== -->
-  <section class="section bg-cream procede">
+  <!-- ====================== PROCÉDÉ (bloc sombre, gros numéros, fil conducteur) ====================== -->
+  <section class="section bg-prune procede">
     <div class="container">
       <div class="procede-head reveal">
         <p class="eyebrow">Le procédé</p>
@@ -157,7 +157,7 @@ const galerie = [
       <ol class="timeline">
         {procede.map((s) => (
           <li class="tl-item reveal">
-            <span class="tl-num">{s.n}</span>
+            <span class="tl-num" aria-hidden="true">{s.n}</span>
             <div class="tl-body"><h3>{s.t}</h3><p>{s.d}</p></div>
           </li>
         ))}
@@ -383,13 +383,40 @@ const galerie = [
 
   /* ========== PROCÉDÉ ========== */
   .procede-head { max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-  .timeline { list-style: none; margin: 0; padding: 0; }
-  .tl-item { display: grid; grid-template-columns: 5.5rem 1fr; gap: clamp(1rem, 3vw, 2.5rem); padding: 2.2rem 0; border-top: 1px solid var(--color-border-strong); align-items: start; }
-  .tl-item:last-child { border-bottom: 1px solid var(--color-border-strong); }
-  .tl-num { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; color: var(--color-laiton); line-height: 1; letter-spacing: -0.04em; }
-  .tl-body { max-width: 56ch; }
-  .tl-body h3 { margin-bottom: 0.4rem; }
-  .tl-body p { margin: 0; color: var(--color-ink-soft); }
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  /* Fil conducteur : ligne verticale reliant les numéros (01 -> 02 -> 03). */
+  .timeline::before {
+    content: ""; position: absolute; z-index: 0;
+    top: clamp(2.4rem, 5vw, 3.4rem); bottom: clamp(2.4rem, 5vw, 3.4rem);
+    left: clamp(1.5rem, 4.5vw, 3rem); width: 2px;
+    background: linear-gradient(var(--color-laiton-clair), rgba(138, 127, 190, 0.12));
+    opacity: 0.45;
+  }
+  .tl-item {
+    position: relative;
+    display: grid; grid-template-columns: clamp(3.6rem, 9vw, 6.4rem) 1fr;
+    gap: clamp(1.2rem, 3vw, 3rem);
+    padding: clamp(1.9rem, 4vw, 3rem) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    align-items: center;
+  }
+  .tl-item:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  /* Gros numéro structurel, en accent indigo clair, sous le titre dans la hiérarchie. */
+  .tl-num {
+    position: relative; z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(3.4rem, 9vw, 7rem);
+    font-weight: 800; line-height: 0.9; letter-spacing: -0.04em;
+    color: var(--color-laiton-clair);
+  }
+  .tl-body { max-width: 54ch; }
+  .tl-body h3 { margin-bottom: 0.4rem; color: var(--color-blanc); }
+  .tl-body p { margin: 0; color: #c3c7d0; }
+  @media (max-width: 600px) {
+    .timeline::before { display: none; }
+    .tl-item { grid-template-columns: 1fr; gap: 0.3rem; padding: 1.6rem 0; }
+    .tl-num { font-size: clamp(2.8rem, 15vw, 4rem); }
+  }
 
   /* ========== UNIVERS ========== */
   /* Gouttière entre le bord d'écran et le conteneur centré. */
