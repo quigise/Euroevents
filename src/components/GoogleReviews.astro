@@ -2,10 +2,11 @@
 /**
  * Avis Google — bande compacte : note moyenne + lien vers la fiche Google.
  * (Les témoignages développés vivent dans la section Témoignages, pour éviter le doublon.)
- * ⚠️ La note chiffrée est un PLACEHOLDER à confirmer avec les vrais avis.
+ * Note réelle issue de la fiche Google de l'agence (juin 2026).
  */
 import { googleReviewsUrl } from "../data/site";
-const rating = "4,9";
+const rating = "5,0";
+const reviewCount = 33;
 ---
 
 <section class="section--tight google-band">
@@ -15,15 +16,14 @@ const rating = "4,9";
       <div class="gb-right">
         <span class="gb-stars" aria-label={`${rating} sur 5`}>★★★★★</span>
         <span class="gb-label">
-          <span class="g-mark" aria-hidden="true">G</span> Avis Google
+          <span class="g-mark" aria-hidden="true">G</span> {reviewCount} avis Google
         </span>
       </div>
     </div>
     <div class="gb-cta">
       <a href={googleReviewsUrl} target="_blank" rel="noopener" class="btn btn--outline">
-        Voir tous nos avis Google
+        Voir nos {reviewCount} avis Google
       </a>
-      <p class="gb-note"><small>Note illustrative — à confirmer avec les avis Google réels.</small></p>
     </div>
   </div>
 </section>
@@ -49,6 +49,5 @@ const rating = "4,9";
     font-family: var(--font-display); font-weight: 800; color: #4285f4; font-size: 0.8rem;
   }
   .gb-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .gb-note { margin: 0; color: var(--color-muted); }
   @media (max-width: 600px) { .gb-cta { align-items: stretch; } }
 </style>
