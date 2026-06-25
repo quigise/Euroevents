@@ -39,7 +39,7 @@ export const caseStudies: CaseStudy[] = [
     result:
       "Budget respecté, logistique sans accroc et 96 % de satisfaction auprès des participants.",
     image: "/images/gallery/seminaire-qa.jpg",
-    imageAlt: "Séminaire d'entreprise, échanges avec la salle",
+    imageAlt: "Séminaire d'entreprise en salle à boiseries et lustre en cristal",
     placeholder: true,
   },
   {
@@ -56,7 +56,7 @@ export const caseStudies: CaseStudy[] = [
     result:
       "Événement à la hauteur de l'enjeu, livré dans le budget négocié, avec un pilotage unique de tous les prestataires.",
     image: "/images/gallery/sommet.jpg",
-    imageAlt: "Grande convention sur scène devant une audience nombreuse",
+    imageAlt: "Plénière de convention, scène éclairée en bleu devant une audience nombreuse",
     placeholder: true,
   },
   {

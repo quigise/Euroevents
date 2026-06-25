@@ -99,7 +99,7 @@ export const events: EventType[] = [
     icon: "🏛️",
     image: "/images/events/seminaire.jpg",
     imageAlt:
-      "Participants en séminaire d'entreprise, assis en conférence dans un hôtel",
+      "Séminaire d'entreprise en salle à boiseries, longue table et lustre en cristal",
   },
   {
     slug: "conventions",
@@ -163,7 +163,7 @@ export const events: EventType[] = [
     icon: "🎤",
     image: "/images/events/convention.jpg",
     imageAlt:
-      "Conférencier sur scène devant une grande audience en auditorium",
+      "Auditorium contemporain à boiseries chaudes pour une convention",
   },
   {
     slug: "soirees-entreprise",
@@ -289,7 +289,7 @@ export const events: EventType[] = [
     },
     icon: "🤝",
     image: "/images/events/teambuilding.jpg",
-    imageAlt: "Équipe en activité de team building outdoor, défi sur l'eau en gilets de sauvetage",
+    imageAlt: "Groupe réuni pour un team building et un banquet en cave voûtée en pierre",
   },
   {
     slug: "reunions-journees-etude",
