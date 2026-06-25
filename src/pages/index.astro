@@ -348,10 +348,10 @@ const galerie = [
   .manifeste-inner { position: relative; text-align: center; }
   .manifeste-inner .eyebrow { justify-content: center; position: relative; z-index: 1; }
   .manifeste-watermark {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
     font-family: var(--font-display); font-weight: 800;
     font-size: clamp(9rem, 30vw, 26rem); line-height: 1; letter-spacing: -0.05em;
-    color: var(--color-laiton); opacity: 0.06;
+    color: var(--color-laiton); opacity: 0.045;
     z-index: 0; pointer-events: none; user-select: none; white-space: nowrap;
   }
   .manifeste-text {
@@ -368,8 +368,10 @@ const galerie = [
   }
   .manifeste-text strong { font-weight: 800; }
   .manifeste .hl-accent { font-family: var(--font-italic); font-style: italic; font-weight: 400; color: var(--color-laiton); }
-  @media (max-width: 520px) {
-    .manifeste-watermark { font-size: 40vw; opacity: 0.05; }
+  /* Filigrane masqué sur petit écran : un grand « 2006 » derrière le texte
+     deviendrait vite brouillon — on garde le manifeste parfaitement lisible. */
+  @media (max-width: 600px) {
+    .manifeste-watermark { display: none; }
   }
 
   /* ========== PROCÉDÉ ========== */
