@@ -23,10 +23,11 @@ const items = testimonials.slice(0, limit);
       {
         items.map((t) => (
           <figure class="t-card reveal">
+            <span class="t-stars" aria-label={`${t.rating} sur 5`}>{"★".repeat(t.rating)}</span>
             <blockquote>{t.quote}</blockquote>
             <figcaption>
               <span class="t-author">{t.author}</span>
-              <span class="t-role">{t.role} · {t.company}</span>
+              <span class="t-role">{t.source} · {t.when}</span>
             </figcaption>
           </figure>
         ))
@@ -50,6 +51,7 @@ const items = testimonials.slice(0, limit);
     display: flex;
     flex-direction: column;
   }
+  .t-stars { color: #f5a623; font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
   .t-card blockquote {
     font-family: var(--font-display);
     font-size: 1.18rem;
