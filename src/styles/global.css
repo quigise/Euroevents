@@ -7,27 +7,27 @@
    ========================================================================= */
 
 :root {
-  /* ---- Palette « Violet du logo + blanc » ----
-     Dominante BLANCHE, marque violette (reprise du logo), accent violet vif.
-     Pas de beige : neutres très légèrement lavande seulement. */
-  --color-encre: #261452;     /* violet le plus profond du logo : panneaux sombres, titres */
-  --color-prune: #3f2a78;     /* violet médian : second panneau sombre */
-  --color-laiton: #6d3fc4;    /* ACCENT violet vif : CTA, détails, index */
-  --color-laiton-clair: #9a7be0;
-  --color-laiton-fonce: #5a31a8; /* accent foncé, lisible sur blanc (liens, œilletons) */
-  --color-pierre: #ffffff;    /* FOND principal : blanc */
-  --color-calcaire: #f5f2fc;  /* lavande très clair : bandes alternées */
-  --color-mauve: #8b80a6;     /* violet-gris : légendes, méta */
+  /* ---- Palette corporate : neutres + violet de marque en ACCENT seulement ----
+     Grands aplats sombres = graphite sobre (pas violet vif). Le violet est réservé
+     aux petites touches (filets, mots-clés, CTA, index). Fonds clairs = blanc + gris froid. */
+  --color-encre: #1d1b27;      /* graphite très foncé : sections sombres, texte */
+  --color-prune: #2a2740;      /* gris-violet foncé : second niveau (usage limité) */
+  --color-laiton: #5b3fa6;     /* ACCENT violet sobre : CTA, détails, index */
+  --color-laiton-clair: #9c8ad0;
+  --color-laiton-fonce: #4c3690; /* accent foncé lisible sur blanc (liens, œilletons) */
+  --color-pierre: #ffffff;     /* FOND principal : blanc */
+  --color-calcaire: #f4f5f8;   /* gris froid très clair : bandes alternées (plus de lavande) */
+  --color-mauve: #8a8794;      /* gris neutre légèrement violacé : légendes, méta */
   --color-blanc: #ffffff;
-  --color-prune-pale: #e4dcf5;
-  --color-laiton-pale: #ece4fb;
+  --color-prune-pale: #e7e4f1;
+  --color-laiton-pale: #ece8f6;
 
-  /* ---- Texte ---- */
-  --color-ink: #251a3d;
-  --color-ink-soft: #4f4669;
-  --color-muted: #79708e;
-  --color-border: #e9e3f5;     /* filet lavande */
-  --color-border-strong: #d6ccea;
+  /* ---- Texte (anthracite neutre) ---- */
+  --color-ink: #1f2430;
+  --color-ink-soft: #474d5a;
+  --color-muted: #767b88;
+  --color-border: #e6e8ee;     /* filet gris froid */
+  --color-border-strong: #d2d6df;
 
   /* ---- Sémantique ---- */
   --color-bg: var(--color-pierre);
@@ -154,8 +154,8 @@ strong { font-weight: 600; }
 .bg-ivory { background-color: var(--color-pierre); }
 .bg-cream { background-color: var(--color-calcaire); }
 .bg-white { background-color: var(--color-blanc); }
-.bg-navy { background-color: var(--color-encre); color: #e7ddef; }
-.bg-prune { background-color: var(--color-prune); color: #e7ddef; }
+.bg-navy { background-color: var(--color-encre); color: #d6d9e1; }
+.bg-prune { background-color: var(--color-prune); color: #d6d9e1; }
 .bg-navy h1, .bg-navy h2, .bg-navy h3,
 .bg-prune h1, .bg-prune h2, .bg-prune h3 { color: var(--color-blanc); }
 
@@ -189,7 +189,7 @@ strong { font-weight: 600; }
   line-height: 1.65;
   font-weight: 400;
 }
-.bg-navy .lead, .bg-prune .lead { color: #c8bdd6; }
+.bg-navy .lead, .bg-prune .lead { color: #c2c6d0; }
 
 .section-head { max-width: 680px; margin-bottom: clamp(2.4rem, 4vw, 3.6rem); }
 .section-head.text-center { margin-inline: auto; }
