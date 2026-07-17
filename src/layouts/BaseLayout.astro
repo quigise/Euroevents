@@ -1,5 +1,9 @@
 ---
 import "../styles/global.css";
+// Polices auto-hébergées (plus de CDN Google : premier rendu net, pas de FOUT réseau).
+import "@fontsource-variable/manrope";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FloatingCTA from "../components/FloatingCTA.astro";
@@ -124,13 +128,7 @@ const jsonLdArray = [organizationLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
 
     <meta name="theme-color" content="#15151c" />
 
-    <!-- Polices : Manrope (tout) + Instrument Serif (italique signature) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
-    />
+    <!-- Polices auto-hébergées : Manrope Variable + Instrument Serif (via Fontsource) -->
 
     <!-- Données structurées -->
     <script

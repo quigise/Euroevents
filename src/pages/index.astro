@@ -96,7 +96,6 @@ const galerie = [
             alt={s.alt}
             data-place={s.place}
             data-meta={s.meta}
-            data-sel={`SÉL. 0${i + 1}`}
             loading={i === 0 ? "eager" : "lazy"}
             fetchpriority={i === 0 ? "high" : undefined}
             decoding="async"
@@ -105,8 +104,6 @@ const galerie = [
       }
       <div class="hero-scrim"></div>
     </div>
-
-    <span class="hero-tab" id="hero-tab">SÉL. 01</span>
 
     <div class="container hero-content">
       <p class="hero-eyebrow">Agence événementielle · Paris · depuis 2006</p>
@@ -145,6 +142,11 @@ const galerie = [
       <span>Découvrir</span>
       <span class="hero-scroll-line"></span>
     </a>
+
+    <!-- Progression du diaporama (remplie en 4,5 s, resynchronisée à chaque slide) -->
+    <div class="hero-progress" id="hero-progress" aria-hidden="true" hidden>
+      <span class="hero-progress-bar" id="hero-progress-bar"></span>
+    </div>
   </section>
 
   <!-- ====================== MANIFESTE ====================== -->
@@ -193,8 +195,9 @@ const galerie = [
       {
         univers.map((u, i) => (
           <article class:list={["univers-row reveal", { "is-reverse": i % 2 === 1 }]}>
-            <a href={u.href} class="univers-media">
+            <a href={u.href} class="univers-media" aria-label={u.cta}>
               <img src={u.img} alt={u.alt} loading="lazy" decoding="async" />
+              <span class="univers-discover" aria-hidden="true">Découvrir →</span>
             </a>
             <div class="univers-body">
               <span class="univers-sel">{u.sel}</span>
@@ -215,7 +218,7 @@ const galerie = [
     <div class="container approche-grid">
       <div class="approche-intro reveal">
         <p class="eyebrow">Pourquoi nous</p>
-        <h2>Une maison, pas une plateforme.</h2>
+        <h2>Une agence humaine, pas une plateforme.</h2>
         <p class="lead">
           Nous ne renvoyons pas une liste générée. Nous engageons une personne, un goût,
           vingt ans de carnet d'adresses — au service d'un seul projet : le vôtre.
@@ -247,6 +250,7 @@ const galerie = [
         {galerie.map((g) => (
           <a href="/galerie/" class="gp-item reveal">
             <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+            <span class="gp-cap" aria-hidden="true">{g.alt}</span>
           </a>
         ))}
       </div>
@@ -270,7 +274,7 @@ const galerie = [
   </section>
 
   <!-- ====================== CHIFFRES CLÉS (réassurance) ====================== -->
-  <Stats items={homeStats} />
+  <Stats items={homeStats} variant="light" />
 
   <Testimonials />
 
@@ -298,7 +302,12 @@ const galerie = [
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; opacity: 0; transition: opacity 1.1s var(--ease);
   }
-  .hero-slide.is-active { opacity: 1; }
+  /* Ken Burns : zoom lent sur le slide actif, pour un rendu cinématique. */
+  .hero-slide.is-active { opacity: 1; animation: kenburns 6s var(--ease) forwards; }
+  @keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.055); } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide.is-active { animation: none; }
+  }
   .hero-scrim {
     position: absolute; inset: 0;
     background:
@@ -343,15 +352,23 @@ const galerie = [
   .hero-actions { gap: 1rem; animation: fade 1s var(--ease) 0.7s both; }
   @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-  .hero-tab {
-    position: absolute; top: calc(var(--header-height) + 1.4rem); right: clamp(1.2rem, 5vw, 3rem);
-    z-index: 2; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
-    color: #fff; border: 1px solid rgba(255,255,255,0.55); padding: 0.4rem 0.8rem;
-  }
   .hero-legend {
     position: absolute; right: clamp(1.2rem, 5vw, 3rem); bottom: clamp(2.5rem, 7vw, 5rem);
     z-index: 2; text-align: right; display: flex; flex-direction: column; gap: 0.1rem;
   }
+  /* Barre de progression du diaporama : fine ligne en bas du hero. */
+  .hero-progress {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    z-index: 3; background: rgba(255, 255, 255, 0.18);
+  }
+  .hero-progress-bar {
+    display: block; height: 100%; width: 100%;
+    background: var(--color-laiton-clair);
+    transform-origin: left; transform: scaleX(0);
+  }
+  .hero-progress-bar.is-running { animation: heroprogress 4.5s linear forwards; }
+  .hero-full.is-paused .hero-progress-bar { animation-play-state: paused; }
+  @keyframes heroprogress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   .hl-place { font-weight: 700; font-size: 1rem; color: #fff; }
   .hl-meta { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
   /* Pause/lecture du diaporama (WCAG 2.2.2) — discret, aligné sous la légende */
@@ -484,9 +501,20 @@ const galerie = [
   .univers-row { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
   .univers-row.is-reverse .univers-media { order: 2; }
   .univers-row.is-reverse .univers-body { order: 1; }
-  .univers-media { display: block; overflow: hidden; aspect-ratio: 16 / 11; background: var(--color-encre); }
+  .univers-media { position: relative; display: block; overflow: hidden; aspect-ratio: 16 / 11; background: var(--color-encre); }
   .univers-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
   .univers-row:hover .univers-media img { transform: scale(1.04); }
+  /* Indice de clic sur l'image (desktop) */
+  .univers-discover {
+    position: absolute; left: 1.4rem; bottom: 1.2rem; z-index: 1;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #fff; background: rgba(12, 12, 18, 0.55); padding: 0.55rem 0.9rem;
+    border-radius: var(--radius-sm);
+    opacity: 0; transform: translateY(0.4rem);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .univers-media:hover .univers-discover, .univers-media:focus-visible .univers-discover { opacity: 1; transform: none; }
+  @media (hover: none) { .univers-discover { display: none; } }
   /* Texte : côté extérieur aligné au conteneur, côté intérieur respirant. */
   .univers-body { padding-left: clamp(1.8rem, 4vw, 3.5rem); padding-right: var(--edge); }
   .univers-row.is-reverse .univers-body { padding-left: var(--edge); padding-right: clamp(1.8rem, 4vw, 3.5rem); }
@@ -520,9 +548,28 @@ const galerie = [
   .shortlist-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-bottom: clamp(2.2rem, 4vw, 3.4rem); }
   .shortlist-head h2 { margin: 0; }
   .gp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
-  .gp-item { display: block; overflow: hidden; border-radius: var(--radius-img); aspect-ratio: 1 / 1; background: var(--color-encre); }
+  .gp-item { position: relative; display: block; overflow: hidden; border-radius: var(--radius-img); aspect-ratio: 1 / 1; background: var(--color-encre); }
   .gp-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
   .gp-item:hover img { transform: scale(1.05); }
+  /* Légende révélée au survol (toujours visible au tactile) */
+  .gp-item::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(transparent 45%, rgba(12, 12, 18, 0.62));
+    opacity: 0; transition: opacity 0.3s var(--ease);
+  }
+  .gp-item:hover::after { opacity: 1; }
+  .gp-cap {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+    padding: 1.4rem 0.9rem 0.75rem;
+    font-size: 0.8rem; font-weight: 600; color: #fff;
+    opacity: 0; transform: translateY(0.5rem);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .gp-item:hover .gp-cap { opacity: 1; transform: none; }
+  @media (hover: none), (prefers-reduced-motion: reduce) {
+    .gp-item::after { opacity: 1; }
+    .gp-cap { opacity: 1; transform: none; }
+  }
   @media (max-width: 640px) { .gp-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 
@@ -532,9 +579,19 @@ const galerie = [
     const slides = Array.from(root.querySelectorAll<HTMLElement>(".hero-slide"));
     const placeEl = document.getElementById("hero-place");
     const metaEl = document.getElementById("hero-meta");
-    const tabEl = document.getElementById("hero-tab");
+    const progress = document.getElementById("hero-progress");
+    const bar = document.getElementById("hero-progress-bar");
+    const hero = root.closest(".hero-full");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let i = 0;
+
+    // Relance l'animation de la barre depuis zéro (resynchronisée à chaque slide).
+    function restartBar() {
+      if (!bar) return;
+      bar.classList.remove("is-running");
+      void bar.offsetWidth; // force le redémarrage de l'animation
+      bar.classList.add("is-running");
+    }
 
     function go(n: number) {
       i = (n + slides.length) % slides.length;
@@ -542,12 +599,14 @@ const galerie = [
       const a = slides[i];
       if (placeEl && a.dataset.place) placeEl.textContent = a.dataset.place;
       if (metaEl && a.dataset.meta) metaEl.textContent = a.dataset.meta;
-      if (tabEl && a.dataset.sel) tabEl.textContent = a.dataset.sel;
+      restartBar();
     }
     // Défilement auto (4,5 s), sans puces ; figé si l'utilisateur réduit les
     // animations. Bouton pause/lecture pour la conformité WCAG 2.2.2.
     if (!reduce && slides.length > 1) {
       let timer = setInterval(() => go(i + 1), 4500);
+      if (progress) progress.hidden = false;
+      restartBar();
       const btn = document.getElementById("hero-pause");
       if (btn) {
         btn.hidden = false;
@@ -555,12 +614,14 @@ const galerie = [
           const paused = btn.getAttribute("aria-pressed") === "true";
           if (paused) {
             timer = setInterval(() => go(i + 1), 4500);
+            restartBar();
           } else {
             clearInterval(timer);
           }
           btn.setAttribute("aria-pressed", String(!paused));
           btn.setAttribute("aria-label", paused ? "Mettre le diaporama en pause" : "Relancer le diaporama");
           btn.classList.toggle("is-paused", !paused);
+          hero?.classList.toggle("is-paused", !paused);
         });
       }
     }

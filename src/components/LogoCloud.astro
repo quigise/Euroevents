@@ -1,5 +1,5 @@
 ---
-import { clientLogos } from "../data/site";
+import { clientLogos, partners } from "../data/site";
 export interface Props {
   title?: string;
   variant?: "light" | "dark";
@@ -23,6 +23,10 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
         )
       }
     </ul>
+    <p class="logo-cloud-more">
+      … et un réseau de <a href="/partenaires/">{partners.length}+ partenaires</a> —
+      hôtels, traiteurs, transferts et animations, en France et à l'étranger.
+    </p>
   </div>
 </section>
 
@@ -90,6 +94,15 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
   /* harmonisation optique : le logo carré (La Banque Postale) un peu plus grand */
   .logo-item--img:nth-child(2) img { height: 58px; }
   .logo-cloud--dark .logo-item--img img { filter: brightness(0) invert(1); }
+  .logo-cloud-more {
+    text-align: center;
+    margin: 1.6rem 0 0;
+    font-size: 0.92rem;
+    color: var(--color-muted);
+  }
+  .logo-cloud-more a { color: var(--color-laiton-fonce); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .logo-cloud--dark .logo-cloud-more { color: #9aa0ab; }
+  .logo-cloud--dark .logo-cloud-more a { color: var(--color-laiton-clair); }
   @media (max-width: 540px) {
     .logo-item--img img { height: 32px; }
     .logo-item--img:nth-child(2) img { height: 48px; }

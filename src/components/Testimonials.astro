@@ -1,5 +1,10 @@
 ---
+/**
+ * Témoignages — avis Google réels. Hiérarchie éditoriale : la citation la plus
+ * forte en très grand (pull quote), les autres en format compact dessous.
+ */
 import { testimonials } from "../data/testimonials";
+import { googleReviewsUrl, googleRating } from "../data/site";
 export interface Props {
   limit?: number;
   title?: string;
@@ -11,6 +16,8 @@ const {
   eyebrow = "Témoignages",
 } = Astro.props;
 const items = testimonials.slice(0, limit);
+const [lead, ...rest] = items;
+const ratingLabel = googleRating.value.toLocaleString("fr-FR", { minimumFractionDigits: 1 });
 ---
 
 <section class="section bg-cream">
@@ -19,9 +26,20 @@ const items = testimonials.slice(0, limit);
       <p class="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
     </div>
-    <div class="t-grid">
-      {
-        items.map((t) => (
+
+    <!-- Citation signature en grand -->
+    <figure class="t-lead reveal">
+      <blockquote>{lead.quote}</blockquote>
+      <figcaption>
+        <span class="t-stars" aria-label={`${lead.rating} sur 5`}>{"★".repeat(lead.rating)}</span>
+        <span class="t-author">{lead.author}</span>
+        <span class="t-role">{lead.source} · {lead.when}</span>
+      </figcaption>
+    </figure>
+
+    {rest.length > 0 && (
+      <div class="t-grid">
+        {rest.map((t) => (
           <figure class="t-card reveal">
             <span class="t-stars" aria-label={`${t.rating} sur 5`}>{"★".repeat(t.rating)}</span>
             <blockquote>{t.quote}</blockquote>
@@ -30,47 +48,73 @@ const items = testimonials.slice(0, limit);
               <span class="t-role">{t.source} · {t.when}</span>
             </figcaption>
           </figure>
-        ))
-      }
-    </div>
+        ))}
+      </div>
+    )}
+
+    <p class="t-more reveal">
+      <a href={googleReviewsUrl} target="_blank" rel="noopener" class="link-arrow">
+        {ratingLabel}/5 sur Google — lire les {googleRating.count} avis
+      </a>
+    </p>
   </div>
 </section>
 
 <style>
   .t-head { max-width: 640px; margin-bottom: clamp(2.2rem, 4vw, 3.2rem); }
+
+  /* Pull quote signature */
+  .t-lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); max-width: 1000px; }
+  .t-lead blockquote {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    color: var(--color-encre);
+    margin: 0 0 1.4rem;
+    text-wrap: balance;
+  }
+  .t-lead blockquote::before { content: "« "; color: var(--color-laiton); }
+  .t-lead blockquote::after { content: " »"; color: var(--color-laiton); }
+  .t-lead figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; }
+
+  /* Cartes compactes */
   .t-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 1px;
     background: var(--color-border);
     border: 1px solid var(--color-border);
   }
   .t-card {
     background: var(--color-blanc);
-    padding: 2.2rem 1.9rem;
+    padding: 1.7rem 1.5rem;
     display: flex;
     flex-direction: column;
+    margin: 0;
   }
-  .t-stars { color: #f5a623; font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
   .t-card blockquote {
-    font-family: var(--font-display);
-    font-size: 1.18rem;
-    font-weight: 600;
-    line-height: 1.45;
-    letter-spacing: -0.01em;
-    color: var(--color-encre);
-    margin: 0 0 1.6rem;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    margin: 0.7rem 0 1.2rem;
     flex: 1;
   }
   .t-card blockquote::before { content: "« "; color: var(--color-laiton); }
   .t-card blockquote::after { content: " »"; color: var(--color-laiton); }
+
+  .t-stars { color: #f5a623; font-size: 0.92rem; letter-spacing: 2px; }
+  .t-lead .t-stars { font-size: 1.05rem; }
   figcaption { display: flex; flex-direction: column; gap: 0.15rem; }
-  .t-author { font-weight: 600; color: var(--color-encre); }
+  .t-lead figcaption { flex-direction: row; }
+  .t-author { font-weight: 700; color: var(--color-encre); }
   .t-role {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-muted);
   }
+  .t-more { margin: 1.8rem 0 0; }
 </style>

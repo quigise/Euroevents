@@ -61,9 +61,9 @@
   --color-orchid-200: var(--color-laiton-pale);
   --color-gold: var(--color-laiton);
 
-  /* ---- Typographie : Manrope (tout) + Instrument Serif (italique signature) ---- */
-  --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* ---- Typographie : Manrope Variable auto-hébergée + Instrument Serif ---- */
+  --font-display: "Manrope Variable", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Manrope Variable", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-italic: "Instrument Serif", Georgia, serif; /* mot-clé signature, en italique */
   --font-mono: var(--font-sans);
   --font-serif: var(--font-display);
