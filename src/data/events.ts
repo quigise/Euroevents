@@ -225,8 +225,8 @@ export const events: EventType[] = [
         "Une soirée saluée par les collaborateurs, organisée sans frais d'agence et dans le budget fixé.",
     },
     icon: "✨",
-    image: "/images/events/soiree.jpg",
-    imageAlt: "Dîner d'entreprise élégant avec tables rondes dressées et éclairage chaleureux",
+    image: "/images/gallery/diner-chateau.jpg",
+    imageAlt: "Dîner de gala d'entreprise sous lustre au Château de Fère",
   },
   {
     slug: "team-building",

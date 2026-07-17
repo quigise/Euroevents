@@ -72,8 +72,8 @@ export const caseStudies: CaseStudy[] = [
       "Privatisation d'un lieu avec vue, sélection d'un traiteur, d'un DJ et d'un photobooth, et gestion complète de la décoration.",
     result:
       "Soirée saluée par les collaborateurs, organisée sans frais d'agence et dans le budget fixé.",
-    image: "/images/gallery/reception.jpg",
-    imageAlt: "Réception de gala d'entreprise dans un lieu d'exception",
+    image: "/images/gallery/table-gala.jpg",
+    imageAlt: "Table de gala dressée, couverts dorés et centre floral",
     placeholder: true,
   },
 ];
