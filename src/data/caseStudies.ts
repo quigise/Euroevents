@@ -38,8 +38,8 @@ export const caseStudies: CaseStudy[] = [
       "Sélection de trois domaines avec devis comparatifs, organisation de l'hébergement, des salles de sous-commission, d'un atelier de cohésion et d'un dîner régional. Interlocutrice unique du brief au jour J.",
     result:
       "Budget respecté, logistique sans accroc et 96 % de satisfaction auprès des participants.",
-    image: "/images/gallery/seminaire-qa.jpg",
-    imageAlt: "Séminaire d'entreprise en salle à boiseries et lustre en cristal",
+    image: "/images/gallery/salon-reunion.jpg",
+    imageAlt: "Salon de réunion avec longue table dressée pour un séminaire",
     placeholder: true,
   },
   {

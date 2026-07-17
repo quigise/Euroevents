@@ -97,9 +97,9 @@ export const events: EventType[] = [
         "Budget respecté, une seule interlocutrice, et un taux de satisfaction de 96 % auprès des participants.",
     },
     icon: "🏛️",
-    image: "/images/events/seminaire.jpg",
+    image: "/images/gallery/amphitheatre.jpg",
     imageAlt:
-      "Séminaire d'entreprise en salle à boiseries, longue table et lustre en cristal",
+      "Amphithéâtre de séminaire sous charpente en briques, prêt pour une plénière",
   },
   {
     slug: "conventions",
