@@ -24,6 +24,10 @@ const reviewCount = googleRating.count;
       <a href={googleReviewsUrl} target="_blank" rel="noopener" class="btn btn--outline">
         Voir nos {reviewCount} avis Google
       </a>
+      <p class="gb-alt">
+        Client(e) sans compte Google ?
+        <a href="/temoignage/">Laissez votre témoignage directement ici</a>.
+      </p>
     </div>
   </div>
 </section>
@@ -49,5 +53,7 @@ const reviewCount = googleRating.count;
     font-family: var(--font-display); font-weight: 800; color: #4285f4; font-size: 0.8rem;
   }
   .gb-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .gb-alt { margin: 0; font-size: 0.92rem; color: var(--color-muted); }
+  .gb-alt a { color: var(--color-laiton-fonce); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 600px) { .gb-cta { align-items: stretch; } }
 </style>

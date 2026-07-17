@@ -1,0 +1,150 @@
+---
+/**
+ * Page « Laisser un témoignage » — permet aux clientes sans compte Google
+ * de laisser un avis directement sur le site. Le témoignage arrive par
+ * email (Web3Forms) ; après validation, il est ajouté à
+ * src/data/testimonials.ts pour affichage.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { WEB3FORMS_KEY, contact, googleReviewsUrl } from "../data/site";
+import { events } from "../data/events";
+
+const title = "Laisser un témoignage | Euro Events";
+const description =
+  "Vous avez organisé un événement avec Euro Events ? Partagez votre expérience en quelques lignes — avec ou sans compte Google. Votre avis aide d'autres entreprises à nous faire confiance.";
+---
+
+<BaseLayout title={title} description={description} path="/temoignage/">
+  <Breadcrumbs items={[{ label: "Laisser un témoignage" }]} />
+  <PageHero
+    eyebrow="Votre avis compte"
+    title="Partagez votre expérience"
+    subtitle="Un événement organisé ensemble ? Racontez-le en quelques lignes. Pas besoin de compte Google : votre témoignage nous parvient directement et, avec votre accord, sera publié sur le site."
+  />
+
+  <section class="section bg-white">
+    <div class="container temoignage-grid">
+      <div class="temoignage-aside reveal">
+        <h2>Deux façons de témoigner</h2>
+        <ol class="t-ways">
+          <li>
+            <strong>Ici, directement.</strong> Remplissez le formulaire — aucun compte
+            nécessaire. Nous publions votre témoignage après validation, avec votre accord.
+          </li>
+          <li>
+            <strong>Sur Google.</strong> Si vous avez un compte Google, votre avis sur notre
+            fiche aide aussi d'autres entreprises à nous trouver.
+            <a href={googleReviewsUrl} target="_blank" rel="noopener">Laisser un avis Google</a>
+          </li>
+        </ol>
+        <p class="t-note">
+          Nous n'affichons jamais un témoignage sans votre accord explicite, et vous pouvez
+          demander son retrait à tout moment.
+        </p>
+      </div>
+
+      <form class="ee-form reveal" id="temoignage-form" novalidate>
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="Nouveau témoignage client — site Euro Events" />
+        <input type="hidden" name="from_name" value="Site Euro Events" />
+        <!-- Anti-spam (honeypot Web3Forms) -->
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+        <div class="field-row">
+          <div class="field">
+            <label for="t-name">Prénom et nom <span aria-hidden="true">*</span></label>
+            <input id="t-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="t-role">Fonction</label>
+            <input id="t-role" name="fonction" type="text" placeholder="Ex. Office Manager" />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="t-company">Entreprise</label>
+            <input id="t-company" name="entreprise" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="t-email">Email <span aria-hidden="true">*</span></label>
+            <input id="t-email" name="email" type="email" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="t-event">Événement concerné</label>
+          <select id="t-event" name="type_evenement">
+            <option value="">— Choisir (facultatif) —</option>
+            {events.map((e) => <option value={e.title}>{e.title}</option>)}
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="t-message">Votre témoignage <span aria-hidden="true">*</span></label>
+          <textarea
+            id="t-message"
+            name="message"
+            rows="6"
+            required
+            placeholder="Le contexte, ce que nous avons trouvé pour vous, ce que vous avez pensé de l'accompagnement…"
+          ></textarea>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="accord_publication" value="oui" required />
+          <span>
+            J'accepte que ce témoignage soit publié sur le site d'Euro Events (prénom, fonction
+            et entreprise inclus, sauf demande contraire de ma part).
+          </span>
+        </label>
+        <label class="consent">
+          <input type="checkbox" required />
+          <span>
+            J'accepte que mes données soient utilisées dans le cadre de cette demande.
+            Voir la <a href="/politique-confidentialite/">politique de confidentialité</a>.
+          </span>
+        </label>
+
+        <button type="submit" class="btn btn--accent btn--lg btn--block">Envoyer mon témoignage</button>
+
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-alt">
+          Une question ? Appelez-nous au
+          <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { submitWeb3Form } from "../scripts/forms";
+  const form = document.getElementById("temoignage-form") as HTMLFormElement | null;
+  if (form) submitWeb3Form(form);
+</script>
+
+<style>
+  .temoignage-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+  .temoignage-aside h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
+  .t-ways { margin: 1.4rem 0 0; padding-left: 1.2rem; display: grid; gap: 1.1rem; }
+  .t-ways li { color: var(--color-ink-soft); line-height: 1.65; }
+  .t-ways strong { color: var(--color-encre); }
+  .t-ways a { color: var(--color-laiton-fonce); text-decoration: underline; text-underline-offset: 3px; }
+  .t-note {
+    margin-top: 1.6rem; padding: 1rem 1.2rem;
+    background: var(--color-calcaire); border-left: 2px solid var(--color-laiton);
+    color: var(--color-ink-soft); font-size: 0.95rem;
+  }
+  @media (max-width: 860px) {
+    .temoignage-grid { grid-template-columns: 1fr; }
+  }
+</style>
