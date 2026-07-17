@@ -3,14 +3,33 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CTASection from "../components/CTASection.astro";
-import { partners, partnersIntro, contact } from "../data/site";
+import { partners, partnersIntro, contact, site } from "../data/site";
+import { lieux, lieuxGroups, lieuLogo, lieuInitials } from "../data/lieux";
 
-const title = "Nos partenaires | Réseau de lieux et prestataires — Euro Events";
+const title = "Le carnet d'adresses | 25 lieux emblématiques & réseau de partenaires — Euro Events";
 const description =
-  "Le réseau de partenaires d'Euro Events : chaînes hôtelières, lieux d'exception, traiteurs, transferts et animations en Europe et au-delà, sélectionnés pour leur qualité depuis 2006.";
+  "Le carnet d'adresses d'Euro Events : 25 lieux événementiels emblématiques en France — du Carrousel du Louvre au Stade de France — et des milliers de partenaires hôteliers, traiteurs et animations à travers le monde.";
+
+// Deux rangées pour le bandeau défilant.
+const half = Math.ceil(lieux.length / 2);
+const rowA = lieux.slice(0, half);
+const rowB = lieux.slice(half);
+
+// SEO : liste structurée des lieux.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Lieux événementiels emblématiques en France — carnet d'adresses Euro Events",
+  itemListElement: lieux.map((l, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: l.name,
+    url: l.url,
+  })),
+};
 ---
 
-<BaseLayout title={title} description={description} path="/partenaires/">
+<BaseLayout title={title} description={description} path="/partenaires/" jsonLd={jsonLd}>
   <Breadcrumbs items={[{ label: "Partenaires" }]} />
   <PageHero
     eyebrow="Notre réseau"
@@ -19,16 +38,96 @@ const description =
     cta
   />
 
+  <!-- ============ BANDEAU DÉFILANT (lieux emblématiques) ============ -->
+  <section class="marquee-band" aria-label="Aperçu des lieux du carnet d'adresses">
+    <div class="marquee" data-dir="left">
+      <div class="marquee-track">
+        {[...rowA, ...rowA].map((l) => (
+          <span class="mq-item">
+            <img src={lieuLogo(l)} alt="" width="22" height="22" loading="lazy" decoding="async" onerror="this.remove()" />
+            {l.name}
+          </span>
+        ))}
+      </div>
+    </div>
+    <div class="marquee" data-dir="right">
+      <div class="marquee-track">
+        {[...rowB, ...rowB].map((l) => (
+          <span class="mq-item">
+            <img src={lieuLogo(l)} alt="" width="22" height="22" loading="lazy" decoding="async" onerror="this.remove()" />
+            {l.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LE CARNET : 25 LIEUX FILTRABLES ============ -->
   <section class="section bg-white">
     <div class="container">
-      <p class="eyebrow">Quelques-uns de nos partenaires</p>
-      <ul class="partners-grid">
-        {partners.map((p) => <li class="partner">{p}</li>)}
-      </ul>
-      <p class="partners-note">
-        <span class="note-tag">Note</span> Liste non exhaustive, enrichie en permanence.
-        Les logos officiels des partenaires seront ajoutés ultérieurement.
+      <div class="carnet-head reveal">
+        <div>
+          <p class="eyebrow">Extrait du carnet</p>
+          <h2>25 lieux emblématiques, partout en France.</h2>
+        </div>
+        <p class="carnet-stats" aria-hidden="true">
+          <span><strong>5</strong> à <strong>80 000</strong> participants</span>
+          <span class="cs-dot">·</span>
+          <span><strong>13</strong> régions</span>
+        </p>
+      </div>
+
+      <div class="carnet-filters reveal" role="tablist" aria-label="Filtrer par région">
+        <button type="button" class="cf-chip is-active" data-filter="all" role="tab" aria-selected="true">Toute la France</button>
+        {lieuxGroups.map((g) => (
+          <button type="button" class="cf-chip" data-filter={g.key} role="tab" aria-selected="false">{g.label}</button>
+        ))}
+      </div>
+
+      <div class="carnet-grid" id="carnet-grid">
+        {
+          lieux.map((l, i) => (
+            <article class="lieu-card reveal" data-group={l.group}>
+              <header class="lieu-top">
+                <span class="lieu-num">{String(i + 1).padStart(2, "0")}</span>
+                <span class="lieu-logo" aria-hidden="true">
+                  <span class="lieu-initials">{lieuInitials(l)}</span>
+                  <img src={lieuLogo(l)} alt="" width="34" height="34" loading="lazy" decoding="async" onerror="this.remove()" />
+                </span>
+              </header>
+              <h3>{l.name}</h3>
+              <p class="lieu-loc">{l.city} · {l.region}</p>
+              <p class="lieu-cap">{l.capacite}</p>
+              <p class="lieu-events">{l.events}</p>
+              <p class="lieu-highlight">{l.highlight}</p>
+              <a class="link-arrow lieu-link" href={l.url} target="_blank" rel="noopener">Site officiel</a>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="carnet-note">
+        <span class="note-tag">Note</span> Capacités indicatives selon configuration. Les marques et
+        logos appartiennent à leurs propriétaires respectifs. Extrait du carnet — nous recherchons
+        aussi le lieu intimiste que ces grandes scènes.
       </p>
+    </div>
+  </section>
+
+  <!-- ============ LE RÉSEAU AU QUOTIDIEN ============ -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="reveal">
+        <p class="eyebrow">Et au quotidien</p>
+        <h2>Des milliers de partenaires à travers le monde.</h2>
+        <p class="lead reseau-lead">
+          Hôtels, traiteurs, transferts, animations, décorateurs… Quelques maisons avec
+          lesquelles nous travaillons :
+        </p>
+      </div>
+      <ul class="partners-cloud reveal">
+        {partners.map((p) => <li>{p}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -59,33 +158,182 @@ const description =
 </BaseLayout>
 
 <style>
-  .partners-grid {
-    list-style: none;
-    margin: 1.5rem 0 0;
-    padding: 0;
+  /* ===== Bandeau défilant ===== */
+  .marquee-band {
+    background: var(--color-encre);
+    padding-block: 1.1rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--color-border);
-    border: 1px solid var(--color-border);
+    gap: 0.9rem;
+    overflow: hidden;
+    border-block: 1px solid var(--color-border);
   }
-  .partner {
-    background: var(--color-blanc);
-    display: flex;
+  .marquee { overflow: hidden; }
+  .marquee-track {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 96px;
-    padding: 1.1rem 1rem;
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--color-encre);
-    transition: background 0.3s var(--ease), color 0.3s var(--ease);
+    gap: clamp(2rem, 4vw, 3.2rem);
+    padding-right: clamp(2rem, 4vw, 3.2rem);
+    width: max-content;
+    animation: mq-left 55s linear infinite;
   }
-  .partner:hover { background: var(--color-calcaire); color: var(--color-laiton-fonce); }
-  .partners-note { margin-top: 1.5rem; color: var(--color-muted); }
+  .marquee[data-dir="right"] .marquee-track { animation-name: mq-right; animation-duration: 62s; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes mq-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes mq-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  .mq-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+  }
+  .mq-item img { width: 22px; height: 22px; border-radius: 5px; background: #fff; padding: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none !important; width: auto; flex-wrap: wrap; row-gap: 0.6rem; }
+  }
 
+  /* ===== En-tête carnet ===== */
+  .carnet-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.2rem 2.5rem;
+    margin-bottom: 1.8rem;
+  }
+  .carnet-stats {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    display: flex;
+    gap: 0.7rem;
+    align-items: baseline;
+  }
+  .carnet-stats strong { color: var(--color-laiton-fonce); font-size: 1.05rem; letter-spacing: 0; }
+  .cs-dot { color: var(--color-laiton); }
+
+  /* ===== Filtres ===== */
+  .carnet-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: clamp(1.6rem, 3vw, 2.4rem); }
+  .cf-chip {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-strong);
+    background: transparent;
+    color: var(--color-ink-soft);
+    cursor: pointer;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .cf-chip:hover { border-color: var(--color-laiton); color: var(--color-laiton-fonce); }
+  .cf-chip.is-active { background: var(--color-encre); border-color: var(--color-encre); color: #fff; }
+
+  /* ===== Grille de lieux ===== */
+  .carnet-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+  }
+  .lieu-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-blanc);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.4rem 1.2rem;
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .lieu-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-laiton);
+    box-shadow: var(--shadow-md);
+  }
+  .lieu-card.is-hidden { display: none; }
+  .lieu-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
+  .lieu-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.03em;
+    color: var(--color-laiton-clair);
+    transition: color 0.3s var(--ease);
+  }
+  .lieu-card:hover .lieu-num { color: var(--color-laiton); }
+  .lieu-logo {
+    position: relative;
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .lieu-logo img { position: relative; z-index: 1; width: 32px; height: 32px; object-fit: contain; }
+  .lieu-initials {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 0.95rem;
+    color: var(--color-laiton-fonce); background: var(--color-laiton-pale);
+  }
+  .lieu-card h3 { font-size: 1.12rem; line-height: 1.25; margin-bottom: 0.25rem; }
+  .lieu-loc {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.8rem;
+  }
+  .lieu-cap {
+    font-weight: 700;
+    color: var(--color-laiton-fonce);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  .lieu-events { font-size: 0.88rem; color: var(--color-ink-soft); margin-bottom: 0.7rem; }
+  .lieu-highlight {
+    font-size: 0.88rem;
+    color: var(--color-ink-soft);
+    background: var(--color-calcaire);
+    border-left: 2px solid var(--color-laiton);
+    padding: 0.55rem 0.8rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: 1rem;
+  }
+  .lieu-link { margin-top: auto; font-size: 0.72rem; }
+  .carnet-note { margin-top: 1.8rem; color: var(--color-muted); font-size: 0.92rem; }
+
+  /* ===== Nuage de partenaires ===== */
+  .reseau-lead { max-width: 62ch; }
+  .partners-cloud {
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .partners-cloud li {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    background: var(--color-blanc);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 0.9rem;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .partners-cloud li:hover { border-color: var(--color-laiton); color: var(--color-laiton-fonce); }
+
+  /* ===== Devenez partenaire ===== */
   .partner-cta {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
@@ -102,9 +350,28 @@ const description =
   }
   .partner-mail:hover { color: var(--color-blanc); }
 
-  @media (max-width: 900px) { .partners-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 680px) {
-    .partners-grid { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 980px) { .carnet-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) {
+    .carnet-grid { grid-template-columns: 1fr; }
     .partner-cta { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  // Filtre régional du carnet (même logique que la galerie).
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".cf-chip"));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".lieu-card"));
+  chips.forEach((chip) =>
+    chip.addEventListener("click", () => {
+      const key = chip.dataset.filter;
+      chips.forEach((c) => {
+        const active = c === chip;
+        c.classList.toggle("is-active", active);
+        c.setAttribute("aria-selected", String(active));
+      });
+      cards.forEach((card) => {
+        card.classList.toggle("is-hidden", key !== "all" && card.dataset.group !== key);
+      });
+    })
+  );
+</script>
