@@ -97,13 +97,33 @@ export const partners: string[] = [
 ];
 
 /**
- * Logos clients pour la preuve sociale (clients réels fournis par l'agence).
- * Pour en ajouter : déposer le fichier dans `public/images/logos/` et l'ajouter ici.
+ * Clients pour la preuve sociale (liste réelle fournie par l'agence).
+ * Les entrées avec `logo` s'affichent en logo monochrome ; les autres en texte.
+ * Pour ajouter un logo : déposer le fichier mono dans `public/images/logos/`.
  */
 export const clientLogos: { name: string; logo?: string }[] = [
   { name: "SNCF", logo: "/images/logos/sncf-mono.png" },
   { name: "La Banque Postale", logo: "/images/logos/la-banque-postale-mono.png" },
   { name: "Groupe Rocher", logo: "/images/logos/groupe-rocher-mono.png" },
+  { name: "Orange" },
+  { name: "Groupe La Poste" },
+  { name: "Europ Assistance" },
+  { name: "Redion" },
+  { name: "Groupe Generali Assurances" },
+  { name: "RTE" },
+  { name: "EDF" },
+  { name: "Maileva" },
+  { name: "MEDIAPOST" },
+  { name: "Docapost" },
+  { name: "Colissimo" },
+  { name: "LCL" },
+  { name: "Sephora" },
+  { name: "Groupe LVMH" },
+  { name: "TotalEnergies" },
+  { name: "Groupe Carrefour" },
+  { name: "Office Depot" },
+  { name: "Ermewa" },
+  { name: "Curtiss-Wright" },
 ];
 
 /** Chiffres clés (à ajuster avec les données réelles de l'agence). */

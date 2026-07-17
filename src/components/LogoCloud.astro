@@ -56,21 +56,23 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: clamp(2rem, 6vw, 4.5rem);
+    gap: 1rem clamp(1.2rem, 3vw, 2.2rem);
+    max-width: 1080px;
+    margin-inline: auto;
   }
   .logo-item {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-size: clamp(0.92rem, 1.3vw, 1.05rem);
     letter-spacing: 0.01em;
-    color: var(--color-encre);
-    opacity: 0.82;
+    color: var(--color-ink-soft);
+    opacity: 0.85;
     transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
     white-space: nowrap;
   }
   .logo-item:not(.logo-item--img):not(:last-child)::after {
     content: "·";
-    margin-left: clamp(1.2rem, 3vw, 2.4rem);
+    margin-left: clamp(1.2rem, 3vw, 2.2rem);
     color: var(--color-laiton);
     opacity: 0.7;
   }
