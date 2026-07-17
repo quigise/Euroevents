@@ -14,7 +14,7 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
       {
         clientLogos.map((c) =>
           c.logo ? (
-            <li class="logo-item logo-item--img">
+            <li class:list={["logo-item logo-item--img", { "logo-item--tall": c.tall }]}>
               <img src={c.logo} alt={c.name} loading="lazy" decoding="async" />
             </li>
           ) : (
@@ -79,22 +79,22 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
   .logo-item:hover { opacity: 1; color: var(--color-laiton-fonce); }
   .logo-cloud--dark .logo-item { color: var(--color-blanc); }
 
-  /* Logos monochromes (encre, fond transparent) — posés directement sur la section */
+  /* Logos monochromes (gris/encre, fond transparent) — posés directement sur la section */
   .logo-item--img {
     display: inline-flex;
     align-items: center;
-    opacity: 0.55;
+    opacity: 0.6;
     transition: opacity 0.3s var(--ease);
   }
   .logo-item--img:hover { opacity: 1; }
   .logo-item--img img {
-    height: 38px;
+    height: 30px;
     width: auto;
-    max-width: 168px;
+    max-width: 140px;
     object-fit: contain;
   }
-  /* harmonisation optique : le logo carré (La Banque Postale) un peu plus grand */
-  .logo-item--img:nth-child(2) img { height: 58px; }
+  /* Harmonisation optique : les logos carrés s'affichent plus hauts. */
+  .logo-item--tall img { height: 48px; }
   .logo-cloud--dark .logo-item--img img { filter: brightness(0) invert(1); }
   .logo-cloud-more {
     text-align: center;
@@ -106,7 +106,7 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
   .logo-cloud--dark .logo-cloud-more { color: #9aa0ab; }
   .logo-cloud--dark .logo-cloud-more a { color: var(--color-laiton-clair); }
   @media (max-width: 540px) {
-    .logo-item--img img { height: 32px; }
-    .logo-item--img:nth-child(2) img { height: 48px; }
+    .logo-item--img img { height: 24px; max-width: 110px; }
+    .logo-item--tall img { height: 40px; }
   }
 </style>

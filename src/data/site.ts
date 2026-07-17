@@ -98,32 +98,32 @@ export const partners: string[] = [
 
 /**
  * Clients pour la preuve sociale (liste réelle fournie par l'agence).
- * Les entrées avec `logo` s'affichent en logo monochrome ; les autres en texte.
- * Pour ajouter un logo : déposer le fichier mono dans `public/images/logos/`.
+ * Logos monochromes dans `public/images/logos/` (version grise du kit fourni).
+ * `tall` : logos carrés affichés plus hauts pour l'équilibre optique.
  */
-export const clientLogos: { name: string; logo?: string }[] = [
+export const clientLogos: { name: string; logo?: string; tall?: boolean }[] = [
   { name: "SNCF", logo: "/images/logos/sncf-mono.png" },
-  { name: "La Banque Postale", logo: "/images/logos/la-banque-postale-mono.png" },
+  { name: "La Banque Postale", logo: "/images/logos/la-banque-postale-mono.png", tall: true },
   { name: "Groupe Rocher", logo: "/images/logos/groupe-rocher-mono.png" },
-  { name: "Orange" },
-  { name: "Groupe La Poste" },
-  { name: "Europ Assistance" },
-  { name: "Redion" },
-  { name: "Groupe Generali Assurances" },
-  { name: "RTE" },
-  { name: "EDF" },
-  { name: "Maileva" },
-  { name: "MEDIAPOST" },
-  { name: "Docapost" },
-  { name: "Colissimo" },
-  { name: "LCL" },
-  { name: "Sephora" },
-  { name: "Groupe LVMH" },
-  { name: "TotalEnergies" },
-  { name: "Groupe Carrefour" },
-  { name: "Office Depot" },
-  { name: "Ermewa" },
-  { name: "Curtiss-Wright" },
+  { name: "Orange", logo: "/images/logos/orange-mono.png", tall: true },
+  { name: "Groupe La Poste", logo: "/images/logos/groupe-la-poste-mono.png" },
+  { name: "Europ Assistance", logo: "/images/logos/europ-assistance-mono.png", tall: true },
+  { name: "Redion", logo: "/images/logos/redion-mono.png" },
+  { name: "Groupe Generali Assurances", logo: "/images/logos/generali-mono.png" },
+  { name: "RTE", logo: "/images/logos/rte-mono.png", tall: true },
+  { name: "EDF", logo: "/images/logos/edf-mono.png" },
+  { name: "Maileva", logo: "/images/logos/maileva-mono.png" },
+  { name: "MEDIAPOST", logo: "/images/logos/mediaposte-mono.png" },
+  { name: "Docaposte", logo: "/images/logos/docaposte-mono.png" },
+  { name: "Colissimo", logo: "/images/logos/colissimo-mono.png" },
+  { name: "LCL", logo: "/images/logos/lcl-mono.png", tall: true },
+  { name: "Sephora", logo: "/images/logos/sephora-mono.png" },
+  { name: "Groupe LVMH", logo: "/images/logos/lvmh-mono.png" },
+  { name: "TotalEnergies", logo: "/images/logos/totalenergies-mono.png" },
+  { name: "Groupe Carrefour", logo: "/images/logos/groupe-carrefour-mono.png", tall: true },
+  { name: "Office Depot", logo: "/images/logos/office-depot-mono.png" },
+  { name: "Ermewa", logo: "/images/logos/ermewa-mono.png", tall: true },
+  { name: "Curtiss-Wright", logo: "/images/logos/curtiss-wright-mono.png" },
 ];
 
 /** Chiffres clés (à ajuster avec les données réelles de l'agence). */
