@@ -17,6 +17,7 @@ export interface Props {
   images: GalleryImage[];
   categories: Category[];
 }
+import { srcsetFor, SIZES } from "../data/imageVariants";
 const { images, categories } = Astro.props;
 ---
 
@@ -41,7 +42,7 @@ const { images, categories } = Astro.props;
         data-category={img.category}
         aria-label={`Agrandir : ${img.alt}`}
       >
-        <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
+        <img src={img.src} srcset={srcsetFor(img.src)} sizes={SIZES.third} alt={img.alt} loading="lazy" decoding="async" />
         {img.caption && <span class="gallery-caption">{img.caption}</span>}
       </button>
     ))

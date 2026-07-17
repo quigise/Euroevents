@@ -8,6 +8,7 @@ import Stats from "../components/Stats.astro";
 import FaqPreview from "../components/FaqPreview.astro";
 import { contact, site, partners } from "../data/site";
 import { caseStudies } from "../data/caseStudies";
+import { srcsetFor, SIZES } from "../data/imageVariants";
 
 // Chiffres clés — uniquement des données réelles / vérifiables.
 // (Le nombre d'événements organisés n'est pas confirmé : volontairement non affiché.)
@@ -92,6 +93,8 @@ const galerie = [
           <img
             class:list={["hero-slide", { "is-active": i === 0 }]}
             src={s.src}
+            srcset={srcsetFor(s.src)}
+            sizes={SIZES.full}
             alt={s.alt}
             data-place={s.place}
             data-meta={s.meta}
@@ -195,7 +198,7 @@ const galerie = [
         univers.map((u, i) => (
           <article class:list={["univers-row reveal", { "is-reverse": i % 2 === 1 }]}>
             <a href={u.href} class="univers-media" aria-label={u.cta}>
-              <img src={u.img} alt={u.alt} loading="lazy" decoding="async" />
+              <img src={u.img} srcset={srcsetFor(u.img)} sizes={SIZES.half} alt={u.alt} loading="lazy" decoding="async" />
               <span class="univers-discover" aria-hidden="true">Découvrir →</span>
             </a>
             <div class="univers-body">
@@ -248,7 +251,7 @@ const galerie = [
       <div class="gp-grid">
         {galerie.map((g) => (
           <a href="/galerie/" class="gp-item reveal">
-            <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+            <img src={g.src} srcset={srcsetFor(g.src)} sizes={SIZES.third} alt={g.alt} loading="lazy" decoding="async" />
             <span class="gp-cap" aria-hidden="true">{g.alt}</span>
           </a>
         ))}

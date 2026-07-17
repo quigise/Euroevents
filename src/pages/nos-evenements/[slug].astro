@@ -5,6 +5,7 @@ import CTASection from "../../components/CTASection.astro";
 import Testimonials from "../../components/Testimonials.astro";
 import { events, type EventType } from "../../data/events";
 import { contact, site } from "../../data/site";
+import { srcsetFor, SIZES } from "../../data/imageVariants";
 
 export function getStaticPaths() {
   return events.map((event) => ({
@@ -81,7 +82,7 @@ const jsonLd = [
         </div>
       </div>
       <div class="ev-hero-media reveal">
-        <img src={event.image} alt={event.imageAlt} width="600" height="420" fetchpriority="high" />
+        <img src={event.image} srcset={srcsetFor(event.image)} sizes={SIZES.half} alt={event.imageAlt} width="600" height="420" fetchpriority="high" />
       </div>
     </div>
   </section>

@@ -5,6 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Benefits from "../../components/Benefits.astro";
 import CTASection from "../../components/CTASection.astro";
 import { events } from "../../data/events";
+import { srcsetFor, SIZES } from "../../data/imageVariants";
 
 const title = "Nos événements : séminaires, conventions, soirées, team building | Euro Events";
 const description =
@@ -39,7 +40,7 @@ const jsonLd = {
           events.map((e, i) => (
             <a href={`/nos-evenements/${e.slug}/`} class="pillar-card reveal">
               <div class="pillar-media">
-                <img src={e.image} alt={e.imageAlt} loading="lazy" decoding="async" />
+                <img src={e.image} srcset={srcsetFor(e.image)} sizes={SIZES.half} alt={e.imageAlt} loading="lazy" decoding="async" />
                 <span class="pillar-index">{String(i + 1).padStart(2, "0")}</span>
               </div>
               <div class="pillar-body">

@@ -1,5 +1,6 @@
 ---
 import type { CaseStudy } from "../data/caseStudies";
+import { srcsetFor, SIZES } from "../data/imageVariants";
 export interface Props {
   study: CaseStudy;
   detailed?: boolean;
@@ -10,7 +11,7 @@ const { study, detailed = false, sel } = Astro.props;
 
 <article class="case reveal">
   <div class="case-media">
-    <img src={study.image} alt={study.imageAlt} loading="lazy" decoding="async" />
+    <img src={study.image} srcset={srcsetFor(study.image)} sizes={SIZES.third} alt={study.imageAlt} loading="lazy" decoding="async" />
     {sel && <span class="case-sel">{sel}</span>}
   </div>
   <div class="case-meta">

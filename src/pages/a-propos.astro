@@ -61,17 +61,15 @@ const values = [
         </ul>
       </div>
       <aside class="about-portrait reveal">
-        <!-- ⚠️ EMPLACEMENT À REMPLIR : photo + parcours de l'experte. -->
-        <div class="portrait-media">
-          <img
-            src="/images/equipe.svg"
-            alt="Portrait de l'experte événementielle d'Euro Events"
-            loading="lazy"
-          />
+        <!-- Photo de Laurence à venir : remplacer le monogramme par
+             <img src="/images/laurence.jpg" …> dans .portrait-media. -->
+        <div class="portrait-media portrait-media--monogram" aria-hidden="true">
+          <span class="portrait-initial">L.</span>
+          <span class="portrait-since">Depuis 2006</span>
         </div>
         <div class="portrait-caption">
-          <strong>Votre experte événementielle</strong>
-          <span class="placeholder-inline">[ À compléter : prénom, parcours et photo ]</span>
+          <strong>Laurence</strong>
+          <span class="portrait-role">Fondatrice &amp; experte événementielle</span>
           <p>
             « Mon rôle, c'est de transformer votre besoin en un événement réussi, en vous
             faisant gagner du temps et de la sérénité. »
@@ -132,6 +130,30 @@ const values = [
     height: 100%;
     object-fit: cover;
   }
+  /* Monogramme typographique en attendant la photo (même langage que le
+     filigrane « DEPUIS 2006 » du manifeste). */
+  .portrait-media--monogram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: var(--color-prune);
+  }
+  .portrait-initial {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(5rem, 10vw, 7.5rem);
+    line-height: 1;
+    color: var(--color-laiton-clair);
+  }
+  .portrait-since {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
   .portrait-caption {
     padding: 1.4rem 1.5rem 1.6rem;
   }
@@ -141,14 +163,14 @@ const values = [
     font-size: 1.2rem;
     color: var(--color-primary-dark);
   }
-  .placeholder-inline {
+  .portrait-role {
     display: block;
-    font-size: 0.82rem;
-    color: var(--color-accent-dark);
-    background: var(--color-amber-200);
-    border-radius: var(--radius-sm);
-    padding: 0.2rem 0.5rem;
-    margin: 0.5rem 0 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-laiton-fonce);
+    margin: 0.35rem 0 0.9rem;
   }
   .portrait-caption p {
     margin: 0;
