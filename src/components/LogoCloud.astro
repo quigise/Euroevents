@@ -1,5 +1,5 @@
 ---
-import { clientLogos, partners } from "../data/site";
+import { clientLogos } from "../data/site";
 export interface Props {
   title?: string;
   variant?: "light" | "dark";
@@ -24,8 +24,8 @@ const { title = "Ils nous font confiance", variant = "light" } = Astro.props;
       }
     </ul>
     <p class="logo-cloud-more">
-      … et un réseau de <a href="/partenaires/">{partners.length}+ partenaires</a> —
-      hôtels, traiteurs, transferts et animations, en France et à l'étranger.
+      … et un réseau de <a href="/partenaires/">plusieurs milliers de partenaires à travers le monde</a> —
+      hôtels, traiteurs, transferts et animations.
     </p>
   </div>
 </section>
