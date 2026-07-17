@@ -352,7 +352,7 @@ export const events: EventType[] = [
     },
     icon: "📊",
     image: "/images/events/reunion.jpg",
-    imageAlt: "Salle de réunion moderne et lumineuse disposée en rangées pour une journée d'étude",
+    imageAlt: "Salle de réunion parisienne moderne et colorée disposée en rangées pour une journée d'étude",
   },
 ];
 
