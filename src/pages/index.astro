@@ -6,6 +6,7 @@ import GoogleReviews from "../components/GoogleReviews.astro";
 import CTASection from "../components/CTASection.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Stats from "../components/Stats.astro";
+import FaqPreview from "../components/FaqPreview.astro";
 import { contact, site, partners } from "../data/site";
 import { caseStudies } from "../data/caseStudies";
 
@@ -127,6 +128,17 @@ const galerie = [
     <figcaption class="hero-legend">
       <span class="hl-place" id="hero-place">Château de Chambord</span>
       <span class="hl-meta" id="hero-meta">Val de Loire</span>
+      <button
+        type="button"
+        id="hero-pause"
+        class="hero-pause"
+        aria-pressed="false"
+        aria-label="Mettre le diaporama en pause"
+        hidden
+      >
+        <svg class="hp-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z"/></svg>
+        <svg class="hp-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>
+      </button>
     </figcaption>
 
     <a href="#manifeste" class="hero-scroll" aria-label="Faire défiler">
@@ -264,6 +276,9 @@ const galerie = [
 
   <GoogleReviews />
 
+  <!-- ====================== FAQ (lever les dernières objections) ====================== -->
+  <FaqPreview />
+
   <CTASection />
 </BaseLayout>
 
@@ -339,6 +354,20 @@ const galerie = [
   }
   .hl-place { font-weight: 700; font-size: 1rem; color: #fff; }
   .hl-meta { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
+  /* Pause/lecture du diaporama (WCAG 2.2.2) — discret, aligné sous la légende */
+  .hero-pause {
+    align-self: flex-end; margin-top: 0.6rem;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; padding: 0; cursor: pointer;
+    background: rgba(12, 12, 18, 0.35); border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%; color: #fff;
+    transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .hero-pause:hover { background: rgba(12, 12, 18, 0.6); border-color: #fff; }
+  .hero-pause svg { width: 12px; height: 12px; fill: currentColor; }
+  .hero-pause .hp-play { display: none; }
+  .hero-pause.is-paused .hp-pause { display: none; }
+  .hero-pause.is-paused .hp-play { display: block; }
 
   .hero-dots { position: absolute; left: 50%; transform: translateX(-50%); bottom: 1.4rem; z-index: 2; display: flex; gap: 0.5rem; }
   .hero-dot { width: 28px; height: 3px; border: none; cursor: pointer; background: rgba(255,255,255,0.4); transition: background 0.3s var(--ease); }
@@ -352,7 +381,12 @@ const galerie = [
   .hero-scroll-line { width: 46px; height: 1px; background: rgba(255,255,255,0.5); position: relative; overflow: hidden; }
   .hero-scroll-line::after { content: ""; position: absolute; inset: 0; width: 40%; background: #fff; animation: scrollline 2s var(--ease) infinite; }
   @keyframes scrollline { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
-  @media (max-width: 640px) { .hero-scroll, .hero-legend { display: none; } }
+  /* Mobile : on masque la légende texte mais on garde le bouton pause (WCAG). */
+  @media (max-width: 640px) {
+    .hero-scroll, .hl-place, .hl-meta { display: none; }
+    .hero-legend { bottom: 1.2rem; right: 1.2rem; }
+    .hero-pause { margin-top: 0; }
+  }
 
   /* ========== MANIFESTE ========== */
   .manifeste { padding-block: clamp(3rem, 6vw, 5.5rem); }
@@ -510,7 +544,25 @@ const galerie = [
       if (metaEl && a.dataset.meta) metaEl.textContent = a.dataset.meta;
       if (tabEl && a.dataset.sel) tabEl.textContent = a.dataset.sel;
     }
-    // Fondu très lent (8 s), sans puces ; figé si l'utilisateur réduit les animations.
-    if (!reduce && slides.length > 1) setInterval(() => go(i + 1), 4500);
+    // Défilement auto (4,5 s), sans puces ; figé si l'utilisateur réduit les
+    // animations. Bouton pause/lecture pour la conformité WCAG 2.2.2.
+    if (!reduce && slides.length > 1) {
+      let timer = setInterval(() => go(i + 1), 4500);
+      const btn = document.getElementById("hero-pause");
+      if (btn) {
+        btn.hidden = false;
+        btn.addEventListener("click", () => {
+          const paused = btn.getAttribute("aria-pressed") === "true";
+          if (paused) {
+            timer = setInterval(() => go(i + 1), 4500);
+          } else {
+            clearInterval(timer);
+          }
+          btn.setAttribute("aria-pressed", String(!paused));
+          btn.setAttribute("aria-label", paused ? "Mettre le diaporama en pause" : "Relancer le diaporama");
+          btn.classList.toggle("is-paused", !paused);
+        });
+      }
+    }
   }
 </script>

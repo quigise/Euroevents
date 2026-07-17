@@ -1,0 +1,71 @@
+---
+/**
+ * Aperçu FAQ — les questions les plus décisives avant de convertir,
+ * en accordéon natif (details/summary, sans JS). Renvoie vers /faq/.
+ */
+import { faq } from "../data/faq";
+export interface Props {
+  /** Nombre de questions affichées. */
+  limit?: number;
+}
+const { limit = 4 } = Astro.props;
+const items = faq.slice(0, limit);
+---
+
+<section class="section faq-preview">
+  <div class="container fp-grid">
+    <div class="fp-head reveal">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Ce qu'on nous demande avant de se lancer.</h2>
+      <a href="/faq/" class="link-arrow">Toutes les questions</a>
+    </div>
+    <ul class="fp-list">
+      {
+        items.map((item) => (
+          <li class="fp-item reveal">
+            <details>
+              <summary>
+                <span class="fp-q">{item.q}</span>
+                <span class="fp-icon" aria-hidden="true" />
+              </summary>
+              <p class="fp-a">{item.a}</p>
+            </details>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .fp-grid {
+    display: grid; grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 5vw, 4.5rem); align-items: start;
+  }
+  .fp-head h2 { margin-bottom: 1rem; }
+  .fp-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+  .fp-item { border-bottom: 1px solid var(--color-border); }
+  .fp-item summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1.15rem 0.2rem; cursor: pointer; list-style: none;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.08rem;
+    color: var(--color-encre); transition: color 0.2s var(--ease);
+  }
+  .fp-item summary::-webkit-details-marker { display: none; }
+  .fp-item summary:hover { color: var(--color-laiton-fonce); }
+  .fp-icon { position: relative; flex-shrink: 0; width: 16px; height: 16px; }
+  .fp-icon::before, .fp-icon::after {
+    content: ""; position: absolute; top: 50%; left: 50%;
+    width: 12px; height: 2px; background: var(--color-laiton);
+    transform: translate(-50%, -50%); transition: transform 0.25s var(--ease);
+  }
+  .fp-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .fp-item details[open] .fp-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+  .fp-a { margin: 0; padding: 0 0.2rem 1.3rem; color: var(--color-ink-soft); max-width: 62ch; }
+  @media (max-width: 860px) {
+    .fp-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fp-icon::before, .fp-icon::after { transition: none; }
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+/**
+ * Page 404 — servie par Vercel pour toute route inconnue (dist/404.html).
+ * Oriente vers les parcours utiles plutôt qu'une impasse.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contact } from "../data/site";
+import { events } from "../data/events";
+
+const title = "Page introuvable | Euro Events";
+const description =
+  "Cette page n'existe pas ou a été déplacée. Retrouvez nos événements, notre concept et notre formulaire de demande de sélection gratuite.";
+---
+
+<BaseLayout title={title} description={description} path="/404/">
+  <section class="section nf">
+    <div class="container nf-inner">
+      <p class="nf-code" aria-hidden="true">404</p>
+      <h1>Cette page n'existe pas.</h1>
+      <p class="lead">
+        Elle a peut-être été déplacée lors de la refonte du site. Pas d'inquiétude :
+        tout ce qui compte est à portée de clic.
+      </p>
+      <div class="btn-row">
+        <a href="/" class="btn btn--accent btn--lg">Retour à l'accueil</a>
+        <a href="/devis/" class="btn btn--outline btn--lg">Demander ma sélection gratuite</a>
+      </div>
+      <nav class="nf-links" aria-label="Pages principales">
+        <p class="eyebrow">Vous cherchiez peut-être</p>
+        <ul>
+          {events.map((e) => <li><a href={`/nos-evenements/${e.slug}/`}>{e.title}</a></li>)}
+          <li><a href="/notre-concept/">Notre concept</a></li>
+          <li><a href="/galerie/">La galerie</a></li>
+          <li><a href="/contact/">Nous contacter</a></li>
+        </ul>
+      </nav>
+      <p class="nf-phone">
+        Le plus simple reste souvent un appel :
+        <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { min-height: 60vh; display: flex; align-items: center; }
+  .nf-inner { max-width: 640px; }
+  .nf-code {
+    font-family: var(--font-display); font-weight: 800; line-height: 1;
+    font-size: clamp(4rem, 12vw, 8rem); letter-spacing: -0.04em;
+    color: var(--color-laiton); opacity: 0.18; margin: 0 0 0.2rem;
+  }
+  .nf h1 { margin-bottom: 0.6rem; }
+  .nf .btn-row { margin: 1.6rem 0 2.4rem; }
+  .nf-links ul {
+    list-style: none; margin: 0.8rem 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem;
+  }
+  .nf-links a { color: var(--color-laiton-fonce); text-decoration: underline; text-underline-offset: 3px; }
+  .nf-phone { margin-top: 2rem; color: var(--color-ink-soft); }
+  .nf-phone a { font-weight: 700; color: var(--color-encre); }
+</style>

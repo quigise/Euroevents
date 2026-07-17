@@ -25,7 +25,8 @@ const {
   title,
   description,
   path = "",
-  ogImage = "/images/og-default.svg",
+  // JPG obligatoire : les réseaux sociaux (Facebook, LinkedIn…) ignorent les SVG.
+  ogImage = "/images/og-default.jpg",
   jsonLd,
   noindex = false,
   transparentHeader = false,
