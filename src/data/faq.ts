@@ -20,7 +20,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Pourquoi est-ce gratuit ? Comment êtes-vous rémunérés ?",
-    a: "Notre rémunération vient des prestataires que nous référençons, jamais de l'entreprise cliente. Grâce à la négociation et à l'absence de frais d'agence, vous réalisez souvent des économies par rapport à une recherche en direct.",
+    a: "Notre rémunération vient des prestataires que nous référençons, jamais de l'entreprise cliente. Grâce à la négociation et à l'absence de frais d'agence, vous réalisez des économies par rapport à une recherche en direct.",
   },
   {
     q: "Sous combien de temps ai-je une réponse ?",
