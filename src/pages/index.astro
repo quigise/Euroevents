@@ -21,13 +21,13 @@ const homeStats = [
 ];
 
 const title =
-  "Euro Events — Maison de curation événementielle à Paris | Sélection gratuite de prestataires";
+  "Euro Events — Agence événementielle à Paris | Sélection gratuite de prestataires";
 const description = site.description;
 
 const heroSlides = [
-  { src: "/images/hero/1.jpg", alt: "Château de Chambord, lieu d'exception", place: "Château de Chambord", meta: "Val de Loire" },
   { src: "/images/hero/2.jpg", alt: "Dîner de gala, scénographie florale", place: "Dîner de gala", meta: "Scénographie sur mesure" },
   { src: "/images/hero/3.jpg", alt: "Atrium majestueux d'un palace parisien", place: "Palace parisien", meta: "Atrium & réceptions" },
+  { src: "/images/hero/1.jpg", alt: "Château de Chambord, lieu d'exception", place: "Château de Chambord", meta: "Val de Loire" },
   { src: "/images/hero/4.jpg", alt: "Rooftop avec piscine au crépuscule face à la baie", place: "Rooftop sur la baie", meta: "Soirée d'exception" },
 ];
 
@@ -86,7 +86,7 @@ const galerie = [
 
 <BaseLayout title={title} description={description} path="/" transparentHeader>
   <!-- ====================== HERO PLEIN CADRE ====================== -->
-  <section class="hero-full" aria-label="Euro Events, maison de curation événementielle">
+  <section class="hero-full" aria-label="Euro Events, agence événementielle">
     <div class="hero-bg" id="hero-carousel">
       {
         heroSlides.map((s, i) => (
@@ -109,7 +109,7 @@ const galerie = [
     <span class="hero-tab" id="hero-tab">SÉL. 01</span>
 
     <div class="container hero-content">
-      <p class="hero-eyebrow">Maison de curation · Paris · depuis 2006</p>
+      <p class="hero-eyebrow">Agence événementielle · Paris · depuis 2006</p>
       <h1 class="hero-title">
         <span class="hl-line"><span>Une sélection</span></span>
         <span class="hl-line"><span>faite à la main,</span></span>
@@ -126,8 +126,8 @@ const galerie = [
     </div>
 
     <figcaption class="hero-legend">
-      <span class="hl-place" id="hero-place">Château de Chambord</span>
-      <span class="hl-meta" id="hero-meta">Val de Loire</span>
+      <span class="hl-place" id="hero-place">Dîner de gala</span>
+      <span class="hl-meta" id="hero-meta">Scénographie sur mesure</span>
       <button
         type="button"
         id="hero-pause"
