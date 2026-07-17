@@ -1,12 +1,23 @@
 ---
+/**
+ * Formulaire de devis — contenu repris à l'identique de l'ancien site
+ * (types, lieux recherchés, prestataires, animations, repérage…),
+ * présenté dans le parcours en 5 étapes du nouveau design.
+ */
 import { WEB3FORMS_KEY, contact } from "../data/site";
-import { events } from "../data/events";
 
-export interface Props {
-  /** Pré-sélection d'un type d'événement (deep-link depuis une page événement). */
-  preselect?: string;
-}
-const { preselect } = Astro.props;
+const typesEvenement = [
+  { label: "Séminaire / Congrès", icon: "🏛️" },
+  { label: "Journée de travail", icon: "📊" },
+  { label: "Soirée professionnelle", icon: "✨" },
+  { label: "Fête de fin d'année", icon: "🎉" },
+  { label: "Hébergement", icon: "🛏️" },
+];
+const lieuxRecherches = [
+  "Salle de réunion", "Amphithéâtre", "Hôtel", "Péniche", "Domaine / Château", "Lieu évènementiel",
+];
+const prestataires = ["Traiteur", "Décorateur", "Location matériel technique"];
+const animations = ["Animateur", "Orchestre / DJ", "Magicien", "Spectacle musical", "PhotoBooth / Magnets"];
 ---
 
 <form class="ee-form quote-form" id="quote-form" novalidate>
@@ -24,37 +35,40 @@ const { preselect } = Astro.props;
     <div class="stepper-bar"><span class="stepper-fill" id="stepper-fill"></span></div>
     <div class="stepper-labels">
       <span class="active">Événement</span>
-      <span>Participants</span>
-      <span>Lieu & dates</span>
-      <span>Budget</span>
+      <span>Date & lieu</span>
+      <span>Lieu recherché</span>
+      <span>Prestations</span>
       <span>Coordonnées</span>
     </div>
   </div>
 
   <!-- Étape 1 — Type d'événement -->
   <fieldset class="step is-active" data-step="1">
-    <legend><span class="step-kicker">Étape 1/5</span> Quel type d'événement organisez-vous ?</legend>
+    <legend><span class="step-kicker">Étape 1/5</span> Type d'événement</legend>
+    <p class="step-hint">Plusieurs choix possibles.</p>
     <div class="option-grid">
       {
-        events.map((ev) => (
+        typesEvenement.map((t) => (
           <label class="option-card">
-            <input
-              type="radio"
-              name="type_evenement"
-              value={ev.title}
-              required
-              checked={preselect === ev.slug}
-            />
-            <span class="option-icon">{ev.icon}</span>
-            <span class="option-label">{ev.title}</span>
+            <input type="checkbox" name="type_evenement" value={t.label} />
+            <span class="option-icon">{t.icon}</span>
+            <span class="option-label">{t.label}</span>
           </label>
         ))
       }
-      <label class="option-card">
-        <input type="radio" name="type_evenement" value="Autre / projet sur mesure" required />
-        <span class="option-icon">✷</span>
-        <span class="option-label">Autre projet</span>
-      </label>
+    </div>
+    <div class="field-group">
+      <p class="field-group-label">L'évènement doit avoir lieu :</p>
+      <div class="option-grid option-grid--compact option-grid--inline">
+        <label class="option-card option-card--sm">
+          <input type="checkbox" name="moment_evenement" value="En journée" />
+          <span class="option-label">En journée</span>
+        </label>
+        <label class="option-card option-card--sm">
+          <input type="checkbox" name="moment_evenement" value="En soirée" />
+          <span class="option-label">En soirée</span>
+        </label>
+      </div>
     </div>
     <div class="step-actions">
       <span></span>
@@ -62,48 +76,22 @@ const { preselect } = Astro.props;
     </div>
   </fieldset>
 
-  <!-- Étape 2 — Participants -->
+  <!-- Étape 2 — Date, localisation, participants -->
   <fieldset class="step" data-step="2" hidden>
-    <legend><span class="step-kicker">Étape 2/5</span> Combien de participants attendez-vous ?</legend>
-    <div class="option-grid option-grid--compact">
-      {
-        ["Moins de 30", "30 à 100", "100 à 300", "300 à 600", "Plus de 600"].map((r) => (
-          <label class="option-card option-card--sm">
-            <input type="radio" name="participants" value={r} required />
-            <span class="option-label">{r}</span>
-          </label>
-        ))
-      }
-    </div>
-    <div class="step-actions">
-      <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
-      <button type="button" class="btn btn--primary" data-next>Continuer</button>
-    </div>
-  </fieldset>
-
-  <!-- Étape 3 — Lieu & dates -->
-  <fieldset class="step" data-step="3" hidden>
-    <legend><span class="step-kicker">Étape 3/5</span> Où et quand ?</legend>
-    <div class="field">
-      <label for="q-lieu">Lieu ou région souhaité(e)</label>
-      <input id="q-lieu" name="lieu" type="text" placeholder="Ex. Paris, Lyon, bord de mer, à définir…" />
-    </div>
+    <legend><span class="step-kicker">Étape 2/5</span> Date & lieu</legend>
     <div class="field-row">
       <div class="field">
-        <label for="q-date">Date (ou période) envisagée</label>
-        <input id="q-date" name="date_souhaitee" type="text" placeholder="Ex. septembre 2026, à définir" />
+        <label for="q-date">Date</label>
+        <input id="q-date" name="date" type="date" />
       </div>
       <div class="field">
-        <label for="q-duree">Durée</label>
-        <select id="q-duree" name="duree">
-          <option value="">— Sélectionner —</option>
-          <option>Quelques heures</option>
-          <option>Une journée</option>
-          <option>2 jours / 1 nuit</option>
-          <option>3 jours et +</option>
-          <option>À définir</option>
-        </select>
+        <label for="q-personnes">Nombre de personnes</label>
+        <input id="q-personnes" name="nombre_personnes" type="text" inputmode="numeric" placeholder="Ex. 80" />
       </div>
+    </div>
+    <div class="field">
+      <label for="q-localisation">Localisation (Pays / Région / Ville)</label>
+      <input id="q-localisation" name="localisation" type="text" placeholder="Ex. France, Normandie, Deauville…" />
     </div>
     <div class="step-actions">
       <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
@@ -111,26 +99,62 @@ const { preselect } = Astro.props;
     </div>
   </fieldset>
 
-  <!-- Étape 4 — Budget -->
-  <fieldset class="step" data-step="4" hidden>
-    <legend><span class="step-kicker">Étape 4/5</span> Quel budget indicatif ?</legend>
-    <p class="step-hint">Une fourchette suffit. Elle nous aide à cibler les bonnes propositions.</p>
+  <!-- Étape 3 — Lieu recherché -->
+  <fieldset class="step" data-step="3" hidden>
+    <legend><span class="step-kicker">Étape 3/5</span> Lieu recherché</legend>
+    <p class="step-hint">Plusieurs choix possibles.</p>
     <div class="option-grid option-grid--compact">
       {
-        [
-          "< 5 000 €",
-          "5 000 – 15 000 €",
-          "15 000 – 50 000 €",
-          "50 000 – 100 000 €",
-          "> 100 000 €",
-          "À définir",
-        ].map((b) => (
+        lieuxRecherches.map((l) => (
           <label class="option-card option-card--sm">
-            <input type="radio" name="budget" value={b} />
-            <span class="option-label">{b}</span>
+            <input type="checkbox" name="lieu_recherche" value={l} />
+            <span class="option-label">{l}</span>
           </label>
         ))
       }
+    </div>
+    <div class="step-actions">
+      <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
+      <button type="button" class="btn btn--primary" data-next>Continuer</button>
+    </div>
+  </fieldset>
+
+  <!-- Étape 4 — Prestataires, animations, recherche & budget -->
+  <fieldset class="step" data-step="4" hidden>
+    <legend><span class="step-kicker">Étape 4/5</span> Prestataires & animations</legend>
+    <div class="field-group">
+      <p class="field-group-label">Prestataires</p>
+      <div class="option-grid option-grid--compact">
+        {
+          prestataires.map((p) => (
+            <label class="option-card option-card--sm">
+              <input type="checkbox" name="prestataires" value={p} />
+              <span class="option-label">{p}</span>
+            </label>
+          ))
+        }
+      </div>
+    </div>
+    <div class="field-group">
+      <p class="field-group-label">Animations</p>
+      <div class="option-grid option-grid--compact">
+        {
+          animations.map((a) => (
+            <label class="option-card option-card--sm">
+              <input type="checkbox" name="animations" value={a} />
+              <span class="option-label">{a}</span>
+            </label>
+          ))
+        }
+      </div>
+    </div>
+    <div class="field">
+      <label for="q-nature">Précisez la nature de votre recherche</label>
+      <textarea id="q-nature" name="nature_recherche" rows="3" placeholder="Objectifs, contraintes, idées…"></textarea>
+    </div>
+    <div class="field">
+      <label for="q-budget">Budget maximum</label>
+      <input id="q-budget" name="budget_maximum" type="text" inputmode="numeric" placeholder="Ex. 15 000 €" />
     </div>
     <div class="step-actions">
       <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
@@ -144,13 +168,27 @@ const { preselect } = Astro.props;
     <p class="step-hint">Notre experte vous recontacte sous 24-48 h avec une première sélection.</p>
     <div class="field-row">
       <div class="field">
-        <label for="q-name">Nom et prénom <span aria-hidden="true">*</span></label>
-        <input id="q-name" name="name" type="text" required autocomplete="name" />
+        <label for="q-nom">Nom <span aria-hidden="true">*</span></label>
+        <input id="q-nom" name="nom" type="text" required autocomplete="family-name" />
       </div>
       <div class="field">
-        <label for="q-company">Entreprise</label>
-        <input id="q-company" name="entreprise" type="text" autocomplete="organization" />
+        <label for="q-prenom">Prénom <span aria-hidden="true">*</span></label>
+        <input id="q-prenom" name="prenom" type="text" required autocomplete="given-name" />
       </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="q-societe">Société</label>
+        <input id="q-societe" name="societe" type="text" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="q-fonction">Fonction</label>
+        <input id="q-fonction" name="fonction" type="text" autocomplete="organization-title" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="q-adresse">Adresse</label>
+      <input id="q-adresse" name="adresse" type="text" autocomplete="street-address" />
     </div>
     <div class="field-row">
       <div class="field">
@@ -162,10 +200,13 @@ const { preselect } = Astro.props;
         <input id="q-phone" name="telephone" type="tel" required autocomplete="tel" />
       </div>
     </div>
-    <div class="field">
-      <label for="q-message">Précisions (facultatif)</label>
-      <textarea id="q-message" name="message" rows="3" placeholder="Objectifs, contraintes, idées…"></textarea>
-    </div>
+    <label class="consent">
+      <input type="checkbox" name="visites_reperage" value="Oui" />
+      <span>
+        Je souhaite que l'agence m'organise des visites de repérage sur des sites ou des
+        rencontres avec des prestataires pour organiser mon événement.
+      </span>
+    </label>
     <label class="consent">
       <input type="checkbox" required />
       <span>
@@ -175,7 +216,7 @@ const { preselect } = Astro.props;
     </label>
     <div class="step-actions">
       <button type="button" class="btn btn--ghost" data-prev>← Retour</button>
-      <button type="submit" class="btn btn--primary btn--lg">Recevoir mes propositions gratuites</button>
+      <button type="submit" class="btn btn--primary btn--lg">Envoyer ma demande</button>
     </div>
   </fieldset>
 
@@ -192,23 +233,24 @@ const { preselect } = Astro.props;
 
   const form = document.getElementById("quote-form") as HTMLFormElement | null;
   if (form) {
-    // Pré-sélection via paramètre d'URL (?type=team-building) depuis les pages événements.
+    // Pré-sélection via paramètre d'URL (?type=…) depuis les pages événements,
+    // rapportée aux catégories du formulaire (reprises de l'ancien site).
     const params = new URLSearchParams(window.location.search);
     const typeSlug = params.get("type");
     if (typeSlug) {
       const map: Record<string, string> = {
-        "seminaires-entreprise": "Séminaires d'entreprise",
-        conventions: "Conventions",
-        "soirees-entreprise": "Soirées d'entreprise",
-        "team-building": "Team building",
-        "reunions-journees-etude": "Réunions & journées d'étude",
+        "seminaires-entreprise": "Séminaire / Congrès",
+        conventions: "Séminaire / Congrès",
+        "soirees-entreprise": "Soirée professionnelle",
+        "team-building": "Journée de travail",
+        "reunions-journees-etude": "Journée de travail",
       };
       const wanted = map[typeSlug];
       if (wanted) {
-        const radio = form.querySelector<HTMLInputElement>(
+        const box = form.querySelector<HTMLInputElement>(
           `input[name="type_evenement"][value="${wanted}"]`
         );
-        if (radio) radio.checked = true;
+        if (box) box.checked = true;
       }
     }
 
@@ -265,20 +307,6 @@ const { preselect } = Astro.props;
         }
       })
     );
-
-    // Avance automatiquement après le choix sur les étapes à boutons radio "carte"
-    form.querySelectorAll<HTMLElement>(".option-card input[type=radio]").forEach((input) => {
-      input.addEventListener("change", () => {
-        const stepEl = input.closest(".step") as HTMLElement;
-        // Petite temporisation pour laisser voir la sélection
-        setTimeout(() => {
-          if (steps.indexOf(stepEl) === index && index < steps.length - 1) {
-            index++;
-            render();
-          }
-        }, 220);
-      });
-    });
 
     submitWeb3Form(form);
     render();
@@ -362,6 +390,18 @@ const { preselect } = Astro.props;
     color: var(--color-ink-soft);
     font-size: 0.96rem;
   }
+  .field-group { display: grid; gap: 0.6rem; }
+  .field-group-label {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-primary-dark);
+  }
+  /* Petits groupes (En journée / En soirée) : cartes à largeur naturelle */
+  .option-grid--inline {
+    grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+  }
+  .option-grid--inline .option-card--sm { padding-inline: 1.6rem; }
 
   .option-grid {
     display: grid;
