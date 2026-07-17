@@ -128,6 +128,7 @@ img, picture, svg, video { max-width: 100%; height: auto; display: block; }
 .hero-slide,
 .univers-media img,
 .gallery-item img,
+.gp-item img,
 .case-media img,
 .pillar-media img,
 .ev-hero-media img,
@@ -136,6 +137,9 @@ img, picture, svg, video { max-width: 100%; height: auto; display: block; }
 .photo-tune {
   filter: var(--photo-filter);
 }
+
+/* Sélection de texte aux couleurs de la marque */
+::selection { background: var(--color-laiton); color: var(--color-blanc); }
 
 a { color: var(--color-encre); text-decoration: none; transition: color 0.2s var(--ease); }
 a:hover { color: var(--color-laiton-fonce); }
@@ -241,7 +245,9 @@ strong { font-weight: 700; }
   background-color: var(--color-accent-strong);
   border-color: var(--color-accent-strong);
   color: var(--color-blanc);
+  transform: translateY(-1px);
 }
+.btn:active { transform: translateY(0); }
 .btn--primary { --btn-bg: var(--color-encre); }
 .btn--accent { --btn-bg: var(--color-laiton); --btn-color: var(--color-blanc); }
 .btn--accent:hover { background-color: var(--color-accent-strong); border-color: var(--color-accent-strong); color: var(--color-blanc); }

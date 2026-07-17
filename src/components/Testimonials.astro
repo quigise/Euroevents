@@ -53,6 +53,8 @@ const ratingLabel = googleRating.value.toLocaleString("fr-FR", { minimumFraction
     )}
 
     <p class="t-more reveal">
+      <span class="g-mark" aria-hidden="true">G</span>
+      <span class="t-more-stars" aria-hidden="true">★★★★★</span>
       <a href={googleReviewsUrl} target="_blank" rel="noopener" class="link-arrow">
         {ratingLabel}/5 sur Google — lire les {googleRating.count} avis
       </a>
@@ -83,12 +85,12 @@ const ratingLabel = googleRating.value.toLocaleString("fr-FR", { minimumFraction
   .t-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 1px;
-    background: var(--color-border);
-    border: 1px solid var(--color-border);
+    gap: 0.9rem;
   }
   .t-card {
     background: var(--color-blanc);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     padding: 1.7rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -116,5 +118,11 @@ const ratingLabel = googleRating.value.toLocaleString("fr-FR", { minimumFraction
     text-transform: uppercase;
     color: var(--color-muted);
   }
-  .t-more { margin: 1.8rem 0 0; }
+  .t-more { margin: 1.8rem 0 0; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .t-more .g-mark {
+    display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
+    border-radius: 50%; background: #fff; border: 1px solid var(--color-border);
+    font-family: var(--font-display); font-weight: 800; color: #4285f4; font-size: 0.82rem;
+  }
+  .t-more-stars { color: #f5a623; letter-spacing: 2px; font-size: 0.95rem; }
 </style>
