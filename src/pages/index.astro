@@ -6,18 +6,17 @@ import CTASection from "../components/CTASection.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Stats from "../components/Stats.astro";
 import FaqPreview from "../components/FaqPreview.astro";
-import { contact, site, partners } from "../data/site";
+import { contact, site } from "../data/site";
 import { caseStudies } from "../data/caseStudies";
 import { srcsetFor, SIZES } from "../data/imageVariants";
 
-// Chiffres clés — uniquement des données réelles / vérifiables.
-// (Le nombre d'événements organisés n'est pas confirmé : volontairement non affiché.)
+// Chiffres clés — uniquement des données réelles confirmées par l'agence.
 const anneesExpertise = new Date().getFullYear() - site.foundedYear;
 const homeStats = [
   { value: `${anneesExpertise} ans`, label: "d'expertise, depuis 2006" },
+  { value: "5 000+", label: "événements organisés" },
   { value: "24-48 h", label: "pour recevoir votre shortlist" },
   { value: "0 €", label: "de frais pour votre entreprise" },
-  { value: `${partners.length}+`, label: "partenaires sélectionnés" },
 ];
 
 const title =

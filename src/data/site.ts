@@ -109,7 +109,7 @@ export const clientLogos: { name: string; logo?: string }[] = [
 /** Chiffres clés (à ajuster avec les données réelles de l'agence). */
 export const stats: { value: string; label: string }[] = [
   { value: "20+", label: "ans d'expérience" },
-  { value: "2 000+", label: "événements organisés" }, // À CONFIRMER
+  { value: "5 000+", label: "événements organisés" }, // chiffre confirmé par l'agence
   { value: "24-48 h", label: "pour recevoir vos propositions" },
   { value: "0 €", label: "de frais pour votre entreprise" },
 ];
