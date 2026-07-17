@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTASection from "../components/CTASection.astro";
+import { faq } from "../data/faq";
+import { contact } from "../data/site";
+
+const title = "Questions fréquentes | Euro Events — recherche gratuite de prestataires";
+const description =
+  "Combien coûte le service ? Pourquoi est-il gratuit ? Sous quel délai ? Toutes les réponses sur la recherche gratuite de lieux et prestataires d'Euro Events pour vos événements professionnels.";
+
+// Balisage FAQPage (éligible aux résultats enrichis Google).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} path="/faq/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: "Questions fréquentes" }]} />
+  <PageHero
+    eyebrow="Questions fréquentes"
+    title="Vos questions, nos réponses"
+    subtitle="Tout ce que les entreprises nous demandent avant de nous confier la recherche de leurs lieux et prestataires. Une question sans réponse ici ? Écrivez-nous, nous vous répondons sous 24-48 h."
+  />
+
+  <section class="section bg-white">
+    <div class="container container-narrow">
+      <ul class="faq-list">
+        {
+          faq.map((item, i) => (
+            <li class="faq-item reveal">
+              <details open={i === 0}>
+                <summary>
+                  <span class="faq-q">{item.q}</span>
+                  <span class="faq-icon" aria-hidden="true" />
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="faq-ask reveal">
+        <p>
+          <strong>Vous ne trouvez pas votre réponse ?</strong> Posez-la-nous directement —
+          notre experte vous répond personnellement.
+        </p>
+        <div class="btn-row">
+          <a href="/contact/" class="btn btn--accent">Poser ma question</a>
+          <a href={`tel:${contact.phoneHref}`} class="btn btn--outline">{contact.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .faq-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+  .faq-item { border-bottom: 1px solid var(--color-border); }
+  .faq-item details { padding: 0; }
+  .faq-item summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+    padding: 1.4rem 0.2rem; cursor: pointer; list-style: none;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--color-encre);
+    transition: color 0.2s var(--ease);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--color-laiton-fonce); }
+  .faq-q { flex: 1; }
+  /* Icône +/- en pur CSS */
+  .faq-icon { position: relative; flex-shrink: 0; width: 18px; height: 18px; }
+  .faq-icon::before, .faq-icon::after {
+    content: ""; position: absolute; top: 50%; left: 50%;
+    width: 14px; height: 2px; background: var(--color-laiton);
+    transform: translate(-50%, -50%); transition: transform 0.25s var(--ease);
+  }
+  .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq-item details[open] .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+  .faq-a { padding: 0 0.2rem 1.5rem; max-width: 66ch; }
+  .faq-a p { margin: 0; color: var(--color-ink-soft); font-size: 1.05rem; line-height: 1.7; }
+
+  .faq-ask {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding: clamp(1.6rem, 4vw, 2.4rem);
+    background: var(--color-calcaire);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .faq-ask p { margin: 0 0 1.2rem; font-size: 1.08rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-icon::before, .faq-icon::after { transition: none; }
+  }
+</style>
