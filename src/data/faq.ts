@@ -20,7 +20,11 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Pourquoi est-ce gratuit ? Comment êtes-vous rémunérés ?",
-    a: "Notre rémunération vient des prestataires que nous référençons, jamais de l'entreprise cliente. Grâce à la négociation et à l'absence de frais d'agence, vous réalisez des économies par rapport à une recherche en direct.",
+    a: "Pour la recherche et la mise en relation, notre rémunération vient des prestataires sélectionnés. Vous ne supportez donc pas d'honoraires de sourcing et bénéficiez des conditions négociées par Euro Events.",
+  },
+  {
+    q: "Pouvez-vous centraliser les prestataires sur une seule facture ?",
+    a: "Oui. Pour les entreprises qui souhaitent limiter le nombre de fournisseurs référencés, Euro Events peut assurer la gestion contractuelle, administrative et financière du projet, avec un fournisseur et une facture uniques. Cette solution intégrée fait l'objet d'honoraires clairement indiqués sur devis.",
   },
   {
     q: "Sous combien de temps ai-je une réponse ?",
@@ -28,7 +32,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Ai-je un interlocuteur unique ?",
-    a: "Oui. La même experte vous accompagne du premier échange jusqu'au jour J. Une relation suivie, pas un standard anonyme ni un ticket qui passe de main en main.",
+    a: "Oui. La même experte analyse votre demande, affine la sélection et suit votre projet du premier échange jusqu'au jour J.",
   },
   {
     q: "Travaillez-vous partout en France, et à l'étranger ?",

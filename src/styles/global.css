@@ -227,8 +227,8 @@ strong { font-weight: 700; }
   justify-content: center;
   gap: 0.6rem;
   font-family: var(--font-sans);
-  font-size: 0.98rem;
-  font-weight: 500;
+  font-size: 1.04rem;
+  font-weight: 650;
   letter-spacing: 0.01em;
   line-height: 1;
   padding: 1.05rem 1.7rem;
@@ -290,7 +290,7 @@ strong { font-weight: 700; }
 }
 .btn--ghost:hover { background: transparent; border-color: transparent; color: var(--color-laiton-fonce); }
 
-.btn--lg { font-size: 1.04rem; padding: 1.15rem 2rem; }
+.btn--lg { font-size: 1.12rem; padding: 1.2rem 2.1rem; }
 .btn--block { width: 100%; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
