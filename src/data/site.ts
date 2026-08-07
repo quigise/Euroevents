@@ -9,9 +9,9 @@ export const site = {
   legalName: "Agence Euro Events",
   // Phrase de positionnement, réutilisée dans plusieurs métas.
   tagline:
-    "La sélection humaine de tous vos événements professionnels — lieux et prestataires choisis à la main, gratuitement, depuis 2006.",
+    "La sélection sur mesure de vos lieux et prestataires — expertise, négociation et accompagnement depuis 2006.",
   description:
-    "Agence événementielle à Paris. Euro Events recherche gratuitement pour les entreprises les meilleurs prestataires (lieux, traiteurs, animations, transferts…) pour leurs séminaires, conventions, soirées et team building. Service 100 % gratuit, interlocuteur unique, réponse sous 24-48 h.",
+    "Agence événementielle à Paris. Euro Events recherche, compare et négocie pour les entreprises les lieux et prestataires adaptés à leurs séminaires, conventions, soirées et team building. Une experte dédiée, des conditions préférentielles et une réponse sous 24-48 h.",
   // Domaine de production (à confirmer lors de la migration).
   url: "https://www.euro-events.fr",
   locale: "fr_FR",
@@ -71,6 +71,7 @@ export const mainNav: { label: string; href: string }[] = [
   { label: "Nos événements", href: "/nos-evenements/" },
   { label: "Références", href: "/references/" },
   { label: "Partenaires", href: "/partenaires/" },
+  { label: "Gestion centralisée", href: "/gestion-centralisee/" },
   { label: "À propos", href: "/a-propos/" },
   { label: "Galerie", href: "/galerie/" },
   { label: "Contact", href: "/contact/" },

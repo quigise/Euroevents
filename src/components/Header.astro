@@ -34,6 +34,7 @@ function isActive(href: string) {
             {events.map((e) => <a href={`/nos-evenements/${e.slug}/`}>{e.title}</a>)}
           </div>
         </li>
+        <li><a href="/gestion-centralisee/" class:list={["nav-link", { "is-active": isActive("/gestion-centralisee/") }]}>Gestion centralisée</a></li>
         <li><a href="/references/" class:list={["nav-link", { "is-active": isActive("/references/") }]}>Références</a></li>
         <li><a href="/partenaires/" class:list={["nav-link", { "is-active": isActive("/partenaires/") }]}>Partenaires</a></li>
         <li><a href="/a-propos/" class:list={["nav-link", { "is-active": isActive("/a-propos/") }]}>À propos</a></li>
