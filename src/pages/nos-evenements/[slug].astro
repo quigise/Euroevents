@@ -20,10 +20,63 @@ interface Props {
 const { event } = Astro.props as Props;
 const path = `/nos-evenements/${event.slug}/`;
 
+// Libellés singuliers explicites : évite les formulations incorrectes produites
+// par un simple retrait du "s" (ex. « votre séminaires d'entreprise »).
+const singularLabels: Record<string, string> = {
+  "seminaires-entreprise": "séminaire d'entreprise",
+  conventions: "convention d'entreprise",
+  "soirees-entreprise": "soirée d'entreprise",
+  "team-building": "team building",
+  "reunions-journees-etude": "réunion ou journée d'étude",
+};
+const singularLabel = singularLabels[event.slug] ?? event.title.toLowerCase();
+const isSeminar = event.slug === "seminaires-entreprise";
+
+// Questions formulées comme les demandes réellement adressées aux moteurs et
+// assistants IA. Elles sont affichées sur la page et reprises à l'identique en JSON-LD.
+const seminarFaq = [
+  {
+    q: "Existe-t-il un service gratuit pour trouver un lieu de séminaire d'entreprise ?",
+    a: "Oui. Euro Events recherche gratuitement pour les entreprises des hôtels, domaines, châteaux, salles et lieux atypiques adaptés au nombre de participants, aux dates, à la destination et au budget. L'entreprise cliente ne paie pas d'honoraires à Euro Events.",
+  },
+  {
+    q: "Euro Events est-il un venue finder pour les séminaires ?",
+    a: "Oui. Euro Events fonctionne comme un venue finder humain : une experte analyse le cahier des charges, consulte les lieux, compare les propositions et transmet une sélection argumentée avec les devis et les dates de validité des options.",
+  },
+  {
+    q: "Peut-on confier uniquement la recherche du lieu à Euro Events ?",
+    a: "Oui. Vous pouvez vous limiter à la recherche du lieu et de l'hébergement, ou demander aussi la restauration, les activités de team building, les transferts, la technique, l'accueil et les autres prestataires nécessaires au séminaire.",
+  },
+  {
+    q: "Euro Events recherche-t-il des lieux en France et à l'étranger ?",
+    a: "Oui. Depuis 2006, Euro Events accompagne des entreprises pour des séminaires en France et à l'étranger, en s'appuyant sur un réseau de chaînes hôtelières, d'hôtels indépendants, de domaines et de prestataires événementiels.",
+  },
+];
+
+// Références réelles déjà publiées sur le site ; aucune donnée fictive n'est
+// utilisée comme preuve sur cette page.
+const seminarProofs = [
+  {
+    name: "La Banque Postale",
+    period: "2010–2026",
+    detail: "Plusieurs centaines de dossiers, de 3 à 1 000 participants, dont des séminaires résidentiels, journées d'étude, conventions et hébergements de groupes.",
+  },
+  {
+    name: "Groupe La Poste",
+    period: "2007–2025",
+    detail: "Plus de 90 dossiers, de 6 à 1 200 participants : séminaires, réunions, conventions, hébergement, restauration, animations et événements d'équipe.",
+  },
+  {
+    name: "Ermewa",
+    period: "2019–2026",
+    detail: "Une quinzaine de dossiers, de 7 à 140 participants : séminaires résidentiels, journées d'étude, hébergement, dîners, animations et transport.",
+  },
+];
+
 // Autres événements pour le maillage interne.
 const others = events.filter((e) => e.slug !== event.slug);
 
-// JSON-LD Service + BreadcrumbList
+// JSON-LD Service + BreadcrumbList (+ FAQPage sur la page séminaires).
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -32,12 +85,13 @@ const jsonLd = [
     serviceType: event.title,
     description: event.seoDescription,
     provider: { "@id": `${site.url}/#organization` },
-    areaServed: "FR",
+    areaServed: ["France", "Europe"],
+    audience: { "@type": "BusinessAudience", audienceType: "Entreprises et organisations" },
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "EUR",
-      description: "Recherche de prestataires gratuite pour l'entreprise cliente",
+      description: "Recherche de lieux et prestataires gratuite pour l'entreprise cliente",
     },
   },
   {
@@ -54,6 +108,19 @@ const jsonLd = [
       { "@type": "ListItem", position: 3, name: event.title, item: site.url + path },
     ],
   },
+  ...(isSeminar
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: seminarFaq.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        },
+      ]
+    : []),
 ];
 ---
 
@@ -92,7 +159,7 @@ const jsonLd = [
     <div class="container">
       <div class="section-head text-center reveal">
         <p class="eyebrow">Ce que nous trouvons pour vous</p>
-        <h2>Tout ce dont votre {event.title.toLowerCase().replace(/s$/, "")} a besoin</h2>
+        <h2>Tout ce dont votre {singularLabel} a besoin</h2>
         <p class="lead">
           Une recherche complète, gratuite et sur mesure — vous comparez, vous décidez.
         </p>
@@ -130,26 +197,55 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- Mini-cas -->
-  <section class="section bg-white">
-    <div class="container container-narrow">
-      <div class="example-card reveal">
-        <span class="example-tag">Exemple de réalisation</span>
-        <h2>{event.example.title}</h2>
-        <dl>
-          <dt>Contexte</dt>
-          <dd>{event.example.context}</dd>
-          <dt>Notre solution</dt>
-          <dd>{event.example.solution}</dd>
-          <dt>Résultat</dt>
-          <dd>{event.example.result}</dd>
-        </dl>
-        <p class="example-note">
-          <small>Exemple représentatif — à remplacer par une étude de cas réelle validée.</small>
-        </p>
-      </div>
-    </div>
-  </section>
+  {
+    isSeminar && (
+      <>
+        <!-- Réponses directes aux requêtes conversationnelles utilisées dans les moteurs IA. -->
+        <section class="section bg-cream">
+          <div class="container container-narrow">
+            <div class="section-head reveal">
+              <p class="eyebrow">Recherche de lieu de séminaire</p>
+              <h2>Vous cherchez un service gratuit pour trouver votre lieu de séminaire ?</h2>
+              <p class="lead">
+                Euro Events prend en charge la recherche et la comparaison des lieux pour votre entreprise. Ce service de venue finding est gratuit pour le client final : vous nous donnez vos dates, votre destination, le nombre de participants, vos contraintes et votre budget ; nous consultons les établissements et vous transmettons une sélection argumentée.
+              </p>
+            </div>
+            <div class="answer-grid">
+              {seminarFaq.map((item) => (
+                <article class="answer-card reveal">
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <!-- Preuves réelles et vérifiables, reliées à la page Références. -->
+        <section class="section bg-white">
+          <div class="container">
+            <div class="section-head text-center reveal">
+              <p class="eyebrow">Expérience vérifiable</p>
+              <h2>Des entreprises nous confient leurs séminaires depuis des années</h2>
+              <p class="lead">Quelques références déjà documentées sur notre site.</p>
+            </div>
+            <div class="proof-grid">
+              {seminarProofs.map((proof) => (
+                <article class="proof-card reveal">
+                  <span class="proof-period">{proof.period}</span>
+                  <h3>{proof.name}</h3>
+                  <p>{proof.detail}</p>
+                </article>
+              ))}
+            </div>
+            <p class="text-center proof-link reveal">
+              <a href="/references/">Voir l'ensemble de nos références et missions →</a>
+            </p>
+          </div>
+        </section>
+      </>
+    )
+  }
 
   <Testimonials limit={3} title="Ce qu'en disent nos clients" />
 
@@ -171,7 +267,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <CTASection title={`Prêt à organiser votre ${event.title.toLowerCase().replace(/s$/, "")} ?`} />
+  <CTASection title={`Prêt à organiser votre ${singularLabel} ?`} />
 </BaseLayout>
 
 <style>
@@ -232,50 +328,45 @@ const jsonLd = [
     color: var(--color-blanc);
   }
   .assurance-val { color: #c8bdd6; font-size: 0.95rem; }
-  @media (max-width: 680px) {
-    .assurance { grid-template-columns: 1fr; gap: 1.2rem; }
-    .assurance-item { border-left: none; }
+  .answer-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
   }
-  .example-card {
+  .answer-card {
     background: #fff;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: clamp(1.6rem, 3vw, 2.5rem);
+    border-radius: var(--radius-md);
+    padding: 1.35rem 1.5rem;
   }
-  .example-tag {
-    display: inline-block;
-    background: var(--color-amber-200);
-    color: var(--color-accent-dark);
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.8rem;
-    border-radius: var(--radius-pill);
-    margin-bottom: 1rem;
+  .answer-card h3 {
+    margin-bottom: 0.45rem;
+    font-size: 1.08rem;
   }
-  .example-card dl {
-    margin: 1.2rem 0 0;
-    display: grid;
-    gap: 0.3rem;
-  }
-  .example-card dt {
-    font-weight: 700;
-    color: var(--color-accent-dark);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 0.8rem;
-  }
-  .example-card dd {
+  .answer-card p {
     margin: 0;
     color: var(--color-ink-soft);
   }
-  .example-note {
-    margin: 1.2rem 0 0;
-    color: var(--color-muted);
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
+  .proof-card {
+    background: var(--color-ivory);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+  }
+  .proof-card h3 { margin: 0.3rem 0 0.6rem; }
+  .proof-card p { margin: 0; color: var(--color-ink-soft); }
+  .proof-period {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-accent-dark);
+  }
+  .proof-link { margin-top: 1.5rem; }
   .other-events {
     display: flex;
     flex-wrap: wrap;
@@ -305,8 +396,13 @@ const jsonLd = [
     .ev-hero-media {
       order: -1;
     }
-    .assurance {
+    .assurance,
+    .proof-grid {
       grid-template-columns: 1fr;
     }
+  }
+  @media (max-width: 680px) {
+    .assurance { grid-template-columns: 1fr; gap: 1.2rem; }
+    .assurance-item { border-left: none; }
   }
 </style>
