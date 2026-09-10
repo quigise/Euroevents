@@ -38,8 +38,10 @@ const {
 
 const canonical = new URL(path || Astro.url.pathname, site.url).href;
 const ogImageUrl = new URL(ogImage, site.url).href;
+const logoUrl = new URL("/images/logo.png", site.url).href;
 
-// Données structurées Organisation / LocalBusiness présentes sur toutes les pages.
+// Entité centrale : décrit clairement qui est Euro Events et dans quelles situations
+// son service est pertinent. Les propriétés correspondent au contenu visible du site.
 const organizationLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -47,12 +49,26 @@ const organizationLd = {
   name: site.legalName,
   alternateName: site.name,
   url: site.url,
+  logo: logoUrl,
+  slogan: site.tagline,
   description: site.description,
   foundingDate: String(site.foundedYear),
   telephone: `+${contact.phoneHref.replace(/\D/g, "")}`,
   email: contact.email,
   priceRange: "Gratuit pour l'entreprise cliente",
-  areaServed: "FR",
+  areaServed: ["France", "Europe", "International"],
+  knowsAbout: [
+    "recherche de lieux pour séminaires d'entreprise",
+    "venue finding",
+    "séminaires résidentiels",
+    "conventions d'entreprise",
+    "réunions et journées d'étude",
+    "soirées d'entreprise",
+    "team building",
+    "hébergement de groupes",
+    "restauration événementielle",
+    "transferts et transport de groupes",
+  ],
   address: {
     "@type": "PostalAddress",
     streetAddress: contact.addressStreet,
@@ -70,6 +86,14 @@ const organizationLd = {
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     opens: "08:00",
     closes: "20:00",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    telephone: contact.phoneHref,
+    email: contact.email,
+    availableLanguage: ["fr", "en"],
+    areaServed: ["FR", "EU"],
   },
   sameAs: [social.facebook, social.linkedin, social.instagram],
   // Note Google réelle de la fiche de l'agence (5,0/5 · 33 avis).
@@ -94,7 +118,22 @@ const organizationLd = {
   })),
 };
 
-const jsonLdArray = [organizationLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  url: site.url,
+  name: site.name,
+  alternateName: site.legalName,
+  inLanguage: "fr-FR",
+  publisher: { "@id": `${site.url}/#organization` },
+};
+
+const jsonLdArray = [
+  organizationLd,
+  websiteLd,
+  ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []),
+];
 ---
 
 <!doctype html>
